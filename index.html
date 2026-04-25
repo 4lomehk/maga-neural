@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MAGA Neural AI — Anti-Inflammatory Protocol</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--yel:#f5d800;--blk:#0a0a0f;--blk2:#0f1520;--blk3:#1c2030;--txt:#f1f5f9;--txt2:#94a3b8;--grn:#22c55e;--red:#ef4444;--ora:#f97316}
+body{background:var(--blk);color:var(--txt);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;font-size:15px}
+
+/* LAYOUT */
+.wrap{max-width:860px;margin:0 auto;padding:20px 16px}
+
+/* HEADER */
+.hdr{text-align:center;padding:32px 16px 24px;border-bottom:1px solid rgba(245,216,0,0.15);margin-bottom:28px}
+.hdr-logo{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;background:var(--yel);border-radius:50%;margin-bottom:12px}
+.hdr-logo svg{width:28px;height:28px}
+.hdr h1{font-size:26px;font-weight:900;letter-spacing:.5px;line-height:1.2}
+.hdr h1 span{color:var(--yel)}
+.hdr p{font-size:12px;color:var(--txt2);margin-top:6px}
+.badge-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+.badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.5px}
+.badge-grn{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:var(--grn)}
+.badge-yel{background:rgba(245,216,0,0.1);border:1px solid rgba(245,216,0,0.3);color:var(--yel)}
+
+/* LANG TOGGLE */
+.lang-wrap{display:flex;justify-content:center;margin-bottom:20px}
+.lang-pill{display:flex;background:rgba(255,255,255,0.05);border:1px solid rgba(245,216,0,0.2);border-radius:20px;padding:3px}
+.lo{padding:5px 16px;border-radius:16px;font-size:12px;font-weight:700;cursor:pointer;color:rgba(245,216,0,0.5);transition:all .2s;border:none;background:transparent}
+.lo.on{background:var(--yel);color:#000}
+
+/* API KEY INPUT */
+.api-wrap{background:rgba(245,216,0,0.05);border:1px solid rgba(245,216,0,0.2);border-radius:14px;padding:14px 16px;margin-bottom:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.api-wrap input{flex:1;min-width:200px;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:var(--txt);font-size:13px;padding:8px 12px;outline:none}
+.api-wrap input:focus{border-color:rgba(245,216,0,0.4)}
+.api-wrap input::placeholder{color:rgba(255,255,255,0.25);font-size:12px}
+.api-status{font-size:11px;font-weight:700;white-space:nowrap}
+.api-status.ok{color:var(--grn)}.api-status.no{color:var(--red)}
+.api-link{font-size:11px;color:var(--yel);text-decoration:none;white-space:nowrap}
+.api-link:hover{text-decoration:underline}
+
+/* INPUT CARD */
+.card{background:var(--blk2);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:20px;margin-bottom:16px}
+.card.yel-border{border-color:rgba(245,216,0,0.25)}
+.card-title{font-size:13px;font-weight:700;color:var(--yel);margin-bottom:14px;display:flex;align-items:center;gap:8px;letter-spacing:.3px}
+
+/* TAGS */
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.tag{background:rgba(245,216,0,0.08);border:1px solid rgba(245,216,0,0.25);color:var(--yel);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;user-select:none}
+.tag:hover,.tag.on{background:rgba(245,216,0,0.2);border-color:var(--yel)}
+
+/* TEXTAREA */
+textarea{width:100%;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:var(--txt);font-size:13px;padding:12px;outline:none;resize:vertical;min-height:80px;font-family:inherit;transition:border .2s}
+textarea:focus{border-color:rgba(245,216,0,0.4)}
+textarea::placeholder{color:rgba(255,255,255,0.2)}
+
+/* UPLOAD */
+.upload-zone{border:2px dashed rgba(245,216,0,0.18);border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:all .2s;margin-top:12px}
+.upload-zone:hover{border-color:rgba(245,216,0,0.45);background:rgba(245,216,0,0.03)}
+.upload-zone p{font-size:11px;color:var(--txt2);font-weight:600;margin-top:6px}
+.upload-zone svg{width:24px;height:24px;stroke:rgba(245,216,0,0.35)}
+
+/* BTN */
+.btn{background:var(--yel);color:#000;font-weight:800;border:none;border-radius:12px;padding:14px;cursor:pointer;width:100%;font-size:14px;margin-top:14px;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn-outline{background:transparent;border:1px solid rgba(245,216,0,0.35);color:var(--yel);font-weight:700;border-radius:12px;padding:12px;cursor:pointer;width:100%;font-size:13px;margin-top:10px;transition:all .15s}
+.btn-outline:hover{background:rgba(245,216,0,0.08)}
+
+/* LOADER */
+.loader{display:none;text-align:center;padding:28px;color:var(--txt2);font-size:13px}
+.loader.show{display:block}
+.dots::after{content:'';animation:dots 1.4s infinite}
+@keyframes dots{0%{content:''}33%{content:'.'}66%{content:'..'}100%{content:'...'}}
+
+/* ANALYSIS OUTPUT */
+.output{display:none;animation:fadeUp .4s ease}
+.output.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.analysis-text{font-size:13px;line-height:1.8;color:#cbd5e1;white-space:pre-wrap}
+
+/* RISK BAR */
+.risk-wrap{margin:14px 0}
+.risk-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}
+.pbar{background:rgba(255,255,255,0.06);border-radius:20px;height:8px;overflow:hidden}
+.pbar-fill{height:100%;border-radius:20px;transition:width .8s ease}
+
+/* PROTOCOL CARD */
+.proto-card{border-radius:16px;padding:20px;margin-top:16px;position:relative;overflow:hidden}
+.proto-safe{background:linear-gradient(135deg,#141400,#1e1e00);border:1px solid rgba(245,216,0,0.35)}
+.proto-toxic{background:linear-gradient(135deg,#1a0000,#2d0000);border:1px solid rgba(239,68,68,0.4)}
+.proto-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:800;background:rgba(0,0,0,0.4);border:1px solid rgba(245,216,0,0.3);color:var(--yel);margin-bottom:10px;letter-spacing:.5px}
+.proto-title{font-size:17px;font-weight:900;margin-bottom:12px}
+.proto-sol-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(245,216,0,0.6);margin-bottom:6px}
+.proto-sol{font-size:13px;font-weight:600;line-height:1.7;color:#f1f5f9}
+.proto-desc{font-size:12px;color:var(--txt2);line-height:1.7;margin-top:10px}
+.proto-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.proto-tag{background:rgba(0,0,0,0.35);border:1px solid rgba(245,216,0,0.2);color:var(--yel);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.proto-deco{position:absolute;top:-20px;right:-20px;font-size:160px;opacity:.04;pointer-events:none}
+
+/* ACTIONS */
+.action-item{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.05);border-radius:10px;margin-bottom:6px}
+.action-num{width:22px;height:22px;border-radius:50%;background:var(--yel);color:#000;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.action-txt{font-size:13px;color:#cbd5e1;line-height:1.5}
+
+/* PAYMENT SECTION */
+.pay-section{margin-top:20px}
+.pay-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(245,216,0,0.5);text-align:center;margin-bottom:12px}
+.tier{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);text-decoration:none;margin-bottom:8px;transition:all .2s;cursor:pointer}
+.tier:hover{border-color:rgba(245,216,0,0.35);background:rgba(245,216,0,0.05);transform:translateY(-1px)}
+.tier.featured{border-color:rgba(245,216,0,0.4);background:rgba(245,216,0,0.06)}
+.tier-left{display:flex;flex-direction:column;gap:2px}
+.tier-name{font-size:13px;font-weight:800;color:#f1f5f9}
+.tier-desc{font-size:11px;color:var(--txt2)}
+.tier-right{text-align:right}
+.tier-price{font-size:18px;font-weight:900;color:var(--yel)}
+.tier-type{font-size:10px;font-weight:700}
+.type-once{color:var(--grn)}.type-month{color:#60a5fa}
+
+/* KB LINK */
+.kb-link{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:rgba(0,0,0,0.4);border:1px solid rgba(245,216,0,0.25);border-radius:12px;color:var(--yel);text-decoration:none;font-size:13px;font-weight:800;transition:all .2s;margin-top:10px}
+.kb-link:hover{background:rgba(0,0,0,0.6);border-color:rgba(245,216,0,0.5)}
+
+/* VOICE BTN */
+.voice-btn{background:rgba(245,216,0,0.08);border:1px solid rgba(245,216,0,0.25);color:var(--yel);font-weight:700;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:12px;transition:all .15s;margin-top:10px}
+.voice-btn:hover{background:rgba(245,216,0,0.15)}
+
+/* IMG PREVIEW */
+#img-preview{max-height:100px;border-radius:8px;border:1px solid rgba(245,216,0,0.25);margin-top:8px;display:none}
+
+/* RESPONSIVE */
+@media(max-width:600px){.hdr h1{font-size:22px}.wrap{padding:14px 12px}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12l3 3 5-5"/></svg>
+    </div>
+    <h1><span>MAGA</span> Neural AI</h1>
+    <p id="hdr-sub">Make Anti-Inflammatory Great Again · Adversity Awakening Protocol</p>
+    <div class="badge-row">
+      <div class="badge badge-grn" id="badge-survivor">✓ 6-Year Double Cancer Survivor</div>
+      <div class="badge badge-yel" id="badge-mode">Powered by Gemini AI · Free</div>
+    </div>
+  </div>
+
+  <!-- LANG -->
+  <div class="lang-wrap">
+    <div class="lang-pill">
+      <button class="lo" id="lo-zh" onclick="setLang('zh')">繁</button>
+      <button class="lo on" id="lo-en" onclick="setLang('en')">ENG</button>
+    </div>
+  </div>
+
+  <!-- API KEY -->
+  <div class="api-wrap">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--yel)" stroke-width="2" stroke-linecap="round" style="flex-shrink:0"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+    <input type="password" id="api-key-input" placeholder="Paste your Gemini API key (AIza...)" oninput="checkKey()" autocomplete="off">
+    <span class="api-status no" id="api-status" id="api-st">⚠ No Key</span>
+    <a href="https://aistudio.google.com/app/apikey" target="_blank" class="api-link" id="api-link-txt">Get Free Key →</a>
+  </div>
+
+  <!-- INPUT CARD -->
+  <div class="card yel-border">
+    <div class="card-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+      <span id="input-title">Daily Health Input</span>
+    </div>
+
+    <div id="tags-label" style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(245,216,0,0.55);margin-bottom:8px">Quick Symptoms</div>
+    <div class="tags" id="sym-tags">
+      <div class="tag" onclick="toggleTag(this)">Brain Fog</div>
+      <div class="tag" onclick="toggleTag(this)">Joint Pain</div>
+      <div class="tag" onclick="toggleTag(this)">Fatigue</div>
+      <div class="tag" onclick="toggleTag(this)">Gut Bloat</div>
+      <div class="tag" onclick="toggleTag(this)">Skin Flare</div>
+      <div class="tag" onclick="toggleTag(this)">Sleep Issues</div>
+      <div class="tag" onclick="toggleTag(this)">Mood Dip</div>
+      <div class="tag" onclick="toggleTag(this)">Headache</div>
+    </div>
+
+    <textarea id="query" placeholder="Describe your symptoms, paste a food label, or ask anything anti-inflammatory..."></textarea>
+
+    <div class="upload-zone" onclick="document.getElementById('file-input').click()">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;display:block">
+        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
+      </svg>
+      <p id="upload-txt">Upload food label / image for visual analysis</p>
+      <img id="img-preview">
+    </div>
+    <input type="file" id="file-input" accept="image/*" style="display:none" onchange="handleImg(event)">
+
+    <button class="btn" id="analyze-btn" onclick="analyze()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <span id="analyze-txt">Activate AI Analysis</span>
+    </button>
+  </div>
+
+  <!-- LOADER -->
+  <div class="loader" id="loader">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--yel)" stroke-width="1.5" style="animation:spin 1.5s linear infinite;margin:0 auto 10px;display:block">
+      <path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+    <span id="loader-txt" class="dots">Calibrating neural protocol</span>
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="output" id="output">
+
+    <!-- ANALYSIS TEXT -->
+    <div class="card yel-border">
+      <div class="card-title">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span id="analysis-title">AGI Analysis</span>
+      </div>
+      <div class="analysis-text" id="analysis-text"></div>
+
+      <!-- RISK -->
+      <div class="risk-wrap" id="risk-wrap" style="display:none">
+        <div class="risk-row"><span id="risk-name" style="font-size:12px;font-weight:700"></span><span id="risk-pct" style="font-size:12px;font-weight:800;color:var(--yel)"></span></div>
+        <div class="pbar"><div class="pbar-fill" id="risk-bar" style="width:0%"></div></div>
+      </div>
+
+      <button class="voice-btn" id="voice-btn" onclick="speak()" style="display:none" id="vbtn">🔊 <span id="voice-txt">Voice Readout</span></button>
+    </div>
+
+    <!-- PROTOCOL CARD -->
+    <div class="proto-card proto-safe" id="proto-card">
+      <div class="proto-deco">⚡</div>
+      <div id="proto-badge" class="proto-badge">SURVIVOR</div>
+      <div id="proto-title" class="proto-title"></div>
+      <div class="proto-sol-lbl" id="proto-sol-lbl">Core Solution</div>
+      <div id="proto-sol" class="proto-sol"></div>
+      <div id="proto-desc" class="proto-desc"></div>
+      <div id="proto-tags" class="proto-tags"></div>
+    </div>
+
+    <!-- 24H ACTIONS -->
+    <div class="card" id="actions-card" style="display:none;margin-top:16px">
+      <div class="card-title">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        <span id="actions-title">24-Hour Action Plan</span>
+      </div>
+      <div id="actions-list"></div>
+    </div>
+
+    <!-- PAYMENT SECTION -->
+    <div class="pay-section">
+      <div class="pay-title" id="pay-title">Unlock Deep Knowledge Base</div>
+      <a href="https://lihi3.me/rjT4t" target="_blank" class="tier">
+        <div class="tier-left">
+          <div class="tier-name" id="t1n">☕ Half Cup Coffee</div>
+          <div class="tier-desc" id="t1d">Basic access · Anti-Inflammatory knowledge base</div>
+        </div>
+        <div class="tier-right">
+          <div class="tier-price">HK$18</div>
+          <div class="tier-type type-once" id="t1t">One-time</div>
+        </div>
+      </a>
+      <a href="https://lihi3.me/cjQdg" target="_blank" class="tier">
+        <div class="tier-left">
+          <div class="tier-name" style="color:#93c5fd" id="t2n">♥ Half Cup SOE</div>
+          <div class="tier-desc" id="t2d">Monthly support · Full knowledge access</div>
+        </div>
+        <div class="tier-right">
+          <div class="tier-price" style="color:#93c5fd">HK$19</div>
+          <div class="tier-type type-month" id="t2t">/ Month</div>
+        </div>
+      </a>
+      <a href="https://buy.stripe.com/cNi4gzgxrewg5zj0H99fW00" target="_blank" class="tier featured">
+        <div class="tier-left">
+          <div class="tier-name" style="color:var(--yel)" id="t3n">⚡ Deep Support</div>
+          <div class="tier-desc" id="t3d">Lifetime access · Full protocol library</div>
+        </div>
+        <div class="tier-right">
+          <div class="tier-price">HK$54</div>
+          <div class="tier-type type-once" id="t3t">One-time ⭐</div>
+        </div>
+      </a>
+      <a href="https://instacoachhim.notion.site/MAGA-56d305d2497a8211a6580156b1cfac0a" target="_blank" class="kb-link">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <span id="kb-txt">View Anti-Inflammatory Knowledge Base (Notion)</span>
+      </a>
+    </div>
+
+  </div><!-- /output -->
+
+</div><!-- /wrap -->
+
+<style>
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+
+<script>
+// ── STATE
+var lang='en', imgB64=null, lastVoice='';
+
+// ── TRANSLATIONS
+var L={
+  en:{
+    hdr_sub:"Make Anti-Inflammatory Great Again · Adversity Awakening Protocol",
+    survivor:"✓ 6-Year Double Cancer Survivor",
+    input_title:"Daily Health Input",tags_lbl:"Quick Symptoms",
+    upload_txt:"Upload food label / image for visual analysis",
+    analyze_txt:"Activate AI Analysis",analyzing_txt:"Calibrating Protocol",
+    api_link:"Get Free Key →",
+    analysis_title:"AGI Analysis",actions_title:"24-Hour Action Plan",
+    proto_sol_lbl:"Core Solution",voice_txt:"Voice Readout",
+    pay_title:"Unlock Deep Knowledge Base",
+    t1n:"☕ Half Cup Coffee",t1d:"Basic access · Anti-Inflammatory knowledge base",t1t:"One-time",
+    t2n:"♥ Half Cup SOE",t2d:"Monthly support · Full knowledge access",t2t:"/ Month",
+    t3n:"⚡ Deep Support",t3d:"Lifetime access · Full protocol library",t3t:"One-time ⭐",
+    kb_txt:"View Anti-Inflammatory Knowledge Base (Notion)",
+    syms:["Brain Fog","Joint Pain","Fatigue","Gut Bloat","Skin Flare","Sleep Issues","Mood Dip","Headache"],
+    placeholder:"Describe your symptoms, paste a food label, or ask anything anti-inflammatory...",
+    sysprompt:`You are a Survivor Mentor AI. Analyze input through anti-inflammatory philosophy. Be direct and raw.
+
+Output EXACTLY this format:
+[ANALYSIS_START]
+(3 paragraphs, direct English, no fluff)
+[ANALYSIS_END]
+[PROTOCOL_DATA]
+{"badge":"Level","title":"Protocol Name","solution":"3-4 specific steps to fix the problem","desc":"Why this works scientifically","tags":["tag1","tag2","tag3"],"toxic":false,"risk_pct":55,"actions":["Action 1","Action 2","Action 3","Action 4","Action 5"],"voice":"Short voice summary"}`
+  },
+  zh:{
+    hdr_sub:"讓抗炎生活再次偉大 · 逆境覺醒協議",
+    survivor:"✓ 六年雙癌症康復者",
+    input_title:"每日健康數據輸入",tags_lbl:"快速症狀選擇",
+    upload_txt:"上傳食物標籤 / 圖片進行視覺分析",
+    analyze_txt:"啟動 AI 深度分析",analyzing_txt:"校準協議中",
+    api_link:"免費獲取 Key →",
+    analysis_title:"AGI 深度分析",actions_title:"24小時行動計劃",
+    proto_sol_lbl:"核心方案",voice_txt:"語音朗讀",
+    pay_title:"解鎖深度知識庫",
+    t1n:"☕ 半杯咖啡",t1d:"一次性 · 基本抗炎知識庫",t1t:"一次性",
+    t2n:"♥ 半杯SOE",t2d:"每月支持 · 完整知識庫",t2t:"每月",
+    t3n:"⚡ 深度支持",t3d:"終身使用 · 完整協議資料庫",t3t:"一次性 ⭐",
+    kb_txt:"查看抗炎福食知識庫（Notion）",
+    syms:["腦霧","關節痛","疲勞","腸胃脹氣","皮膚發炎","睡眠問題","情緒低落","頭痛"],
+    placeholder:"描述你的症狀、貼上食物標籤成份，或問任何抗炎問題……",
+    sysprompt:`你係一位生存導師AI。用抗炎哲學分析用戶輸入。語氣直接原始。
+
+必須嚴格輸出以下格式：
+[ANALYSIS_START]
+（3段繁體中文分析，直接語氣，唔好廢話）
+[ANALYSIS_END]
+[PROTOCOL_DATA]
+{"badge":"等級","title":"方案名稱","solution":"3-4個具體步驟解決問題","desc":"科學原理解析","tags":["標籤1","標籤2","標籤3"],"toxic":false,"risk_pct":55,"actions":["行動1","行動2","行動3","行動4","行動5"],"voice":"語音摘要"}`
+  }
+};
+
+function t(k){return L[lang][k]||''}
+
+// ── LANG
+function setLang(l){
+  lang=l;
+  document.getElementById('lo-en').className='lo'+(l==='en'?' on':'');
+  document.getElementById('lo-zh').className='lo'+(l==='zh'?' on':'');
+  apply();
+}
+function apply(){
+  var m=L[lang];
+  var ids={
+    'hdr-sub':'hdr_sub','badge-survivor':'survivor','input-title':'input_title',
+    'tags-label':'tags_lbl','upload-txt':'upload_txt','analyze-txt':'analyze_txt',
+    'api-link-txt':'api_link','analysis-title':'analysis_title','actions-title':'actions_title',
+    'proto-sol-lbl':'proto_sol_lbl','voice-txt':'voice_txt','pay-title':'pay_title',
+    't1n':'t1n','t1d':'t1d','t1t':'t1t','t2n':'t2n','t2d':'t2d','t2t':'t2t',
+    't3n':'t3n','t3d':'t3d','t3t':'t3t','kb-txt':'kb_txt'
+  };
+  for(var id in ids){var el=document.getElementById(id);if(el)el.textContent=m[ids[id]]||'';}
+  document.getElementById('query').placeholder=m.placeholder;
+  var tags=document.querySelectorAll('#sym-tags .tag');
+  tags.forEach(function(el,i){if(m.syms[i])el.textContent=m.syms[i];});
+}
+
+// ── API KEY
+function checkKey(){
+  var k=document.getElementById('api-key-input').value.trim();
+  var st=document.getElementById('api-status');
+  if(k.startsWith('AIza')&&k.length>20){st.textContent='✓ Key Ready';st.className='api-status ok';}
+  else{st.textContent='⚠ No Key';st.className='api-status no';}
+}
+function getKey(){return document.getElementById('api-key-input').value.trim();}
+
+// ── IMAGE
+function handleImg(e){
+  var f=e.target.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    imgB64=ev.target.result.split(',')[1];
+    var prev=document.getElementById('img-preview');
+    prev.src=ev.target.result;prev.style.display='block';
+  };
+  r.readAsDataURL(f);
+}
+
+// ── TAGS
+function toggleTag(el){el.classList.toggle('on');}
+function getSelectedTags(){
+  return[].slice.call(document.querySelectorAll('#sym-tags .tag.on')).map(function(t){return t.textContent;});
+}
+
+// ── ANALYZE
+async function analyze(){
+  var key=getKey();
+  if(!key||!key.startsWith('AIza')){
+    alert(lang==='zh'?'請先輸入有效 Gemini API Key':'Please enter a valid Gemini API key first');
+    document.getElementById('api-key-input').focus();return;
+  }
+  var query=document.getElementById('query').value.trim();
+  var tags=getSelectedTags();
+  var combined=tags.length?tags.join(', ')+(query?'\n'+query:''):query;
+  if(!combined&&!imgB64){
+    alert(lang==='zh'?'請輸入症狀或上傳圖片':'Please enter symptoms or upload an image');return;
+  }
+
+  var btn=document.getElementById('analyze-btn');
+  var btxt=document.getElementById('analyze-txt');
+  btn.disabled=true;btxt.textContent=t('analyzing_txt')+'...';
+  document.getElementById('loader').classList.add('show');
+  document.getElementById('output').classList.remove('show');
+
+  try{
+    var reply=await callGemini(key,combined||'Analyze this image',imgB64);
+    parse(reply);
+    document.getElementById('loader').classList.remove('show');
+    document.getElementById('output').classList.add('show');
+  }catch(err){
+    document.getElementById('loader').classList.remove('show');
+    alert((lang==='zh'?'分析失敗：':'Analysis failed: ')+err.message);
+  }
+  btn.disabled=false;btxt.textContent=t('analyze_txt');
+}
+
+async function callGemini(key,prompt,img){
+  var parts=[];
+  if(img)parts.push({inlineData:{mimeType:'image/jpeg',data:img}});
+  parts.push({text:prompt});
+  var url='https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+key;
+  var body={
+    contents:[{parts:parts}],
+    systemInstruction:{parts:[{text:L[lang].sysprompt}]},
+    generationConfig:{temperature:.7,maxOutputTokens:1200}
+  };
+  var res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!res.ok){var e=await res.json();throw new Error(e.error?.message||'Gemini API error '+res.status);}
+  var d=await res.json();
+  return d.candidates[0].content.parts[0].text;
+}
+
+function parse(reply){
+  var analysis='',proto=null;
+  var am=reply.match(/\[ANALYSIS_START\]([\s\S]*?)\[ANALYSIS_END\]/);
+  if(am)analysis=am[1].trim();
+  else analysis=reply.split('[PROTOCOL_DATA]')[0].trim();
+
+  var ps=reply.split('[PROTOCOL_DATA]');
+  if(ps.length>1){
+    var js=ps[1].trim().replace(/```json|```/g,'').trim();
+    try{proto=JSON.parse(js);}catch(e){
+      var bm=js.match(/\{[\s\S]*\}/);if(bm)try{proto=JSON.parse(bm[0]);}catch(e2){}
+    }
+  }
+
+  document.getElementById('analysis-text').textContent=analysis;
+
+  if(proto){
+    lastVoice=proto.voice||proto.solution||'';
+    // risk
+    var rp=proto.risk_pct||0;
+    document.getElementById('risk-wrap').style.display='block';
+    document.getElementById('risk-name').textContent=proto.badge||'';
+    document.getElementById('risk-pct').textContent=rp+'%';
+    var bar=document.getElementById('risk-bar');
+    bar.style.width=rp+'%';
+    bar.style.background=rp>70?'#ef4444':rp>40?'#f97316':'#22c55e';
+    // protocol card
+    var card=document.getElementById('proto-card');
+    card.className='proto-card '+(proto.toxic?'proto-toxic':'proto-safe');
+    document.getElementById('proto-badge').textContent=proto.badge||'SURVIVOR';
+    document.getElementById('proto-title').textContent=proto.title||'';
+    document.getElementById('proto-sol').textContent=proto.solution||'';
+    document.getElementById('proto-desc').textContent=proto.desc||'';
+    document.getElementById('proto-tags').innerHTML=(proto.tags||[]).map(function(tg){
+      return'<span class="proto-tag"># '+tg+'</span>';
+    }).join('');
+    // actions
+    if(proto.actions&&proto.actions.length){
+      document.getElementById('actions-card').style.display='block';
+      document.getElementById('actions-list').innerHTML=proto.actions.map(function(a,i){
+        return'<div class="action-item"><div class="action-num">'+(i+1)+'</div><div class="action-txt">'+a+'</div></div>';
+      }).join('');
+    }
+    document.getElementById('voice-btn').style.display='inline-flex';
+  }
+}
+
+// ── VOICE
+function speak(){
+  if(!lastVoice)return;
+  speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(lastVoice);
+  u.lang=lang==='zh'?'zh-HK':'en-US';u.rate=.95;
+  speechSynthesis.speak(u);
+}
+
+// ── INIT
+apply();
+</script>
+</body>
+</html>
