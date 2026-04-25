@@ -226,7 +226,7 @@ body{background:#0f172a;color:#f1f5f9;font-family:'Segoe UI',system-ui,sans-seri
 
 <script>
 // ── CONFIG
-var GEMINI_KEY='AIzaSyDDDM0vzPqgGsf8EP9FyMyvHhrD-8WoOBM';
+var GEMINI_KEY='AIzaSyBJbVWr9kkZyqt3pTaEsAhfs8CWhLb1U1k';
 var TRIAL_LIMIT=2;
 
 // ── STATE
@@ -411,21 +411,39 @@ async function askMentor(){
   btn.disabled=false;btxt.textContent=t('btn_txt');
 }
 
+// ── GEMINI MODELS (fallback order)
+var MODELS=[
+  'gemini-2.5-flash-preview-04-17',
+  'gemini-2.0-flash',
+  'gemini-1.5-flash'
+];
+var activeModel=null;
+
 async function callGemini(prompt,img){
   var parts=[];
   if(img)parts.push({inlineData:{mimeType:'image/jpeg',data:img}});
   parts.push({text:prompt});
-  var url='https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+GEMINI_KEY;
-  var res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-      contents:[{parts:parts}],
-      systemInstruction:{parts:[{text:L[lang].sysprompt}]},
-      generationConfig:{temperature:.7,maxOutputTokens:1000}
-    })
-  });
-  if(!res.ok){var e=await res.json();throw new Error(e.error?.message||'Gemini Error '+res.status);}
-  var d=await res.json();
-  return d.candidates[0].content.parts[0].text;
+  var body={contents:[{parts:parts}],systemInstruction:{parts:[{text:L[lang].sysprompt}]},generationConfig:{temperature:.7,maxOutputTokens:1000}};
+
+  // 如果已知可用 model，直接用
+  var tryModels=activeModel?[activeModel]:MODELS;
+
+  for(var i=0;i<tryModels.length;i++){
+    var m=tryModels[i];
+    var url='https://generativelanguage.googleapis.com/v1beta/models/'+m+':generateContent?key='+GEMINI_KEY;
+    try{
+      var res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      var d=await res.json();
+      if(res.ok&&d.candidates){
+        activeModel=m; // 記住成功嘅 model
+        console.log('Using model:',m);
+        return d.candidates[0].content.parts[0].text;
+      }
+      // quota 或唔支援就試下一個
+      console.warn(m+' failed:',d.error?.message);
+    }catch(e){console.warn(m+' error:',e.message);}
+  }
+  throw new Error(lang==='zh'?'所有 model 均失敗，請稍後再試':'All models failed, please try again later');
 }
 
 function renderProtocol(data){
