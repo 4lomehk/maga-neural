@@ -4,354 +4,293 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MAGA Neural AI — Anti-Inflammatory Protocol</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--yel:#f5d800;--blk:#0a0a0f;--blk2:#0f1520;--blk3:#1c2030;--txt:#f1f5f9;--txt2:#94a3b8;--grn:#22c55e;--red:#ef4444;--ora:#f97316}
-body{background:var(--blk);color:var(--txt);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;font-size:15px}
-
-/* LAYOUT */
-.wrap{max-width:860px;margin:0 auto;padding:20px 16px}
-
-/* HEADER */
-.hdr{text-align:center;padding:32px 16px 24px;border-bottom:1px solid rgba(245,216,0,0.15);margin-bottom:28px}
-.hdr-logo{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;background:var(--yel);border-radius:50%;margin-bottom:12px}
-.hdr-logo svg{width:28px;height:28px}
-.hdr h1{font-size:26px;font-weight:900;letter-spacing:.5px;line-height:1.2}
-.hdr h1 span{color:var(--yel)}
-.hdr p{font-size:12px;color:var(--txt2);margin-top:6px}
-.badge-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap}
-.badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.5px}
-.badge-grn{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:var(--grn)}
-.badge-yel{background:rgba(245,216,0,0.1);border:1px solid rgba(245,216,0,0.3);color:var(--yel)}
-
-/* LANG TOGGLE */
-.lang-wrap{display:flex;justify-content:center;margin-bottom:20px}
+:root{--yel:#f5d800;--blk:#0a0a0f;--blk2:#0f172a;--blk3:#1e293b}
+body{background:#0f172a;color:#f1f5f9;font-family:'Segoe UI',system-ui,sans-serif}
+.glass{background:rgba(30,41,59,0.7);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08)}
+.pulse{animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.slide-in{animation:slideIn .5s ease-out}
+@keyframes slideIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.spin{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.support-link{transition:all .3s;cursor:pointer}
+.support-link:hover{transform:translateY(-2px);background:rgba(255,255,255,0.08)}
+/* LANG PILL */
 .lang-pill{display:flex;background:rgba(255,255,255,0.05);border:1px solid rgba(245,216,0,0.2);border-radius:20px;padding:3px}
-.lo{padding:5px 16px;border-radius:16px;font-size:12px;font-weight:700;cursor:pointer;color:rgba(245,216,0,0.5);transition:all .2s;border:none;background:transparent}
+.lo{padding:4px 14px;border-radius:16px;font-size:11px;font-weight:700;cursor:pointer;color:rgba(245,216,0,0.5);transition:all .2s;border:none;background:transparent}
 .lo.on{background:var(--yel);color:#000}
-
-/* API KEY INPUT */
-.api-wrap{background:rgba(245,216,0,0.05);border:1px solid rgba(245,216,0,0.2);border-radius:14px;padding:14px 16px;margin-bottom:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.api-wrap input{flex:1;min-width:200px;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:var(--txt);font-size:13px;padding:8px 12px;outline:none}
-.api-wrap input:focus{border-color:rgba(245,216,0,0.4)}
-.api-wrap input::placeholder{color:rgba(255,255,255,0.25);font-size:12px}
-.api-status{font-size:11px;font-weight:700;white-space:nowrap}
-.api-status.ok{color:var(--grn)}.api-status.no{color:var(--red)}
-.api-link{font-size:11px;color:var(--yel);text-decoration:none;white-space:nowrap}
-.api-link:hover{text-decoration:underline}
-
-/* INPUT CARD */
-.card{background:var(--blk2);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:20px;margin-bottom:16px}
-.card.yel-border{border-color:rgba(245,216,0,0.25)}
-.card-title{font-size:13px;font-weight:700;color:var(--yel);margin-bottom:14px;display:flex;align-items:center;gap:8px;letter-spacing:.3px}
-
-/* TAGS */
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
-.tag{background:rgba(245,216,0,0.08);border:1px solid rgba(245,216,0,0.25);color:var(--yel);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;user-select:none}
-.tag:hover,.tag.on{background:rgba(245,216,0,0.2);border-color:var(--yel)}
-
-/* TEXTAREA */
-textarea{width:100%;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:var(--txt);font-size:13px;padding:12px;outline:none;resize:vertical;min-height:80px;font-family:inherit;transition:border .2s}
-textarea:focus{border-color:rgba(245,216,0,0.4)}
-textarea::placeholder{color:rgba(255,255,255,0.2)}
-
-/* UPLOAD */
-.upload-zone{border:2px dashed rgba(245,216,0,0.18);border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:all .2s;margin-top:12px}
-.upload-zone:hover{border-color:rgba(245,216,0,0.45);background:rgba(245,216,0,0.03)}
-.upload-zone p{font-size:11px;color:var(--txt2);font-weight:600;margin-top:6px}
-.upload-zone svg{width:24px;height:24px;stroke:rgba(245,216,0,0.35)}
-
-/* BTN */
-.btn{background:var(--yel);color:#000;font-weight:800;border:none;border-radius:12px;padding:14px;cursor:pointer;width:100%;font-size:14px;margin-top:14px;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
-.btn:active{transform:scale(.97)}
-.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
-.btn-outline{background:transparent;border:1px solid rgba(245,216,0,0.35);color:var(--yel);font-weight:700;border-radius:12px;padding:12px;cursor:pointer;width:100%;font-size:13px;margin-top:10px;transition:all .15s}
-.btn-outline:hover{background:rgba(245,216,0,0.08)}
-
-/* LOADER */
-.loader{display:none;text-align:center;padding:28px;color:var(--txt2);font-size:13px}
-.loader.show{display:block}
-.dots::after{content:'';animation:dots 1.4s infinite}
-@keyframes dots{0%{content:''}33%{content:'.'}66%{content:'..'}100%{content:'...'}}
-
-/* ANALYSIS OUTPUT */
-.output{display:none;animation:fadeUp .4s ease}
-.output.show{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.analysis-text{font-size:13px;line-height:1.8;color:#cbd5e1;white-space:pre-wrap}
-
-/* RISK BAR */
-.risk-wrap{margin:14px 0}
-.risk-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}
-.pbar{background:rgba(255,255,255,0.06);border-radius:20px;height:8px;overflow:hidden}
-.pbar-fill{height:100%;border-radius:20px;transition:width .8s ease}
-
-/* PROTOCOL CARD */
-.proto-card{border-radius:16px;padding:20px;margin-top:16px;position:relative;overflow:hidden}
-.proto-safe{background:linear-gradient(135deg,#141400,#1e1e00);border:1px solid rgba(245,216,0,0.35)}
-.proto-toxic{background:linear-gradient(135deg,#1a0000,#2d0000);border:1px solid rgba(239,68,68,0.4)}
-.proto-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:800;background:rgba(0,0,0,0.4);border:1px solid rgba(245,216,0,0.3);color:var(--yel);margin-bottom:10px;letter-spacing:.5px}
-.proto-title{font-size:17px;font-weight:900;margin-bottom:12px}
-.proto-sol-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(245,216,0,0.6);margin-bottom:6px}
-.proto-sol{font-size:13px;font-weight:600;line-height:1.7;color:#f1f5f9}
-.proto-desc{font-size:12px;color:var(--txt2);line-height:1.7;margin-top:10px}
-.proto-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-.proto-tag{background:rgba(0,0,0,0.35);border:1px solid rgba(245,216,0,0.2);color:var(--yel);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
-.proto-deco{position:absolute;top:-20px;right:-20px;font-size:160px;opacity:.04;pointer-events:none}
-
-/* ACTIONS */
-.action-item{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.05);border-radius:10px;margin-bottom:6px}
-.action-num{width:22px;height:22px;border-radius:50%;background:var(--yel);color:#000;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.action-txt{font-size:13px;color:#cbd5e1;line-height:1.5}
-
-/* PAYMENT SECTION */
-.pay-section{margin-top:20px}
-.pay-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(245,216,0,0.5);text-align:center;margin-bottom:12px}
-.tier{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);text-decoration:none;margin-bottom:8px;transition:all .2s;cursor:pointer}
-.tier:hover{border-color:rgba(245,216,0,0.35);background:rgba(245,216,0,0.05);transform:translateY(-1px)}
-.tier.featured{border-color:rgba(245,216,0,0.4);background:rgba(245,216,0,0.06)}
-.tier-left{display:flex;flex-direction:column;gap:2px}
-.tier-name{font-size:13px;font-weight:800;color:#f1f5f9}
-.tier-desc{font-size:11px;color:var(--txt2)}
-.tier-right{text-align:right}
-.tier-price{font-size:18px;font-weight:900;color:var(--yel)}
-.tier-type{font-size:10px;font-weight:700}
-.type-once{color:var(--grn)}.type-month{color:#60a5fa}
-
-/* KB LINK */
-.kb-link{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:rgba(0,0,0,0.4);border:1px solid rgba(245,216,0,0.25);border-radius:12px;color:var(--yel);text-decoration:none;font-size:13px;font-weight:800;transition:all .2s;margin-top:10px}
-.kb-link:hover{background:rgba(0,0,0,0.6);border-color:rgba(245,216,0,0.5)}
-
-/* VOICE BTN */
-.voice-btn{background:rgba(245,216,0,0.08);border:1px solid rgba(245,216,0,0.25);color:var(--yel);font-weight:700;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:12px;transition:all .15s;margin-top:10px}
-.voice-btn:hover{background:rgba(245,216,0,0.15)}
-
-/* IMG PREVIEW */
-#img-preview{max-height:100px;border-radius:8px;border:1px solid rgba(245,216,0,0.25);margin-top:8px;display:none}
-
-/* RESPONSIVE */
-@media(max-width:600px){.hdr h1{font-size:22px}.wrap{padding:14px 12px}}
+/* TOAST */
+#toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#ef4444;color:#fff;padding:12px 24px;border-radius:12px;font-weight:700;z-index:1000;display:none;box-shadow:0 10px 25px rgba(0,0,0,0.5);font-size:13px}
+/* TRIAL BADGE */
+.trial-badge{background:rgba(245,216,0,0.1);border:1px solid rgba(245,216,0,0.3);color:var(--yel);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px}
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.88);backdrop-filter:blur(12px);z-index:200;display:none;align-items:center;justify-content:center;padding:16px}
+.modal.show{display:flex}
+.modal-card{background:#0f172a;border:1px solid rgba(245,216,0,0.3);border-radius:24px;padding:28px;max-width:400px;width:100%;text-align:center}
+/* TIER */
+.tier{display:block;padding:14px 16px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);text-decoration:none;margin-bottom:8px;transition:all .2s;cursor:pointer}
+.tier:hover{border-color:rgba(245,216,0,0.4);background:rgba(245,216,0,0.05);transform:translateY(-1px)}
+.tier.featured{border-color:rgba(245,216,0,0.45);background:rgba(245,216,0,0.07)}
 </style>
 </head>
-<body>
+<body class="min-h-screen">
 
-<div class="wrap">
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- TRIAL MODAL -->
+<div class="modal" id="trial-modal">
+  <div class="modal-card slide-in">
+    <div style="font-size:32px;margin-bottom:10px">⚡</div>
+    <h2 style="color:var(--yel);font-size:19px;font-weight:900;margin-bottom:8px" id="tm-title">試用已完結</h2>
+    <p style="color:#94a3b8;font-size:13px;line-height:1.7;margin-bottom:22px" id="tm-desc">你已用完 2 次免費分析。支持計劃以繼續使用 AI 協議。</p>
+    <div>
+      <a href="https://lihi3.me/rjT4t" target="_blank" onclick="unlockAndClose('18')" class="tier" style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:13px;font-weight:800;color:#f1f5f9" id="tm-t1">☕ 半杯咖啡支持</span>
+        <span style="text-align:right"><span style="font-size:17px;font-weight:900;color:var(--yel)">HK$18</span><br><span style="font-size:10px;color:#22c55e;font-weight:700" id="tm-t1t">一次性</span></span>
+      </a>
+      <a href="https://lihi3.me/cjQdg" target="_blank" onclick="unlockAndClose('19')" class="tier" style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:13px;font-weight:700;color:#93c5fd" id="tm-t2">♥ 象徵性支持 (半杯SOE)</span>
+        <span style="text-align:right"><span style="font-size:17px;font-weight:900;color:#93c5fd">HK$19</span><br><span style="font-size:10px;color:#60a5fa;font-weight:700" id="tm-t2t">每月</span></span>
+      </a>
+      <a href="https://buy.stripe.com/cNi4gzgxrewg5zj0H99fW00" target="_blank" onclick="unlockAndClose('54')" class="tier featured" style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:13px;font-weight:900;color:var(--yel)" id="tm-t3">⚡ 深度支持 ⭐</span>
+        <span style="text-align:right"><span style="font-size:17px;font-weight:900;color:var(--yel)">HK$54</span><br><span style="font-size:10px;color:#22c55e;font-weight:700" id="tm-t3t">一次性</span></span>
+      </a>
+      <button onclick="document.getElementById('trial-modal').classList.remove('show')" style="background:transparent;border:none;color:#475569;font-size:12px;cursor:pointer;padding:10px;width:100%" id="tm-later">下次再算</button>
+    </div>
+  </div>
+</div>
+
+<div class="max-w-6xl mx-auto p-4 md:p-8">
 
   <!-- HEADER -->
-  <div class="hdr">
-    <div class="hdr-logo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12l3 3 5-5"/></svg>
-    </div>
-    <h1><span>MAGA</span> Neural AI</h1>
-    <p id="hdr-sub">Make Anti-Inflammatory Great Again · Adversity Awakening Protocol</p>
-    <div class="badge-row">
-      <div class="badge badge-grn" id="badge-survivor">✓ 6-Year Double Cancer Survivor</div>
-      <div class="badge badge-yel" id="badge-mode">Powered by Gemini AI · Free</div>
-    </div>
-  </div>
-
-  <!-- LANG -->
-  <div class="lang-wrap">
-    <div class="lang-pill">
-      <button class="lo" id="lo-zh" onclick="setLang('zh')">繁</button>
-      <button class="lo on" id="lo-en" onclick="setLang('en')">ENG</button>
-    </div>
-  </div>
-
-  <!-- API KEY -->
-  <div class="api-wrap">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--yel)" stroke-width="2" stroke-linecap="round" style="flex-shrink:0"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
-    <input type="password" id="api-key-input" placeholder="Paste your Gemini API key (AIza...)" oninput="checkKey()" autocomplete="off">
-    <span class="api-status no" id="api-status" id="api-st">⚠ No Key</span>
-    <a href="https://aistudio.google.com/app/apikey" target="_blank" class="api-link" id="api-link-txt">Get Free Key →</a>
-  </div>
-
-  <!-- INPUT CARD -->
-  <div class="card yel-border">
-    <div class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-      <span id="input-title">Daily Health Input</span>
-    </div>
-
-    <div id="tags-label" style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(245,216,0,0.55);margin-bottom:8px">Quick Symptoms</div>
-    <div class="tags" id="sym-tags">
-      <div class="tag" onclick="toggleTag(this)">Brain Fog</div>
-      <div class="tag" onclick="toggleTag(this)">Joint Pain</div>
-      <div class="tag" onclick="toggleTag(this)">Fatigue</div>
-      <div class="tag" onclick="toggleTag(this)">Gut Bloat</div>
-      <div class="tag" onclick="toggleTag(this)">Skin Flare</div>
-      <div class="tag" onclick="toggleTag(this)">Sleep Issues</div>
-      <div class="tag" onclick="toggleTag(this)">Mood Dip</div>
-      <div class="tag" onclick="toggleTag(this)">Headache</div>
-    </div>
-
-    <textarea id="query" placeholder="Describe your symptoms, paste a food label, or ask anything anti-inflammatory..."></textarea>
-
-    <div class="upload-zone" onclick="document.getElementById('file-input').click()">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;display:block">
-        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
-      </svg>
-      <p id="upload-txt">Upload food label / image for visual analysis</p>
-      <img id="img-preview">
-    </div>
-    <input type="file" id="file-input" accept="image/*" style="display:none" onchange="handleImg(event)">
-
-    <button class="btn" id="analyze-btn" onclick="analyze()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      <span id="analyze-txt">Activate AI Analysis</span>
-    </button>
-  </div>
-
-  <!-- LOADER -->
-  <div class="loader" id="loader">
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--yel)" stroke-width="1.5" style="animation:spin 1.5s linear infinite;margin:0 auto 10px;display:block">
-      <path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-    <span id="loader-txt" class="dots">Calibrating neural protocol</span>
-  </div>
-
-  <!-- OUTPUT -->
-  <div class="output" id="output">
-
-    <!-- ANALYSIS TEXT -->
-    <div class="card yel-border">
-      <div class="card-title">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        <span id="analysis-title">AGI Analysis</span>
+  <header class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 flex-wrap">
+    <div>
+      <div class="flex items-center gap-3 mb-1 flex-wrap">
+        <h1 class="text-3xl font-black tracking-tight">
+          <span style="color:var(--yel)">MAGA</span> <span class="text-white">Neural</span> <span style="color:var(--yel)">✨AI</span>
+        </h1>
+        <span class="text-xs bg-slate-800 text-slate-400 px-2 py-1 rounded border border-slate-700 font-bold">v4.0</span>
       </div>
-      <div class="analysis-text" id="analysis-text"></div>
-
-      <!-- RISK -->
-      <div class="risk-wrap" id="risk-wrap" style="display:none">
-        <div class="risk-row"><span id="risk-name" style="font-size:12px;font-weight:700"></span><span id="risk-pct" style="font-size:12px;font-weight:800;color:var(--yel)"></span></div>
-        <div class="pbar"><div class="pbar-fill" id="risk-bar" style="width:0%"></div></div>
+      <p class="text-slate-400 font-medium text-sm" id="hdr-sub">生存導師 AGI 抗炎協議介面</p>
+    </div>
+    <div class="flex items-center gap-3 flex-wrap">
+      <div class="trial-badge" id="trial-badge">免費試用：剩餘 <b id="trial-left">2</b> 次</div>
+      <div class="flex items-center px-3 py-2 rounded-2xl text-xs font-bold bg-blue-900/30 text-blue-400 border border-blue-800 gap-2">
+        <span class="w-2 h-2 bg-green-500 rounded-full pulse"></span>
+        <span id="net-txt">神經網絡已就緒</span>
       </div>
-
-      <button class="voice-btn" id="voice-btn" onclick="speak()" style="display:none" id="vbtn">🔊 <span id="voice-txt">Voice Readout</span></button>
-    </div>
-
-    <!-- PROTOCOL CARD -->
-    <div class="proto-card proto-safe" id="proto-card">
-      <div class="proto-deco">⚡</div>
-      <div id="proto-badge" class="proto-badge">SURVIVOR</div>
-      <div id="proto-title" class="proto-title"></div>
-      <div class="proto-sol-lbl" id="proto-sol-lbl">Core Solution</div>
-      <div id="proto-sol" class="proto-sol"></div>
-      <div id="proto-desc" class="proto-desc"></div>
-      <div id="proto-tags" class="proto-tags"></div>
-    </div>
-
-    <!-- 24H ACTIONS -->
-    <div class="card" id="actions-card" style="display:none;margin-top:16px">
-      <div class="card-title">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        <span id="actions-title">24-Hour Action Plan</span>
+      <div class="lang-pill">
+        <button class="lo on" id="lo-zh" onclick="setLang('zh')">繁</button>
+        <button class="lo" id="lo-en" onclick="setLang('en')">ENG</button>
       </div>
-      <div id="actions-list"></div>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    <!-- LEFT: INPUT -->
+    <div class="space-y-5">
+      <div class="glass p-6 rounded-3xl border-l-4 border-yellow-500 shadow-2xl">
+        <div class="flex items-center gap-4 mb-5">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0" style="background:linear-gradient(135deg,#f5d800,#c9a800)">
+            <i class="fa-solid fa-user-shield text-xl text-black"></i>
+          </div>
+          <div>
+            <h2 class="text-lg font-black text-white" id="panel-title">✨ 諮詢生存導師</h2>
+            <p class="text-xs text-slate-400" id="panel-sub">輸入痛症、食物、標籤、連結等，進行深度校準</p>
+          </div>
+        </div>
+
+        <!-- QUICK TAGS -->
+        <div class="mb-3">
+          <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2" id="tags-lbl">快速症狀</p>
+          <div class="flex flex-wrap gap-2" id="sym-tags">
+            <span class="px-3 py-1 rounded-full text-xs font-bold cursor-pointer border border-yellow-600/30 text-yellow-400 bg-yellow-900/10 hover:bg-yellow-900/30 transition-all tag" onclick="appendTag(this)">腦霧</span>
+            <span class="px-3 py-1 rounded-full text-xs font-bold cursor-pointer border border-yellow-600/30 text-yellow-400 bg-yellow-900/10 hover:bg-yellow-900/30 transition-all tag" onclick="appendTag(this)">關節痛</span>
+            <span class="px-3 py-1 rounded-full text-xs font-bold cursor-pointer border border-yellow-600/30 text-yellow-400 bg-yellow-900/10 hover:bg-yellow-900/30 transition-all tag" onclick="appendTag(this)">疲勞</span>
+            <span class="px-3 py-1 rounded-full text-xs font-bold cursor-pointer border border-yellow-600/30 text-yellow-400 bg-yellow-900/10 hover:bg-yellow-900/30 transition-all tag" onclick="appendTag(this)">腸胃脹氣</span>
+            <span class="px-3 py-1 rounded-full text-xs font-bold cursor-pointer border border-yellow-600/30 text-yellow-400 bg-yellow-900/10 hover:bg-yellow-900/30 transition-all tag" onclick="appendTag(this)">皮膚發炎</span>
+            <span class="px-3 py-1 rounded-full text-xs font-bold cursor-pointer border border-yellow-600/30 text-yellow-400 bg-yellow-900/10 hover:bg-yellow-900/30 transition-all tag" onclick="appendTag(this)">睡眠問題</span>
+            <span class="px-3 py-1 rounded-full text-xs font-bold cursor-pointer border border-yellow-600/30 text-yellow-400 bg-yellow-900/10 hover:bg-yellow-900/30 transition-all tag" onclick="appendTag(this)">情緒低落</span>
+            <span class="px-3 py-1 rounded-full text-xs font-bold cursor-pointer border border-yellow-600/30 text-yellow-400 bg-yellow-900/10 hover:bg-yellow-900/30 transition-all tag" onclick="appendTag(this)">頭痛</span>
+          </div>
+        </div>
+
+        <textarea id="chat-query" rows="4" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm outline-none focus:border-yellow-500 transition-all text-slate-200 resize-none" id="query-ta" placeholder="描述您的身體痛症、成份標籤或相關連結..."></textarea>
+
+        <!-- IMAGE UPLOAD -->
+        <input type="file" id="file-input" accept="image/*" class="hidden" onchange="handleFileSelect(event)">
+        <div class="mt-3">
+          <div id="upload-placeholder" class="border-2 border-dashed border-slate-700 rounded-2xl p-4 text-center hover:border-yellow-500 transition-all cursor-pointer group" onclick="document.getElementById('file-input').click()">
+            <i class="fa-solid fa-camera text-2xl text-slate-500 group-hover:text-yellow-400 mb-2 block"></i>
+            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider" id="upload-txt">✨ 影像/標籤視覺校準</p>
+          </div>
+          <div id="image-preview-container" class="hidden relative border border-slate-700 rounded-2xl p-4 bg-slate-900/50 text-center mt-0">
+            <button onclick="clearImage()" class="absolute -top-2 -right-2 w-7 h-7 bg-red-500 text-white rounded-full flex items-center justify-center text-sm shadow-lg hover:bg-red-600 z-10 border-2 border-slate-900">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <img id="image-preview-img" class="mx-auto rounded-xl shadow-lg border border-slate-700 mb-2" style="max-height:120px;object-fit:contain">
+            <p class="text-[10px] text-yellow-400 font-bold uppercase tracking-widest" id="img-ready-txt">影像數據已鎖定 ✓</p>
+          </div>
+        </div>
+
+        <button onclick="askMentor()" id="btn-ask" class="mt-4 w-full text-black font-black py-4 rounded-2xl transition-all shadow-lg hover:brightness-110 active:scale-95 flex items-center justify-center gap-2" style="background:var(--yel)">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span id="btn-txt">啟動深度分析</span>
+        </button>
+
+        <!-- RESPONSE -->
+        <div id="mentor-response" class="hidden mt-5 p-5 bg-slate-950/80 rounded-2xl text-sm leading-relaxed text-slate-300 border border-slate-800">
+          <div id="mentor-text"></div>
+
+          <!-- SUPPORT LINKS -->
+          <div class="mt-5 pt-5 border-t border-slate-800">
+            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3 text-center" id="sup-lbl">解鎖後台深度知識庫</p>
+            <div class="space-y-2">
+              <div onclick="handleUnlock('https://lihi3.me/rjT4t')" class="support-link flex justify-between items-center bg-slate-800/30 p-3 rounded-xl border border-slate-700/30">
+                <span class="text-xs font-medium text-slate-300" id="s1-txt">半杯咖啡支持 / 一次性 HK$18</span>
+                <i class="fa-solid fa-mug-hot text-[10px] text-yellow-600"></i>
+              </div>
+              <div onclick="handleUnlock('https://lihi3.me/cjQdg')" class="support-link flex justify-between items-center bg-blue-900/10 p-3 rounded-xl border border-blue-900/20">
+                <span class="text-xs font-bold text-blue-400" id="s2-txt">象徵性支持 / 每月 HK$19 (半杯SOE)</span>
+                <i class="fa-solid fa-heart text-[10px] text-blue-500"></i>
+              </div>
+              <div onclick="handleUnlock('https://buy.stripe.com/cNi4gzgxrewg5zj0H99fW00')" class="support-link flex justify-between items-center p-3 rounded-xl border" style="background:rgba(245,216,0,0.06);border-color:rgba(245,216,0,0.3)">
+                <span class="text-xs font-black" style="color:var(--yel)" id="s3-txt">深度支持 / 一次性 HK$54 ⭐</span>
+                <i class="fa-solid fa-bolt text-[10px]" style="color:var(--yel)"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- PAYMENT SECTION -->
-    <div class="pay-section">
-      <div class="pay-title" id="pay-title">Unlock Deep Knowledge Base</div>
-      <a href="https://lihi3.me/rjT4t" target="_blank" class="tier">
-        <div class="tier-left">
-          <div class="tier-name" id="t1n">☕ Half Cup Coffee</div>
-          <div class="tier-desc" id="t1d">Basic access · Anti-Inflammatory knowledge base</div>
+    <!-- RIGHT: PROTOCOL -->
+    <div>
+      <div id="protocol-card" class="rounded-3xl p-7 shadow-2xl relative overflow-hidden min-h-[420px] flex flex-col transition-colors duration-500" style="background:#eab308;color:#0f172a">
+        <div class="absolute -top-8 -right-8 opacity-10 pointer-events-none">
+          <i class="fa-solid fa-dna" style="font-size:180px"></i>
         </div>
-        <div class="tier-right">
-          <div class="tier-price">HK$18</div>
-          <div class="tier-type type-once" id="t1t">One-time</div>
+        <div class="relative z-10 flex-1 flex flex-col">
+          <div class="flex justify-between items-start mb-5">
+            <h3 class="text-xl font-black flex items-center gap-2">
+              <i class="fa-solid fa-flask-vial"></i>
+              <span id="proto-head">✨ 生存者超級食物修復協議</span>
+            </h3>
+            <button id="btn-voice" onclick="playVoice()" class="hidden w-10 h-10 bg-slate-950 text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all flex-shrink-0">
+              <i class="fa-solid fa-volume-high" id="voice-icon"></i>
+            </button>
+          </div>
+
+          <div id="protocol-placeholder" class="flex-1 flex flex-col items-center justify-center text-center opacity-60">
+            <i class="fa-solid fa-clipboard-list text-5xl mb-4"></i>
+            <p class="font-bold text-lg" id="proto-wait">等待導師分析結果...</p>
+            <p class="text-xs mt-2 uppercase tracking-tighter">抗炎再次偉大<br>Make Anti-Inflammatory Great Again</p>
+          </div>
+
+          <div id="protocol-content" class="hidden flex-1 flex flex-col gap-4 slide-in">
+            <div class="bg-black/10 p-5 rounded-2xl border border-black/10 flex-1">
+              <div id="protocol-badge" class="inline-block px-3 py-1 bg-slate-950 text-white rounded-lg text-[10px] font-black uppercase mb-3 tracking-tighter"></div>
+              <h4 id="protocol-title" class="text-xl font-black mb-3"></h4>
+              <p class="text-[10px] font-black uppercase mb-1 opacity-70" id="sol-lbl">核心方案：</p>
+              <div id="protocol-solution" class="text-sm font-bold leading-relaxed mb-3"></div>
+              <p id="protocol-desc" class="text-xs leading-relaxed opacity-80 mb-4"></p>
+
+              <!-- LOCKED DEEP DATA -->
+              <div class="bg-black/20 p-4 rounded-xl border border-black/10 text-center mb-4">
+                <p class="text-xs font-black mb-2" id="lock-lbl">🔒 鎖定深度數據</p>
+                <p class="text-[10px] leading-relaxed" id="lock-desc">如需獲取「抗炎福食建議餐單」及「生活習慣調整指引」，請支持計劃解鎖後台知識文件。</p>
+              </div>
+
+              <div class="space-y-2">
+                <span class="text-[10px] font-bold uppercase tracking-widest opacity-70 block" id="tags-title">核心修復標記：</span>
+                <div id="protocol-tags" class="flex flex-wrap gap-2"></div>
+              </div>
+            </div>
+
+            <button id="btn-knowledge" onclick="openKnowledgeDoc()" class="px-5 py-4 bg-slate-950 text-white rounded-xl text-sm font-black text-center transition-all hover:bg-slate-800 shadow-xl flex items-center justify-center gap-2 w-full border-0 cursor-pointer">
+              <i class="fa-solid fa-book-medical"></i>
+              <span id="kb-txt">查看知識文件 (抗炎福食)</span>
+            </button>
+          </div>
         </div>
-      </a>
-      <a href="https://lihi3.me/cjQdg" target="_blank" class="tier">
-        <div class="tier-left">
-          <div class="tier-name" style="color:#93c5fd" id="t2n">♥ Half Cup SOE</div>
-          <div class="tier-desc" id="t2d">Monthly support · Full knowledge access</div>
-        </div>
-        <div class="tier-right">
-          <div class="tier-price" style="color:#93c5fd">HK$19</div>
-          <div class="tier-type type-month" id="t2t">/ Month</div>
-        </div>
-      </a>
-      <a href="https://buy.stripe.com/cNi4gzgxrewg5zj0H99fW00" target="_blank" class="tier featured">
-        <div class="tier-left">
-          <div class="tier-name" style="color:var(--yel)" id="t3n">⚡ Deep Support</div>
-          <div class="tier-desc" id="t3d">Lifetime access · Full protocol library</div>
-        </div>
-        <div class="tier-right">
-          <div class="tier-price">HK$54</div>
-          <div class="tier-type type-once" id="t3t">One-time ⭐</div>
-        </div>
-      </a>
-      <a href="https://instacoachhim.notion.site/MAGA-56d305d2497a8211a6580156b1cfac0a" target="_blank" class="kb-link">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        <span id="kb-txt">View Anti-Inflammatory Knowledge Base (Notion)</span>
-      </a>
+      </div>
     </div>
-
-  </div><!-- /output -->
-
-</div><!-- /wrap -->
-
-<style>
-@keyframes spin{to{transform:rotate(360deg)}}
-</style>
+  </div>
+</div>
 
 <script>
-// ── API KEY (hardcoded — replace on GitHub)
-var GEMINI_KEY='AIzaSyAXzgZBKrOEgnueB6zVz3O20rtons9-njc';
+// ── CONFIG
+var GEMINI_KEY='AIzaSyBJbVWr9kkZyqt3pTaEsAhfs8CWhLb1U1k';
+var TRIAL_LIMIT=2;
 
-// ── TRANSLATIONS
+// ── STATE
+var lang='zh';
+var currentImageBase64=null;
+var lastVoiceText='';
+var isUnlocked=false;
+var trialUsed=0;
+
+// ── I18N
 var L={
+  zh:{
+    hdr_sub:'生存導師 AGI 抗炎協議介面',net:'神經網絡已就緒',
+    trial_badge:'免費試用：剩餘 ',trial_left_unit:' 次',
+    panel_title:'✨ 諮詢生存導師',panel_sub:'輸入痛症、食物、標籤、連結等，進行深度校準',
+    tags_lbl:'快速症狀',upload_txt:'✨ 影像/標籤視覺校準',img_ready:'影像數據已鎖定 ✓',
+    btn_txt:'啟動深度分析',btn_loading:'正在分析並校準生存協議...',
+    sup_lbl:'解鎖後台深度知識庫',
+    s1:'半杯咖啡支持 / 一次性 HK$18',s2:'象徵性支持 / 每月 HK$19 (半杯SOE)',s3:'深度支持 / 一次性 HK$54 ⭐',
+    proto_head:'✨ 生存者超級食物修復協議',proto_wait:'等待導師分析結果...',
+    sol_lbl:'核心方案：',lock_lbl:'🔒 鎖定深度數據',
+    lock_desc:'如需獲取「抗炎福食建議餐單」及「生活習慣調整指引」，請支持計劃解鎖後台知識文件。',
+    tags_title:'核心修復標記：',kb_txt:'查看知識文件 (抗炎福食)',
+    tm_title:'試用已完結',tm_desc:'你已用完 2 次免費分析。支持計劃以繼續使用 AI 協議。',
+    tm_t1:'☕ 半杯咖啡支持',tm_t1t:'一次性',tm_t2:'♥ 象徵性支持 (半杯SOE)',tm_t2t:'每月',
+    tm_t3:'⚡ 深度支持 ⭐',tm_t3t:'一次性',tm_later:'下次再算',
+    toast_unlock:'請先完成「解鎖後台深度知識庫」',
+    toast_trial:'試用次數已用完，請支持計劃繼續使用',
+    tags_list:['腦霧','關節痛','疲勞','腸胃脹氣','皮膚發炎','睡眠問題','情緒低落','頭痛'],
+    sysprompt:`你是一位生存導師AI。用抗炎哲學分析用戶輸入。語氣直接、原始、以生存者為核心。
+
+必須嚴格輸出以下格式：
+[ANALYSIS_START]
+（繁體中文深度分析 — 3段，直接語氣）
+[ANALYSIS_END]
+[PROTOCOL_DATA]
+{"badge":"等級","title":"方案名稱","solution":"3-4個具體行動步驟","desc":"科學原理解析","tags":["標籤1","標籤2","標籤3"],"toxic":false,"voice_text":"語音摘要"}`
+  },
   en:{
-    hdr_sub:"Make Anti-Inflammatory Great Again · Adversity Awakening Protocol",
-    survivor:"✓ 6-Year Double Cancer Survivor",
-    input_title:"Daily Health Input",tags_lbl:"Quick Symptoms",
-    upload_txt:"Upload food label / image for visual analysis",
-    analyze_txt:"Activate AI Analysis",analyzing_txt:"Calibrating Protocol",
-    api_link:"Get Free Key →",
-    analysis_title:"AGI Analysis",actions_title:"24-Hour Action Plan",
-    proto_sol_lbl:"Core Solution",voice_txt:"Voice Readout",
-    pay_title:"Unlock Deep Knowledge Base",
-    t1n:"☕ Half Cup Coffee",t1d:"Basic access · Anti-Inflammatory knowledge base",t1t:"One-time",
-    t2n:"♥ Half Cup SOE",t2d:"Monthly support · Full knowledge access",t2t:"/ Month",
-    t3n:"⚡ Deep Support",t3d:"Lifetime access · Full protocol library",t3t:"One-time ⭐",
-    kb_txt:"View Anti-Inflammatory Knowledge Base (Notion)",
-    syms:["Brain Fog","Joint Pain","Fatigue","Gut Bloat","Skin Flare","Sleep Issues","Mood Dip","Headache"],
-    placeholder:"Describe your symptoms, paste a food label, or ask anything anti-inflammatory...",
-    sysprompt:`You are a Survivor Mentor AI. Analyze input through anti-inflammatory philosophy. Be direct and raw.
+    hdr_sub:'Survivor Mentor AGI Anti-Inflammatory Protocol Interface',net:'Neural Network Ready',
+    trial_badge:'Free Trial: ',trial_left_unit:' left',
+    panel_title:'✨ Consult Survivor Mentor',panel_sub:'Input symptoms, food labels, or links for deep calibration',
+    tags_lbl:'Quick Symptoms',upload_txt:'✨ Visual / Label Calibration',img_ready:'Image Data Locked ✓',
+    btn_txt:'Activate Deep Analysis',btn_loading:'Calibrating survivor protocol...',
+    sup_lbl:'Unlock Deep Knowledge Base',
+    s1:'Half Cup Coffee / One-time HK$18',s2:'Symbolic Support / Monthly HK$19 (Half SOE)',s3:'Deep Support / One-time HK$54 ⭐',
+    proto_head:'✨ Survivor Superfood Repair Protocol',proto_wait:'Awaiting mentor analysis...',
+    sol_lbl:'Core Solution:',lock_lbl:'🔒 Deep Data Locked',
+    lock_desc:'To access the Anti-Inflammatory Meal Plan and Lifestyle Protocol, support the project to unlock the knowledge base.',
+    tags_title:'Core Repair Markers:',kb_txt:'View Knowledge Base (Anti-Inflammatory)',
+    tm_title:'Trial Ended',tm_desc:'You have used your 2 free analyses. Support the project to continue.',
+    tm_t1:'☕ Half Cup Coffee',tm_t1t:'One-time',tm_t2:'♥ Half Cup SOE',tm_t2t:'Monthly',
+    tm_t3:'⚡ Deep Support ⭐',tm_t3t:'One-time',tm_later:'Maybe later',
+    toast_unlock:'Please complete "Unlock Deep Knowledge Base" first',
+    toast_trial:'Trial ended — please support the project to continue',
+    tags_list:['Brain Fog','Joint Pain','Fatigue','Gut Bloat','Skin Flare','Sleep Issues','Mood Dip','Headache'],
+    sysprompt:`You are a Survivor Mentor AI. Analyze input through anti-inflammatory philosophy. Be direct, raw, survivor-focused.
 
 Output EXACTLY this format:
 [ANALYSIS_START]
 (3 paragraphs, direct English, no fluff)
 [ANALYSIS_END]
 [PROTOCOL_DATA]
-{"badge":"Level","title":"Protocol Name","solution":"3-4 specific steps to fix the problem","desc":"Why this works scientifically","tags":["tag1","tag2","tag3"],"toxic":false,"risk_pct":55,"actions":["Action 1","Action 2","Action 3","Action 4","Action 5"],"voice":"Short voice summary"}`
-  },
-  zh:{
-    hdr_sub:"讓抗炎生活再次偉大 · 逆境覺醒協議",
-    survivor:"✓ 六年雙癌症康復者",
-    input_title:"每日健康數據輸入",tags_lbl:"快速症狀選擇",
-    upload_txt:"上傳食物標籤 / 圖片進行視覺分析",
-    analyze_txt:"啟動 AI 深度分析",analyzing_txt:"校準協議中",
-    api_link:"免費獲取 Key →",
-    analysis_title:"AGI 深度分析",actions_title:"24小時行動計劃",
-    proto_sol_lbl:"核心方案",voice_txt:"語音朗讀",
-    pay_title:"解鎖深度知識庫",
-    t1n:"☕ 半杯咖啡",t1d:"一次性 · 基本抗炎知識庫",t1t:"一次性",
-    t2n:"♥ 半杯SOE",t2d:"每月支持 · 完整知識庫",t2t:"每月",
-    t3n:"⚡ 深度支持",t3d:"終身使用 · 完整協議資料庫",t3t:"一次性 ⭐",
-    kb_txt:"查看抗炎福食知識庫（Notion）",
-    syms:["腦霧","關節痛","疲勞","腸胃脹氣","皮膚發炎","睡眠問題","情緒低落","頭痛"],
-    placeholder:"描述你的症狀、貼上食物標籤成份，或問任何抗炎問題……",
-    sysprompt:`你係一位生存導師AI。用抗炎哲學分析用戶輸入。語氣直接原始。
-
-必須嚴格輸出以下格式：
-[ANALYSIS_START]
-（3段繁體中文分析，直接語氣，唔好廢話）
-[ANALYSIS_END]
-[PROTOCOL_DATA]
-{"badge":"等級","title":"方案名稱","solution":"3-4個具體步驟解決問題","desc":"科學原理解析","tags":["標籤1","標籤2","標籤3"],"toxic":false,"risk_pct":55,"actions":["行動1","行動2","行動3","行動4","行動5"],"voice":"語音摘要"}`
+{"badge":"Level","title":"Protocol Name","solution":"3-4 specific action steps","desc":"Scientific principle","tags":["tag1","tag2","tag3"],"toxic":false,"voice_text":"Voice summary"}`
   }
 };
 
@@ -360,157 +299,161 @@ function t(k){return L[lang][k]||''}
 // ── LANG
 function setLang(l){
   lang=l;
-  document.getElementById('lo-en').className='lo'+(l==='en'?' on':'');
   document.getElementById('lo-zh').className='lo'+(l==='zh'?' on':'');
+  document.getElementById('lo-en').className='lo'+(l==='en'?' on':'');
   apply();
 }
+
 function apply(){
   var m=L[lang];
-  var ids={
-    'hdr-sub':'hdr_sub','badge-survivor':'survivor','input-title':'input_title',
-    'tags-label':'tags_lbl','upload-txt':'upload_txt','analyze-txt':'analyze_txt',
-    'api-link-txt':'api_link','analysis-title':'analysis_title','actions-title':'actions_title',
-    'proto-sol-lbl':'proto_sol_lbl','voice-txt':'voice_txt','pay-title':'pay_title',
-    't1n':'t1n','t1d':'t1d','t1t':'t1t','t2n':'t2n','t2d':'t2d','t2t':'t2t',
-    't3n':'t3n','t3d':'t3d','t3t':'t3t','kb-txt':'kb_txt'
-  };
+  var ids={'hdr-sub':'hdr_sub','net-txt':'net','panel-title':'panel_title','panel-sub':'panel_sub',
+    'tags-lbl':'tags_lbl','upload-txt':'upload_txt','img-ready-txt':'img_ready','btn-txt':'btn_txt',
+    'sup-lbl':'sup_lbl','s1-txt':'s1','s2-txt':'s2','s3-txt':'s3',
+    'proto-head':'proto_head','proto-wait':'proto_wait','sol-lbl':'sol_lbl',
+    'lock-lbl':'lock_lbl','lock-desc':'lock_desc','tags-title':'tags_title','kb-txt':'kb_txt',
+    'tm-title':'tm_title','tm-desc':'tm_desc','tm-t1':'tm_t1','tm-t1t':'tm_t1t',
+    'tm-t2':'tm_t2','tm-t2t':'tm_t2t','tm-t3':'tm_t3','tm-t3t':'tm_t3t','tm-later':'tm_later'};
   for(var id in ids){var el=document.getElementById(id);if(el)el.textContent=m[ids[id]]||'';}
-  document.getElementById('query').placeholder=m.placeholder;
+  // tags
   var tags=document.querySelectorAll('#sym-tags .tag');
-  tags.forEach(function(el,i){if(m.syms[i])el.textContent=m.syms[i];});
+  tags.forEach(function(el,i){if(m.tags_list[i])el.textContent=m.tags_list[i];});
+  // trial badge
+  updateTrialBadge();
 }
 
-// ── API KEY
-function checkKey(){}
-function getKey(){return GEMINI_KEY;}
+function updateTrialBadge(){
+  var left=Math.max(0,TRIAL_LIMIT-trialUsed);
+  var m=L[lang];
+  document.getElementById('trial-badge').innerHTML=m.trial_badge+'<b id="trial-left">'+left+'</b>'+m.trial_left_unit;
+}
+
+// ── TAGS
+function appendTag(el){
+  var ta=document.getElementById('chat-query');
+  ta.value=(ta.value.trim()+(ta.value.trim()?', ':'')+el.textContent);
+}
 
 // ── IMAGE
-function clearImg(e){
-  e.stopPropagation();
-  imgB64=null;
-  document.getElementById('upload-ph').style.display='block';
-  document.getElementById('img-preview-wrap').style.display='none';
-  document.getElementById('img-preview').src='';
-  document.getElementById('file-input').value='';
-}
-function handleImg(e){
+function handleFileSelect(e){
   var f=e.target.files[0];if(!f)return;
   var r=new FileReader();
   r.onload=function(ev){
-    imgB64=ev.target.result.split(',')[1];
-    document.getElementById('upload-ph').style.display='none';
-    document.getElementById('img-preview-wrap').style.display='block';
-    document.getElementById('img-preview').src=ev.target.result;
+    currentImageBase64=ev.target.result.split(',')[1];
+    document.getElementById('upload-placeholder').classList.add('hidden');
+    document.getElementById('image-preview-container').classList.remove('hidden');
+    document.getElementById('image-preview-img').src=ev.target.result;
   };
   r.readAsDataURL(f);
 }
 
-// ── TAGS
-function toggleTag(el){el.classList.toggle('on');}
-function getSelectedTags(){
-  return[].slice.call(document.querySelectorAll('#sym-tags .tag.on')).map(function(t){return t.textContent;});
+function clearImage(){
+  currentImageBase64=null;
+  document.getElementById('file-input').value='';
+  document.getElementById('image-preview-container').classList.add('hidden');
+  document.getElementById('upload-placeholder').classList.remove('hidden');
 }
 
-// ── ANALYZE
-async function analyze(){
-  var key=GEMINI_KEY;
-  if(!key||key==='AIzaSyAXzgZBKrOEgnueB6zVz3O20rtons9-njc'){
-    alert(lang==='zh'?'請喺 GitHub 將 AIzaSyAXzgZBKrOEgnueB6zVz3O20rtons9-njc 換成真實 Gemini API Key':'Please replace AIzaSyAXzgZBKrOEgnueB6zVz3O20rtons9-njc with a real Gemini API key on GitHub');return;
-  }
-  var query=document.getElementById('query').value.trim();
-  var tags=getSelectedTags();
-  var combined=tags.length?tags.join(', ')+(query?'\n'+query:''):query;
-  if(!combined&&!imgB64){
-    alert(lang==='zh'?'請輸入症狀或上傳圖片':'Please enter symptoms or upload an image');return;
+// ── TOAST
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.style.display='block';
+  setTimeout(function(){t.style.display='none';},3000);
+}
+
+// ── UNLOCK
+function handleUnlock(url){
+  isUnlocked=true;
+  window.open(url,'_blank');
+  document.getElementById('trial-modal').classList.remove('show');
+}
+function unlockAndClose(tier){isUnlocked=true;}
+function openKnowledgeDoc(){
+  if(!isUnlocked){showToast(t('toast_unlock'));return;}
+  window.open('https://instacoachhim.notion.site/MAGA-56d305d2497a8211a6580156b1cfac0a','_blank');
+}
+
+// ── MAIN
+async function askMentor(){
+  var query=document.getElementById('chat-query').value.trim();
+  if(!query&&!currentImageBase64)return;
+
+  if(trialUsed>=TRIAL_LIMIT){
+    document.getElementById('trial-modal').classList.add('show');return;
   }
 
-  var btn=document.getElementById('analyze-btn');
-  var btxt=document.getElementById('analyze-txt');
-  btn.disabled=true;btxt.textContent=t('analyzing_txt')+'...';
-  document.getElementById('loader').classList.add('show');
-  document.getElementById('output').classList.remove('show');
+  var btn=document.getElementById('btn-ask');
+  var btxt=document.getElementById('btn-txt');
+  btn.disabled=true;btxt.textContent=t('btn_loading');
+
+  var mentorBox=document.getElementById('mentor-response');
+  var mentorText=document.getElementById('mentor-text');
+  mentorBox.classList.remove('hidden');
+  mentorText.innerHTML='<div style="display:flex;gap:8px;align-items:center"><i class="fa-solid fa-circle-notch spin"></i><span>'+t('btn_loading')+'</span></div>';
 
   try{
-    var reply=await callGemini(key,combined||'Analyze this image',imgB64);
-    parse(reply);
-    document.getElementById('loader').classList.remove('show');
-    document.getElementById('output').classList.add('show');
+    var reply=await callGemini(query||'分析此影像',currentImageBase64);
+    var analysis='';var proto=null;
+    var am=reply.match(/\[ANALYSIS_START\]([\s\S]*?)\[ANALYSIS_END\]/);
+    analysis=am?am[1].trim():reply.split('[PROTOCOL_DATA]')[0].trim();
+    var ps=reply.split('[PROTOCOL_DATA]');
+    if(ps.length>1){
+      var js=ps[1].trim().replace(/```json|```/g,'').trim();
+      try{proto=JSON.parse(js);}catch(e){
+        var bm=js.match(/\{[\s\S]*\}/);if(bm)try{proto=JSON.parse(bm[0]);}catch(e2){}
+      }
+    }
+    mentorText.textContent=analysis;
+    if(proto){lastVoiceText=proto.voice_text||proto.solution||'';renderProtocol(proto);document.getElementById('btn-voice').classList.remove('hidden');}
+    trialUsed++;updateTrialBadge();
   }catch(err){
-    document.getElementById('loader').classList.remove('show');
-    alert((lang==='zh'?'分析失敗：':'Analysis failed: ')+err.message);
+    mentorText.textContent='分析失敗：'+err.message;
   }
-  btn.disabled=false;btxt.textContent=t('analyze_txt');
+  btn.disabled=false;btxt.textContent=t('btn_txt');
 }
 
-async function callGemini(key,prompt,img){
+async function callGemini(prompt,img){
   var parts=[];
   if(img)parts.push({inlineData:{mimeType:'image/jpeg',data:img}});
   parts.push({text:prompt});
-  var url='https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+key;
-  var body={
-    contents:[{parts:parts}],
-    systemInstruction:{parts:[{text:L[lang].sysprompt}]},
-    generationConfig:{temperature:.7,maxOutputTokens:1200}
-  };
-  var res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-  if(!res.ok){var e=await res.json();throw new Error(e.error?.message||'Gemini API error '+res.status);}
+  var url='https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+GEMINI_KEY;
+  var res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      contents:[{parts:parts}],
+      systemInstruction:{parts:[{text:L[lang].sysprompt}]},
+      generationConfig:{temperature:.7,maxOutputTokens:1000}
+    })
+  });
+  if(!res.ok){var e=await res.json();throw new Error(e.error?.message||'Gemini Error '+res.status);}
   var d=await res.json();
   return d.candidates[0].content.parts[0].text;
 }
 
-function parse(reply){
-  var analysis='',proto=null;
-  var am=reply.match(/\[ANALYSIS_START\]([\s\S]*?)\[ANALYSIS_END\]/);
-  if(am)analysis=am[1].trim();
-  else analysis=reply.split('[PROTOCOL_DATA]')[0].trim();
-
-  var ps=reply.split('[PROTOCOL_DATA]');
-  if(ps.length>1){
-    var js=ps[1].trim().replace(/```json|```/g,'').trim();
-    try{proto=JSON.parse(js);}catch(e){
-      var bm=js.match(/\{[\s\S]*\}/);if(bm)try{proto=JSON.parse(bm[0]);}catch(e2){}
-    }
-  }
-
-  document.getElementById('analysis-text').textContent=analysis;
-
-  if(proto){
-    lastVoice=proto.voice||proto.solution||'';
-    // risk
-    var rp=proto.risk_pct||0;
-    document.getElementById('risk-wrap').style.display='block';
-    document.getElementById('risk-name').textContent=proto.badge||'';
-    document.getElementById('risk-pct').textContent=rp+'%';
-    var bar=document.getElementById('risk-bar');
-    bar.style.width=rp+'%';
-    bar.style.background=rp>70?'#ef4444':rp>40?'#f97316':'#22c55e';
-    // protocol card
-    var card=document.getElementById('proto-card');
-    card.className='proto-card '+(proto.toxic?'proto-toxic':'proto-safe');
-    document.getElementById('proto-badge').textContent=proto.badge||'SURVIVOR';
-    document.getElementById('proto-title').textContent=proto.title||'';
-    document.getElementById('proto-sol').textContent=proto.solution||'';
-    document.getElementById('proto-desc').textContent=proto.desc||'';
-    document.getElementById('proto-tags').innerHTML=(proto.tags||[]).map(function(tg){
-      return'<span class="proto-tag"># '+tg+'</span>';
-    }).join('');
-    // actions
-    if(proto.actions&&proto.actions.length){
-      document.getElementById('actions-card').style.display='block';
-      document.getElementById('actions-list').innerHTML=proto.actions.map(function(a,i){
-        return'<div class="action-item"><div class="action-num">'+(i+1)+'</div><div class="action-txt">'+a+'</div></div>';
-      }).join('');
-    }
-    document.getElementById('voice-btn').style.display='inline-flex';
-  }
+function renderProtocol(data){
+  document.getElementById('protocol-placeholder').classList.add('hidden');
+  document.getElementById('protocol-content').classList.remove('hidden');
+  var card=document.getElementById('protocol-card');
+  if(data.toxic){card.style.background='#dc2626';card.style.color='#fff';}
+  else{card.style.background='#eab308';card.style.color='#0f172a';}
+  document.getElementById('protocol-badge').textContent=data.badge||'';
+  document.getElementById('protocol-title').textContent=data.title||'';
+  document.getElementById('protocol-solution').textContent=data.solution||'';
+  document.getElementById('protocol-desc').textContent=data.desc||'';
+  document.getElementById('protocol-tags').innerHTML=(data.tags||[]).map(function(tg){
+    return'<span style="background:rgba(0,0,0,0.8);color:#fff;padding:3px 10px;border-radius:8px;font-size:10px;font-weight:700"># '+tg+'</span>';
+  }).join('');
+  var c=document.getElementById('protocol-content');
+  c.classList.remove('slide-in');void c.offsetWidth;c.classList.add('slide-in');
 }
 
-// ── VOICE
-function speak(){
-  if(!lastVoice)return;
+function playVoice(){
+  if(!lastVoiceText)return;
+  var icon=document.getElementById('voice-icon');
+  icon.className='fa-solid fa-spinner spin';
   speechSynthesis.cancel();
-  var u=new SpeechSynthesisUtterance(lastVoice);
+  var u=new SpeechSynthesisUtterance(lastVoiceText);
   u.lang=lang==='zh'?'zh-HK':'en-US';u.rate=.95;
+  u.onend=function(){icon.className='fa-solid fa-volume-high';};
+  u.onerror=function(){icon.className='fa-solid fa-volume-high';};
   speechSynthesis.speak(u);
 }
 
