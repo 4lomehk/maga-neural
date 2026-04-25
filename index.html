@@ -299,7 +299,7 @@ textarea::placeholder{color:rgba(255,255,255,0.2)}
 
 <script>
 // ── API KEY (hardcoded — replace on GitHub)
-var GEMINI_KEY='AIzaSyBdWcityC5_cD6Xc-lXoHbUDANwOBVPn08';
+var GEMINI_KEY='AIzaSyCVAVLZJaXtWHBrW5s4o-Mtur-x9ogigxI';
 
 // ── TRANSLATIONS
 var L={
@@ -385,13 +385,22 @@ function checkKey(){}
 function getKey(){return GEMINI_KEY;}
 
 // ── IMAGE
+function clearImg(e){
+  e.stopPropagation();
+  imgB64=null;
+  document.getElementById('upload-ph').style.display='block';
+  document.getElementById('img-preview-wrap').style.display='none';
+  document.getElementById('img-preview').src='';
+  document.getElementById('file-input').value='';
+}
 function handleImg(e){
   var f=e.target.files[0];if(!f)return;
   var r=new FileReader();
   r.onload=function(ev){
     imgB64=ev.target.result.split(',')[1];
-    var prev=document.getElementById('img-preview');
-    prev.src=ev.target.result;prev.style.display='block';
+    document.getElementById('upload-ph').style.display='none';
+    document.getElementById('img-preview-wrap').style.display='block';
+    document.getElementById('img-preview').src=ev.target.result;
   };
   r.readAsDataURL(f);
 }
