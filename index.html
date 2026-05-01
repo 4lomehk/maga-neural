@@ -47,7 +47,10 @@ a{text-decoration:none;color:inherit}
 .result-card{background:var(--blk2);border:1px solid rgba(245,216,0,.2);border-radius:18px;padding:28px;margin-bottom:20px;animation:fadeUp .4s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .result-badge{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--yel);margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.result-text{font-size:14px;line-height:1.85;color:#d0d0e8;white-space:pre-wrap}
+.result-text{font-size:15px;line-height:2;color:#d0d0e8;white-space:pre-wrap}
+.result-point{background:rgba(255,255,255,.03);border:1px solid rgba(245,216,0,.12);border-left:3px solid var(--yel);border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:14px}
+.result-point-num{font-size:11px;font-weight:800;color:var(--yel);letter-spacing:1px;margin-bottom:6px}
+.result-point-txt{font-size:14px;line-height:1.85;color:#d8d8ee}
 .result-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
 .btn-sm{padding:8px 16px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;border:none}
 .btn-yel{background:var(--yel);color:#000}
@@ -192,22 +195,9 @@ footer{text-align:center;padding:32px 20px;border-top:1px solid rgba(255,255,255
   </div>
 
   <div class="paywall" id="paywall" style="display:none">
-    <h3 id="pw-title">🔒 攞走 Him Chan 完整實證協議</h3>
-    <p id="pw-desc">「呢度唔講廢話，只講親身經歷同真實結果。」<br>付款後系統自動解鎖。</p>
-    <div class="pay-tiers">
-      <a href="#" onclick="event.preventDefault();window.open('https://lihi3.me/rjT4t','_blank');trackPayment()" class="tier">
-        <div class="tier-l"><div class="tier-name" id="t1n">☕ 半杯咖啡支持</div><div class="tier-desc" id="t1d">基本解鎖 · 實證入門</div></div>
-        <div class="tier-r"><div class="tier-price">HK$18</div><div class="tier-type" id="t1t">一次性</div></div>
-      </a>
-      <a href="https://lihi3.me/cjQdg" target="_blank" class="tier" onclick="trackPayment()">
-        <div class="tier-l"><div class="tier-name" style="color:#93c5fd" id="t2n">♥ 象徵性支持</div><div class="tier-desc" id="t2d">每月更新 + 完整解鎖</div></div>
-        <div class="tier-r"><div class="tier-price" style="color:#93c5fd">HK$19</div><div class="tier-type month" id="t2t">每月</div></div>
-      </a>
-      <a href="https://buy.stripe.com/cNi4gzgxrewg5zj0H99fW00" target="_blank" class="tier best" onclick="trackPayment()">
-        <div class="tier-l"><div class="tier-name" style="color:var(--yel)" id="t3n">⚡ 深度支持 ⭐</div><div class="tier-desc" id="t3d">終身完整使用 · 最抵</div></div>
-        <div class="tier-r"><div class="tier-price">HK$54</div><div class="tier-type" id="t3t">一次性</div></div>
-      </a>
-    </div>
+    <h3 id="pw-title">加快回覆 · 實證分享 · 隨心支持</h3>
+    <p id="pw-desc" style="font-size:12px;color:var(--txt2);margin-bottom:18px">Him Chan 嘅實證係親身踩過嘅坑，唔係 Google 搵到嘅嘢。你嘅支持讓更多更新繼續。</p>
+    <div class="pay-tiers" id="pay-tiers-wrap"></div>
     <div class="disclaimer" id="pw-disclaimer">免責聲明：此內容僅供參考，不構成醫療建議或診斷。請諮詢醫療專業人員。</div>
   </div>
 </div>
@@ -242,7 +232,7 @@ footer{text-align:center;padding:32px 20px;border-top:1px solid rgba(255,255,255
   <div style="margin-top:10px">
     <a href="https://instagram.com/mynameishimchan" target="_blank" style="color:rgba(245,216,0,.4);margin:0 8px">Instagram</a>
     <a href="https://threads.com/@mynameishimchan" target="_blank" style="color:rgba(245,216,0,.4);margin:0 8px">Threads</a>
-    <a href="https://lihi3.me/o6dXv" target="_blank" style="color:rgba(245,216,0,.4);margin:0 8px">MAGA 後繼福食</a>
+    <a href="#" onclick="event.preventDefault();document.getElementById('result-wrap').style.display='block';document.getElementById('paywall').style.display='block';document.getElementById('email-gate').style.display='none';window.scrollTo({top:document.getElementById('result-wrap').offsetTop-80,behavior:'smooth'})" style="color:rgba(245,216,0,.4);margin:0 8px">MAGA 後繼福食</a>
   </div>
 </footer>
 
@@ -619,10 +609,49 @@ function generateAnswer(q){
     } else {
       document.getElementById('email-gate').style.display='none';
       document.getElementById('paywall').style.display='block';
+      renderPaywall();
     }
   } else {
     document.getElementById('email-gate').style.display='none';
     document.getElementById('paywall').style.display='none';
+  }
+}
+
+function renderPaywall(){
+  var wrap=document.getElementById('pay-tiers-wrap');
+  wrap.innerHTML='';
+  if(isRegistered){
+    // 已登記：只顯示 HK$18
+    var a=document.createElement('a');
+    a.href='#';a.className='tier best';
+    a.onclick=function(e){e.preventDefault();window.open('https://lihi3.me/rjT4t','_blank');trackPayment();};
+    a.innerHTML=
+      '<div class="tier-l">'+
+        '<div class="tier-name" style="color:var(--yel)">基本解鎖 · 實證入門</div>'+
+        '<div class="tier-desc">加快回覆 · 實證分享 · 隨心支持</div>'+
+      '</div>'+
+      '<div class="tier-r"><div class="tier-price">HK$18</div><div class="tier-type">一次性</div></div>';
+    wrap.appendChild(a);
+  } else {
+    // 未登記：顯示三個 tier
+    var tiers=[
+      {name:'加快回覆 · 隨心支持',desc:'基本解鎖 · 實證入門',price:'HK$18',type:'一次性',color:'var(--txt)',typeClass:'',href:'#',onclick:function(e){e.preventDefault();window.open('https://lihi3.me/rjT4t','_blank');trackPayment();}},
+      {name:'加快回覆 · 持續更新',desc:'每月最新實證 + 完整解鎖',price:'HK$19',type:'每月',color:'#93c5fd',typeClass:'month',href:'https://lihi3.me/cjQdg',onclick:function(){trackPayment();}},
+      {name:'加快回覆 · 隨心深度支持 ⭐',desc:'終身完整使用 · 最抵',price:'HK$54',type:'一次性',color:'var(--yel)',typeClass:'',href:'https://buy.stripe.com/cNi4gzgxrewg5zj0H99fW00',onclick:function(){trackPayment();}},
+    ];
+    tiers.forEach(function(t,i){
+      var a=document.createElement('a');
+      a.href=t.href;a.className='tier'+(i===2?' best':'');
+      if(t.href==='#') a.onclick=t.onclick;
+      else{a.target='_blank';a.onclick=t.onclick;}
+      a.innerHTML=
+        '<div class="tier-l">'+
+          '<div class="tier-name" style="color:'+t.color+'">'+t.name+'</div>'+
+          '<div class="tier-desc">'+t.desc+'</div>'+
+        '</div>'+
+        '<div class="tier-r"><div class="tier-price" style="color:'+t.color+'">'+t.price+'</div><div class="tier-type '+t.typeClass+'">'+t.type+'</div></div>';
+      wrap.appendChild(a);
+    });
   }
 }
 
@@ -632,6 +661,7 @@ function registerEmail(){
   localStorage.setItem('maga_email',e);isRegistered=true;
   document.getElementById('email-gate').style.display='none';
   document.getElementById('paywall').style.display='block';
+  renderPaywall();
   showToast(t('toast_email'),'ok');
   renderKB();
 }
