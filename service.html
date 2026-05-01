@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MAGA ProGram 2026 Survivor Console</title>
+    <style>
+        :root {
+            --primary: #D4AF37; /* Gold */
+            --secondary: #FF8C00; /* Orange */
+            --bg: #F4F4F5;
+            --dark: #121212;
+            --border: #E5E7EB;
+            --white: #FFFFFF;
+            --alert: #E53E3E;
+        }
+
+        /* 全局強制去粗體 */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-weight: 400 !important; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            background-color: var(--bg);
+            color: var(--dark);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 頂部極簡導航 */
+        header {
+            background-color: var(--white);
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+            z-index: 100;
+        }
+
+        .logo { font-size: 18px; letter-spacing: -0.5px; color: var(--dark); display: flex; align-items: center; gap: 10px; }
+        .status-dot { width: 8px; height: 8px; background: #00FF41; border-radius: 50%; box-shadow: 0 0 8px #00FF41; animation: pulse 2s infinite; }
+        .version { font-size: 11px; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* 聊天視窗 */
+        #chat-window {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px 5%;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            scroll-behavior: smooth;
+        }
+
+        .msg-container { display: flex; flex-direction: column; max-width: 90%; animation: slideUp 0.5s ease-out forwards; }
+        .msg-container.bot { align-self: flex-start; }
+        .msg-container.user { align-self: flex-end; align-items: flex-end; }
+
+        .sender-name { font-size: 10px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); }
+        .msg-container.user .sender-name { color: #888; }
+
+        .bubble { padding: 18px 22px; border-radius: 12px; font-size: 15px; line-height: 1.7; position: relative; }
+        .bot-bubble { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--primary); box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .user-bubble { background: var(--dark); color: var(--white); }
+
+        /* 動態記憶掛鉤：公式卡片 */
+        .formula-card {
+            background: #FFFBEB;
+            border: 1px dashed var(--primary);
+            padding: 16px;
+            margin-top: 16px;
+            font-size: 14px;
+            border-radius: 8px;
+            color: #444;
+            position: relative;
+            overflow: hidden;
+        }
+        .formula-card::before {
+            content: "SURVIVOR LOGIC / RECLAIM SOVEREIGNTY";
+            display: block;
+            font-size: 9px;
+            color: var(--secondary);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        /* 打字機效果 (小點) */
+        .typing { display: flex; gap: 5px; padding: 10px 0; }
+        .dot { width: 6px; height: 6px; background: #bbb; border-radius: 50%; animation: blink 1.4s infinite; }
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+
+        /* Action Area 按鈕 */
+        #action-area {
+            background: var(--white);
+            padding: 20px 5%;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn {
+            background: var(--white);
+            border: 1px solid var(--dark);
+            color: var(--dark);
+            padding: 14px 20px;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: left;
+            flex: 1 1 auto;
+            max-width: 100%;
+        }
+
+        .btn:hover { background: #F9FAFB; transform: translateY(-2px); border-color: var(--primary); }
+        .btn.primary { background: var(--dark); color: var(--white); }
+
+        a { color: var(--secondary); text-decoration: none; border-bottom: 1px solid var(--secondary); padding-bottom: 1px; transition: 0.2s; }
+        a:hover { color: var(--primary); border-bottom-color: var(--primary); }
+
+        @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        @media (min-width: 768px) { #chat-window, #action-area { padding-left: 20%; padding-right: 20%; } }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo"><div class="status-dot"></div> MAGA BODY</div>
+    <div class="version">System v2026.4</div>
+</header>
+
+<div id="chat-window"></div>
+<div id="action-area"></div>
+
+<script>
+    const engine = {
+      "flow": {
+        "start_node": "LANGUAGE_SELECT",
+        "nodes": {
+          "LANGUAGE_SELECT": {
+            "bot_msg_key": "init_msg",
+            "options":[
+              { "label_key": "lang_zh", "action": "SET_LANG", "params": { "lang": "zh" }, "next_node": "ONBOARDING" },
+              { "label_key": "lang_en", "action": "SET_LANG", "params": { "lang": "en" }, "next_node": "ONBOARDING" }
+            ]
+          },
+          "ONBOARDING": {
+            "bot_msg_key": "msg_hook",
+            "options":[
+              { "label_key": "menu_eval", "next_node": "EVALUATION" },
+              { "label_key": "menu_update", "next_node": "KNOWLEDGE_BASE" },
+              { "label_key": "menu_gear", "next_node": "KNOWLEDGE_BASE" }
+            ]
+          },
+          "EVALUATION": {
+            "bot_msg_key": "msg_eval",
+            "options":[
+              { "label_key": "stage_1", "next_node": "KNOWLEDGE_BASE" },
+              { "label_key": "stage_2", "next_node": "KNOWLEDGE_BASE" },
+              { "label_key": "stage_3", "next_node": "KNOWLEDGE_BASE" },
+              { "label_key": "stage_4", "next_node": "KNOWLEDGE_BASE" }
+            ]
+          },
+          "KNOWLEDGE_BASE": {
+            "bot_msg_key": "msg_kb",
+            "options":[
+              { "label_key": "kb_weekly", "next_node": "DETAIL_WEEKLY" },
+              { "label_key": "kb_coffee", "next_node": "DETAIL_COFFEE" },
+              { "label_key": "kb_soil", "next_node": "DETAIL_SOIL" },
+              { "label_key": "kb_spleen", "next_node": "DETAIL_SPLEEN" },
+              { "label_key": "kb_lgbt", "next_node": "DETAIL_LGBT" },
+              { "label_key": "kb_d3", "next_node": "DETAIL_D3" },
+              { "label_key": "kb_extra", "next_node": "DETAIL_EXTRA" },
+              { "label_key": "kb_map", "next_node": "DETAIL_MAP" }
+            ]
+          },
+          "DETAIL_WEEKLY": { "bot_msg_key": "msg_weekly", "options":[{ "label_key": "btn_back", "next_node": "KNOWLEDGE_BASE" }] },
+          "DETAIL_COFFEE": { "bot_msg_key": "msg_coffee", "formula_key": "form_coffee", "options":[{ "label_key": "btn_back", "next_node": "KNOWLEDGE_BASE" }] },
+          "DETAIL_SOIL": { "bot_msg_key": "msg_soil", "formula_key": "form_soil", "options":[{ "label_key": "btn_back", "next_node": "KNOWLEDGE_BASE" }] },
+          "DETAIL_SPLEEN": { "bot_msg_key": "msg_spleen", "formula_key": "form_spleen", "options":[{ "label_key": "btn_back", "next_node": "KNOWLEDGE_BASE" }] },
+          "DETAIL_LGBT": { "bot_msg_key": "msg_lgbt", "formula_key": "form_lgbt", "options":[{ "label_key": "btn_back", "next_node": "KNOWLEDGE_BASE" }] },
+          "DETAIL_D3": { "bot_msg_key": "msg_d3", "formula_key": "form_d3", "options":[{ "label_key": "btn_back", "next_node": "KNOWLEDGE_BASE" }] },
+          "DETAIL_EXTRA": { "bot_msg_key": "msg_extra", "options":[{ "label_key": "btn_back", "next_node": "KNOWLEDGE_BASE" }] },
+          "DETAIL_MAP": { "bot_msg_key": "msg_map", "options":[{ "label_key": "btn_back", "next_node": "KNOWLEDGE_BASE" }] }
+        }
+      },
+      "i18n": {
+        "zh": {
+          "lang_zh": "[繁] 廣東話", "lang_en": "[EN] ENGLISH",
+          "init_msg": "MAGA BODY PROGRAM // 2026 SURVIVOR EDITION<br>顛覆偽資訊，奪回健康主權。<br><hr style='border:0;border-top:1px solid #eee;margin:15px 0;'>請選擇通訊語言 / Please select your language.",
+          "msg_hook": "生還者，今日想點樣重塑身體地基？我們避開大藥廠偽資訊，用最實淨嘅邏輯鎖定生存模式。輸入代號：",
+          "menu_eval": "[1] 全新評估", "menu_update": "[2] 直接攞裝備", "menu_gear": "[3] 返回主目錄",
+          "msg_eval": "系統演算中... 請問你目前處於邊個階段 (Stage)？",
+          "stage_1": "[A] 1 期", "stage_2": "[B] 2 期", "stage_3": "[C] 3 期", "stage_4": "[D] 4 期",
+          "msg_kb": "核心資料庫已解鎖。需要邊項一條龍支援？",
+          "kb_weekly": "[1] 每星期打卡", "kb_coffee": "[2] ☕ 咖啡油層", "kb_soil": "[3] 🧱 換 土", "kb_spleen": "[4] 🔋 脾系電池", "kb_lgbt": "[5] 🍯 LGBT 蜜", "kb_d3": "[6] 🛡️ D3 十倍防禦", "kb_extra": "[7] 🎁 MAGA 福食", "kb_map": "[8] 📦 供應鏈地圖",
+          "btn_back": "[X] 返回主目錄",
+          "msg_weekly": "<b>每星期執行與打卡指引（詳盡版）</b><br><br>1. 起床首要：見陽光 15 分鐘，同步服用 D3 配合優質油脂（如草飼牛油）。陽光啟動晝夜節律，油脂則是 D3 的藥引。<br><br>2. 餐前激活：每餐前 20 分鐘服用暖有機蘋果醋 (ACV) 水。目的是優化胃酸 pH 值，確保後續蛋白質被 100% 吸收，避免腸道腐敗產毒。<br><br>3. 窗口鎖定：執行 14:10 窗口（12PM-10PM），這是修復胰島素抗性 (IR) 的安全地基。待地基穩固後再過渡至 16:8。<br><br>4. 脾胃充電：每週至少熬製兩次「地基修復方」（炒薏米、淮山等），維持內環境 37°C。絕對戒除牛奶，換入羊奶。<br><br>5. 生化防線：每餐加入 1 湯匙 LGBT 蜜（必須咬碎黑椒啟動胡椒鹼），配搭冷榨豬油作為載體進入細胞。<br><br>6. 系統排泄：飲水最少 3L 並加入海鹽，確保電解質平衡，防止排毒期水腫紅旗。",
+          "msg_coffee": "咖啡油層 (Crema) 含有二萜烯 (Cafestol)，是保護肝細胞膜的關鍵武器，能顯著降低肝酵素。",
+          "form_coffee": "做法：用法式濾壓壺 (French Press) 保留油脂。若有膽固醇疑慮，可配合草飼牛油「包裹法」飲用。",
+          "msg_soil": "換土革命：胰島素是發炎的肥料。徹底拒絕 UPF 超加工食品，改為攝取優質脂肪與十字花科蔬菜。",
+          "form_soil": "嚴禁：精製澱粉、高糖飲品、種子油。改為：草飼牛、冷榨豬油、椰菜花蓉。",
+          "msg_spleen": "脾系電池決定能量轉化。若大便黏馬桶代表地基滲水（濕氣）。",
+          "form_spleen": "修復方：炒薏米、蓮子、淮山、茨實、百合。浸泡 2 小時後熬成糊狀。戒牛奶。",
+          "msg_lgbt": "LGBT 蜜部署：胡椒鹼與薑黃素的生化協同，能有效封鎖 NF-kB 發炎訊號。",
+          "form_lgbt": "每餐 1 湯匙。必須咬碎黑椒！無藥引則只是交智商稅。",
+          "msg_d3": "D3 十倍防禦：官方 600 IU 僅是 NPC 存活線。生存者需要 8,000-10,000 IU 來訓練 T 細胞警察。",
+          "form_d3": "必須配合維他命 K2 (MK-7) 導鈣入骨，並間隔綠茶飲用時間 2 小時。",
+          "msg_extra": "<b>MAGA 後繼福食：</b><br>系統演算中的福食測試模組。針對生存者地基修復階段，獲取進階抗炎配方與物資支持。<br><br><a href='https://lihi3.me/o6dXv' target='_blank'>📡 立即對接福食資源網</a>",
+          "msg_map": "實戰供應鏈：<br>1. <a href='https://nothing-happened.com' target='_blank'>Nothing Happened</a> (補給)<br>2. <a href='https://instagram.com/onestop_foodsupply' target='_blank'>One Stop Food Supply</a> (西營盤高街)<br>3. <a href='https://lihi3.me/o6dXv' target='_blank'>MAGA 福食系統</a>",
+        },
+        "en": {
+          "lang_zh": "[繁] 廣東話", "lang_en": "[EN] ENGLISH",
+          "init_msg": "MAGA BODY PROGRAM // 2026 SURVIVOR EDITION<br>Overturning disinformation. Reclaiming sovereignty.<br><hr style='border:0;border-top:1px solid #eee;margin:15px 0;'>Please select your language.",
+          "msg_hook": "Survivor, do you copy? Ready to rebuild your biological foundation? Select your command:",
+          "menu_eval": "[1] NEW ASSESSMENT", "menu_update": "[2] 30-DAY UPDATE", "menu_gear": "[3] GET GEAR",
+          "msg_eval": "System processing... Which Stage are you currently in?",
+          "stage_1": "[A] Stage 1", "stage_2": "[B] Stage 2", "stage_3": "[C] Stage 3", "stage_4": "[D] Stage 4",
+          "msg_kb": "Core Intel Unlocked. What do you need?",
+          "kb_weekly": "[1] Weekly Protocol", "kb_coffee": "[2] ☕ Coffee Crema", "kb_soil": "[3] 🧱 Soil Revolution", "kb_spleen": "[4] 🔋 Spleen Battery", "kb_lgbt": "[5] 🍯 LGBT Honey", "kb_d3": "[6] 🛡️ D3 Defense", "kb_extra": "[7] 🎁 MAGA", "kb_map": "[8] 📦 Supply Chain",
+          "btn_back": "[X] Back to Menu",
+          "msg_weekly": "<b>Weekly Execution & Check-in Guide (Detailed)</b><br><br>1. Morning Priority: 15 mins sun exposure, simultaneous D3 with quality fats (e.g. Grass-fed butter). Sun triggers circadian rhythm, fat acts as the D3 primer.<br><br>2. Pre-meal Activation: Organic ACV water 20 mins before meals. Optimizes stomach acid pH for 100% protein absorption.<br><br>3. Window Locking: 14:10 window (12 PM-10 PM) for IR repair. Transition to 16:8 only after the foundation is stabilized.<br><br>4. Battery Charging: Spleen Repair Paste (Coix seed, Yam, etc.) twice weekly. Maintain 37°C internal temp. Ban cow milk; switch to goat milk.<br><br>5. Bio-Defense: 1 tbsp LGBT Honey per meal. Must crush peppercorns to trigger piperine. Use lard as carrier.<br><br>6. Excretion: Min 3L water with sea salt for electrolyte balance, preventing edema during detox.",
+          "msg_coffee": "Coffee Crema contains Cafestol, a critical weapon for liver membrane protection.",
+          "form_coffee": "Method: Use French Press. If cholesterol is a concern, use the 'Grass-fed Butter Wrap'.",
+          "msg_soil": "Stop fertilizing bad cells. Insulin is the fuel. Reject all UPF foods.",
+          "form_soil": "Forbidden: Refined carbs, sugars, seed oils. Switch to: Grass-fed beef, Lard, Cauliflower mash.",
+          "msg_spleen": "Spleen battery determines energy conversion. Sticking stool = Leaking foundation (Dampness).",
+          "form_spleen": "Paste: Coix seed, Lotus seed, Yam, Lily bulb. Soak for 2 hours. No cow's milk.",
+          "msg_lgbt": "LGBT Matrix: Bio-synergy between Piperine and Curcumin blocks NF-kB signals.",
+          "form_lgbt": "1 tbsp per meal. Crush peppercorns! No primer = IQ Tax.",
+          "msg_d3": "D3 10X Defense: 600 IU is for NPCs. Survivors need 8,000-10,000 IU daily.",
+          "form_d3": "Must pair with Vitamin K2 (MK-7) and keep 2 hours distance from Green Tea.",
+          "msg_extra": "<b>MAGA Blessed Food:</b><br>Beta test module for survivors. Advanced anti-inflammatory formulas and material support.<br><br><a href='https://lihi3.me/o6dXv' target='_blank'>📡 Connect to Resource Hub</a>",
+          "msg_map": "Supply Chain Info:<br>1. <a href='https://nothing-happened.com' target='_blank'>Nothing Happened</a><br>2. <a href='https://instagram.com/onestop_foodsupply' target='_blank'>One Stop Food Supply</a>",
+        }
+      }
+    };
+
+    let currentLang = 'zh';
+    const chatWindow = document.getElementById('chat-window');
+    const actionArea = document.getElementById('action-area');
+
+    function appendMsg(role, text, formula = null) {
+        const wrapper = document.createElement('div');
+        wrapper.className = `msg-container ${role}`;
+        const sender = document.createElement('div');
+        sender.className = 'sender-name';
+        sender.innerText = role === 'bot' ? 'MAGA_SYS' : 'SURVIVOR';
+        const bubble = document.createElement('div');
+        bubble.className = `bubble ${role}-bubble`;
+        bubble.innerHTML = text;
+
+        if (formula) {
+            const fBox = document.createElement('div');
+            fBox.className = 'formula-card';
+            fBox.innerHTML = formula;
+            bubble.appendChild(fBox);
+        }
+
+        wrapper.appendChild(sender);
+        wrapper.appendChild(bubble);
+        chatWindow.appendChild(wrapper);
+        requestAnimationFrame(() => { chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: 'smooth' }); });
+    }
+
+    function showTyping() {
+        const id = 'typing-' + Date.now();
+        const wrapper = document.createElement('div');
+        wrapper.className = 'msg-container bot';
+        wrapper.id = id;
+        wrapper.innerHTML = `<div class="bubble bot-bubble" style="padding:12px 18px;"><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+        chatWindow.appendChild(wrapper);
+        chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: 'smooth' });
+        return id;
+    }
+
+    function renderOptions(nodeKey) {
+        const node = engine.flow.nodes[nodeKey];
+        actionArea.innerHTML = '';
+        node.options.forEach((opt, index) => {
+            const btn = document.createElement('button');
+            btn.className = `btn ${index === 0 ? 'primary' : ''}`;
+            const labelStr = (opt.action === 'SET_LANG') 
+                             ? engine.i18n[opt.params.lang][opt.label_key] 
+                             : engine.i18n[currentLang][opt.label_key];
+            btn.innerText = labelStr;
+            btn.onclick = () => handleChoice(opt);
+            actionArea.appendChild(btn);
+        });
+    }
+
+    async function handleChoice(opt) {
+        if (opt.action === 'SET_LANG') { currentLang = opt.params.lang; } 
+        else { appendMsg('user', engine.i18n[currentLang][opt.label_key]); }
+
+        actionArea.innerHTML = '';
+        const typingId = showTyping();
+        await new Promise(r => setTimeout(r, 600));
+        document.getElementById(typingId).remove();
+
+        const nextNodeKey = opt.next_node;
+        const nextNode = engine.flow.nodes[nextNodeKey];
+        const msg = engine.i18n[currentLang][nextNode.bot_msg_key];
+        const formula = nextNode.formula_key ? engine.i18n[currentLang][nextNode.formula_key] : null;
+        
+        appendMsg('bot', msg, formula);
+        renderOptions(nextNodeKey);
+    }
+
+    window.onload = () => {
+        const startKey = engine.flow.start_node;
+        appendMsg('bot', engine.i18n['zh'].init_msg); 
+        renderOptions(startKey);
+    };
+</script>
+
+</body>
+</html>
