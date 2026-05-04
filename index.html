@@ -3,121 +3,118 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MAGA 抗炎福食 Dashboard</title>
+<title>MAGA 抗炎福食</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--yel:#f5d800;--blk:#0a0a0f;--blk2:#0f0f1a;--blk3:#16162a;--txt:#f0f0f5;--txt2:#8888aa;--grn:#22c55e;--red:#ef4444;--ora:#f97316}
 body{background:var(--blk);color:var(--txt);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;font-size:16px}
-a{text-decoration:none;color:inherit}
 .hdr{background:var(--blk2);border-bottom:2px solid var(--yel);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
 .hdr-brand{display:flex;align-items:center;gap:12px}
 .hdr-logo{width:40px;height:40px;background:var(--yel);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#000;flex-shrink:0}
-.hdr-title{font-size:20px;font-weight:900;letter-spacing:.5px}
-.hdr-title span{color:var(--yel)}
+.hdr-title{font-size:20px;font-weight:900}.hdr-title span{color:var(--yel)}
 .hdr-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.pill{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.5px}
+.pill{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px}
 .pill-grn{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.35);color:var(--grn)}
-.pill-yel{background:rgba(245,216,0,.1);border:1px solid rgba(245,216,0,.3);color:var(--yel)}
-.pulse{animation:pulse 2s infinite}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--grn);display:inline-block;margin-right:5px;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--grn);display:inline-block;margin-right:5px}
 .lang-pill{display:flex;background:rgba(255,255,255,.05);border:1px solid rgba(245,216,0,.2);border-radius:20px;padding:3px}
 .lo{padding:3px 12px;border-radius:16px;font-size:11px;font-weight:700;cursor:pointer;color:rgba(245,216,0,.5);border:none;background:transparent;transition:all .2s}
 .lo.on{background:var(--yel);color:#000}
-.hero{text-align:center;padding:48px 20px 32px;background:radial-gradient(ellipse at 50% 0%,rgba(245,216,0,.08) 0%,transparent 70%)}
-.hero-tag{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--yel);margin-bottom:14px}
-.hero-h1{font-size:clamp(28px,5vw,52px);font-weight:900;line-height:1.1;margin-bottom:14px}
+.hero{text-align:center;padding:40px 20px 28px;background:radial-gradient(ellipse at 50% 0%,rgba(245,216,0,.08) 0%,transparent 70%)}
+.hero-tag{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--yel);margin-bottom:12px}
+.hero-h1{font-size:clamp(26px,5vw,48px);font-weight:900;line-height:1.15;margin-bottom:12px}
 .hero-h1 span{color:var(--yel)}
-.hero-sub{font-size:15px;color:var(--txt2);max-width:540px;margin:0 auto 28px;line-height:1.7}
-.hero-stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-top:20px}
-.stat{text-align:center}
-.stat-n{font-size:28px;font-weight:900;color:var(--yel)}
+.hero-sub{font-size:14px;color:var(--txt2);max-width:520px;margin:0 auto 24px;line-height:1.7}
+.hero-stats{display:flex;justify-content:center;gap:28px;flex-wrap:wrap}
+.stat-n{font-size:26px;font-weight:900;color:var(--yel)}
 .stat-l{font-size:11px;color:var(--txt2);margin-top:2px}
-.search-wrap{max-width:680px;margin:0 auto 48px;padding:0 20px}
-.search-box{background:var(--blk3);border:1px solid rgba(245,216,0,.25);border-radius:16px;display:flex;align-items:center;padding:6px 6px 6px 18px;gap:10px;transition:border .2s;box-shadow:0 0 30px rgba(245,216,0,.06)}
-.search-box:focus-within{border-color:rgba(245,216,0,.6);box-shadow:0 0 40px rgba(245,216,0,.12)}
+/* SEARCH */
+.search-wrap{max-width:660px;margin:0 auto 36px;padding:0 20px}
+.search-box{background:var(--blk3);border:1px solid rgba(245,216,0,.25);border-radius:16px;display:flex;align-items:center;padding:6px 6px 6px 16px;gap:8px;transition:border .2s;box-shadow:0 0 30px rgba(245,216,0,.06)}
+.search-box:focus-within{border-color:rgba(245,216,0,.6)}
 .search-box input{flex:1;background:transparent;border:none;color:var(--txt);font-size:15px;outline:none;font-family:inherit}
 .search-box input::placeholder{color:var(--txt2)}
-.search-btn{background:var(--yel);color:#000;font-weight:800;border:none;border-radius:10px;padding:11px 22px;cursor:pointer;font-size:14px;transition:all .15s;flex-shrink:0}
+.search-btn{background:var(--yel);color:#000;font-weight:800;border:none;border-radius:10px;padding:11px 20px;cursor:pointer;font-size:14px;transition:all .15s;flex-shrink:0}
 .search-btn:hover{filter:brightness(1.1)}
-.search-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;justify-content:center}
+.stags{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;justify-content:center}
 .stag{background:rgba(245,216,0,.08);border:1px solid rgba(245,216,0,.2);color:rgba(245,216,0,.8);font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .15s}
-.stag:hover{background:rgba(245,216,0,.18);color:var(--yel)}
-.result-wrap{max-width:760px;margin:0 auto 48px;padding:0 20px}
-.result-card{background:var(--blk2);border:1px solid rgba(245,216,0,.2);border-radius:18px;padding:28px;margin-bottom:20px;animation:fadeUp .4s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.result-badge{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--yel);margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.result-text{font-size:15px;line-height:2;color:#d0d0e8;white-space:pre-wrap}
-.result-point{background:rgba(255,255,255,.03);border:1px solid rgba(245,216,0,.12);border-left:3px solid var(--yel);border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:14px}
-.result-point-num{font-size:11px;font-weight:800;color:var(--yel);letter-spacing:1px;margin-bottom:6px}
-.result-point-txt{font-size:14px;line-height:1.85;color:#d8d8ee}
-.result-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
-.btn-sm{padding:8px 16px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;border:none}
-.btn-yel{background:var(--yel);color:#000}
-.btn-ghost{background:rgba(245,216,0,.08);border:1px solid rgba(245,216,0,.25);color:var(--yel)}
-.loader{text-align:center;padding:40px 20px;display:none}
+.stag:hover{background:rgba(245,216,0,.18)}
+/* LOADER */
+.loader{text-align:center;padding:36px;display:none}
 .loader.show{display:block}
-.spinner{width:36px;height:36px;border:3px solid rgba(245,216,0,.15);border-top-color:var(--yel);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px}
+.spinner{width:34px;height:34px;border:3px solid rgba(245,216,0,.15);border-top-color:var(--yel);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loader-txt{font-size:12px;color:var(--yel);font-weight:700;letter-spacing:1px;animation:pulse 1.5s infinite}
-.paywall{background:linear-gradient(135deg,rgba(245,216,0,.08),rgba(245,216,0,.03));border:2px solid rgba(245,216,0,.4);border-radius:18px;padding:28px;text-align:center;margin-bottom:20px;animation:fadeUp .4s ease}
-.paywall h3{font-size:20px;font-weight:900;color:var(--yel);margin-bottom:8px}
-.paywall p{font-size:13px;color:var(--txt2);line-height:1.7;margin-bottom:20px}
-.pay-tiers{display:flex;flex-direction:column;gap:10px;max-width:360px;margin:0 auto 16px}
-.tier{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;transition:all .2s;text-decoration:none}
-.tier:hover{border-color:rgba(245,216,0,.4);background:rgba(245,216,0,.06);transform:translateY(-1px)}
-.tier.best{border-color:rgba(245,216,0,.45);background:rgba(245,216,0,.07)}
-.tier-l{text-align:left}
-.tier-name{font-size:13px;font-weight:800;color:var(--txt)}
-.tier-desc{font-size:11px;color:var(--txt2);margin-top:2px}
-.tier-r{text-align:right}
-.tier-price{font-size:18px;font-weight:900;color:var(--yel)}
-.tier-type{font-size:10px;font-weight:700;color:var(--grn)}
-.tier-type.month{color:#60a5fa}
-.disclaimer{font-size:10px;color:rgba(255,255,255,.25);line-height:1.6;margin-top:14px;padding:10px;background:rgba(0,0,0,.3);border-radius:8px}
-.email-gate{background:var(--blk2);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px;margin-bottom:20px;animation:fadeUp .4s ease}
-.email-gate h4{font-size:16px;font-weight:800;color:var(--grn);margin-bottom:8px}
-.email-gate p{font-size:13px;color:var(--txt2);line-height:1.6;margin-bottom:16px}
+/* RESULT AREA */
+.result-wrap{max-width:720px;margin:0 auto 40px;padding:0 20px}
+/* RESULT CARD */
+.result-card{background:var(--blk2);border:1px solid rgba(245,216,0,.2);border-radius:18px;padding:24px;margin-bottom:16px}
+.result-badge{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--yel);margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.point-wrap{background:rgba(255,255,255,.02);border:1px solid rgba(245,216,0,.1);border-left:3px solid var(--yel);border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:14px}
+.point-num{font-size:10px;font-weight:800;color:var(--yel);letter-spacing:1px;margin-bottom:8px}
+.point-txt{font-size:14px;line-height:1.9;color:#d8d8ee}
+/* UNLOCK HINT */
+.unlock-hint{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:12px;padding:16px 18px;margin-bottom:16px;text-align:center}
+.unlock-hint-title{font-size:14px;font-weight:800;color:var(--grn);margin-bottom:6px}
+.unlock-hint-desc{font-size:12px;color:var(--txt2);line-height:1.6}
+/* EMAIL GATE */
+.email-gate{background:var(--blk2);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px;margin-bottom:16px}
+.email-gate h4{font-size:15px;font-weight:800;color:var(--grn);margin-bottom:6px}
+.email-gate p{font-size:13px;color:var(--txt2);line-height:1.6;margin-bottom:14px}
 .email-row{display:flex;gap:8px;flex-wrap:wrap}
-.email-input{flex:1;min-width:200px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:var(--txt);font-size:13px;padding:10px 14px;outline:none;transition:border .2s}
+.email-input{flex:1;min-width:180px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:var(--txt);font-size:13px;padding:10px 14px;outline:none;transition:border .2s}
 .email-input:focus{border-color:rgba(245,216,0,.4)}
-.email-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:var(--txt);font-weight:700;border-radius:10px;padding:10px 18px;cursor:pointer;font-size:13px;transition:all .2s;white-space:nowrap}
-.email-btn:hover{background:rgba(255,255,255,.15)}
-.unlock-banner{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.35);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:12px;margin-bottom:20px}
-.kb{max-width:1100px;margin:0 auto 60px;padding:0 20px}
-.kb-title{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--yel);margin-bottom:20px;text-align:center}
-.kb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-.kb-card{background:var(--blk2);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:18px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
-.kb-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--yel);opacity:0;transition:opacity .2s}
-.kb-card:hover{border-color:rgba(245,216,0,.3);transform:translateY(-2px);box-shadow:0 8px 30px rgba(245,216,0,.08)}
-.kb-card:hover::before{opacity:1}
-.kb-card-ico{font-size:24px;margin-bottom:10px}
-.kb-card-title{font-size:14px;font-weight:800;margin-bottom:6px;line-height:1.3}
-.kb-card-desc{font-size:12px;color:var(--txt2);line-height:1.6}
-.kb-card-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:rgba(245,216,0,.1);color:var(--yel);border:1px solid rgba(245,216,0,.2);margin-top:10px}
-/* tier badge on card */
-.tier-label{position:absolute;top:10px;right:10px;font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px}
-.tier-label.free{background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);color:var(--grn)}
-.tier-label.premium{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:var(--red)}
-.map-sec{max-width:760px;margin:0 auto 60px;padding:0 20px}
-.map-card-wrap{background:var(--blk2);border:1px solid rgba(245,216,0,.2);border-radius:18px;padding:20px}
-.map-node-list{display:flex;flex-direction:column;gap:8px}
-.map-node{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .2s}
-.map-node:hover{border-color:rgba(245,216,0,.3);background:rgba(245,216,0,.05)}
+.email-btn{background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.4);color:var(--grn);font-weight:700;border-radius:10px;padding:10px 18px;cursor:pointer;font-size:13px;transition:all .2s;white-space:nowrap}
+.email-btn:hover{background:rgba(34,197,94,.25)}
+/* PAYWALL */
+.paywall{background:linear-gradient(135deg,rgba(245,216,0,.07),rgba(245,216,0,.02));border:1px solid rgba(245,216,0,.3);border-radius:16px;padding:24px;margin-bottom:16px;text-align:center}
+.paywall h3{font-size:17px;font-weight:900;color:var(--yel);margin-bottom:6px}
+.paywall p{font-size:12px;color:var(--txt2);line-height:1.6;margin-bottom:18px}
+.tier{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);text-decoration:none;margin-bottom:8px;transition:all .2s;cursor:pointer;display:flex}
+.tier:hover{border-color:rgba(245,216,0,.4);background:rgba(245,216,0,.06);transform:translateY(-1px)}
+.tier.best{border-color:rgba(245,216,0,.4);background:rgba(245,216,0,.06)}
+.tier-name{font-size:13px;font-weight:800}
+.tier-desc{font-size:11px;color:var(--txt2);margin-top:2px}
+.tier-price{font-size:17px;font-weight:900;color:var(--yel)}
+.tier-type{font-size:10px;font-weight:700;color:var(--grn);text-align:right}
+.tier-type.month{color:#60a5fa}
+.disclaimer{font-size:10px;color:rgba(255,255,255,.2);line-height:1.6;margin-top:12px;padding:8px;background:rgba(0,0,0,.3);border-radius:8px}
+/* DRAFT LINK */
+.draft-link{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:rgba(245,216,0,.06);border:1px solid rgba(245,216,0,.25);border-radius:12px;color:var(--yel);font-size:13px;font-weight:800;cursor:pointer;transition:all .2s;margin-bottom:16px}
+.draft-link:hover{background:rgba(245,216,0,.12)}
+/* UNLOCK BANNER */
+.unlock-banner{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.3);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:12px;margin-bottom:16px}
+/* ACTION BTNS */
+.action-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.btn-ghost{background:rgba(245,216,0,.08);border:1px solid rgba(245,216,0,.2);color:var(--yel);font-weight:700;border-radius:10px;padding:9px 16px;cursor:pointer;font-size:12px;transition:all .15s}
+.btn-ghost:hover{background:rgba(245,216,0,.15)}
+/* MAP */
+.map-sec{max-width:720px;margin:0 auto 50px;padding:0 20px}
+.map-card{background:var(--blk2);border:1px solid rgba(245,216,0,.2);border-radius:18px;padding:20px}
+.map-hdr{padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:14px}
+.map-hdr h3{font-size:15px;font-weight:800;margin-bottom:3px}
+.map-hdr p{font-size:12px;color:var(--txt2)}
+.map-node{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .2s;margin-bottom:8px}
+.map-node:hover{border-color:rgba(245,216,0,.3);background:rgba(245,216,0,.04)}
 .map-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
-.map-dot.grn{background:var(--grn)}.map-dot.yel{background:var(--yel)}.map-dot.ora{background:var(--ora)}
-.map-node-info{flex:1}
-.map-node-name{font-size:13px;font-weight:700}
-.map-node-addr{font-size:11px;color:var(--txt2);margin-top:2px}
-.map-node-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
-.map-tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;background:rgba(255,255,255,.05);color:var(--txt2)}
-#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:12px;font-weight:700;font-size:13px;z-index:999;display:none;box-shadow:0 8px 30px rgba(0,0,0,.5);white-space:nowrap}
-#toast.show{display:block;animation:fadeUp .3s ease}
+.map-dot.yel{background:var(--yel)}.map-dot.grn{background:var(--grn)}.map-dot.ora{background:var(--ora)}
+.map-info{flex:1}
+.map-name{font-size:13px;font-weight:700}
+.map-addr{font-size:11px;color:var(--txt2);margin-top:2px}
+.map-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+.map-tag{font-size:10px;padding:2px 7px;border-radius:10px;background:rgba(255,255,255,.05);color:var(--txt2);font-weight:600}
+.lock-badge{font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.lock-badge.locked{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:var(--red)}
+.lock-badge.open{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(--grn)}
+/* MAP EMAIL GATE */
+.map-email-gate{background:rgba(245,216,0,.05);border:1px solid rgba(245,216,0,.2);border-radius:12px;padding:14px;margin-bottom:12px}
+/* TOAST */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:12px 22px;border-radius:12px;font-weight:700;font-size:13px;z-index:999;display:none;white-space:nowrap}
+#toast.show{display:block}
 #toast.ok{background:var(--grn);color:#000}
 #toast.err{background:var(--red);color:#fff}
 #toast.info{background:var(--yel);color:#000}
-footer{text-align:center;padding:32px 20px;border-top:1px solid rgba(255,255,255,.05);color:rgba(255,255,255,.2);font-size:11px;line-height:2}
-@media(max-width:600px){.hero-stats{gap:20px}.hdr-title{font-size:16px}}
+footer{text-align:center;padding:28px 20px;border-top:1px solid rgba(255,255,255,.05);color:rgba(255,255,255,.2);font-size:11px;line-height:2.2}
+@media(max-width:600px){.hdr-title{font-size:16px}.hero-stats{gap:18px}}
 </style>
 </head>
 <body>
@@ -133,7 +130,7 @@ footer{text-align:center;padding:32px 20px;border-top:1px solid rgba(255,255,255
   </div>
   <div class="hdr-right">
     <div id="unlock-pill" style="display:none" class="pill pill-grn">✓ <span id="unlock-pill-txt">Premium 已解鎖</span></div>
-    <div class="pill pill-grn"><span class="dot pulse"></span><span id="net-txt">實證系統已就緒</span></div>
+    <div class="pill pill-grn"><span class="dot"></span><span id="net-txt">實證系統已就緒</span></div>
     <div class="lang-pill">
       <button class="lo on" id="lo-zh" onclick="setLang('zh')">繁</button>
       <button class="lo" id="lo-en" onclick="setLang('en')">ENG</button>
@@ -142,111 +139,124 @@ footer{text-align:center;padding:32px 20px;border-top:1px solid rgba(255,255,255
 </header>
 
 <div class="hero">
-  <div class="hero-tag" id="hero-tag">Make Anti-Inflammatory Great Again</div>
-  <h1 class="hero-h1" id="hero-h1">拒絕 NPC 廢話<br><span>只信小眾實證</span></h1>
-  <p class="hero-sub" id="hero-sub">唔係大數據，係 Him Chan 避過無數坑後嘅親身經歷。6年、2次癌症、無數次失敗之後——整理出嚟嘅抗炎福食實證系統。</p>
+  <div class="hero-tag">Make Anti-Inflammatory Great Again</div>
+  <h1 class="hero-h1" id="hero-h1">拒絕 NPC 廢話<br><span>實證</span></h1>
+  <p class="hero-sub" id="hero-sub">唔單止係大數據，係 Him Chan 避過無數坑後嘅親身經歷。6年、2次癌症、無數次失敗之後——整理出嚟嘅抗炎福食實證系統。</p>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-n">6</div><div class="stat-l" id="stat1-l">年抗癌實證</div></div>
-    <div class="stat"><div class="stat-n">2</div><div class="stat-l" id="stat2-l">次癌症康復</div></div>
-    <div class="stat"><div class="stat-n">100+</div><div class="stat-l" id="stat3-l">同路人支持</div></div>
-    <div class="stat"><div class="stat-n">HK$18</div><div class="stat-l" id="stat4-l">起解鎖完整協議</div></div>
+    <div class="stat"><div class="stat-n">6</div><div class="stat-l" id="sl1">年抗癌實證</div></div>
+    <div class="stat"><div class="stat-n">2</div><div class="stat-l" id="sl2">次癌症康復</div></div>
+    <div class="stat"><div class="stat-n">100+</div><div class="stat-l" id="sl3">同路人支持</div></div>
+    <div class="stat"><div class="stat-n">HK$18</div><div class="stat-l" id="sl4">起解鎖完整協議</div></div>
   </div>
 </div>
 
 <div class="search-wrap">
   <div class="search-box">
     <span style="font-size:18px;color:var(--txt2)">🔍</span>
-    <input type="text" id="search-input" placeholder="問沙甸魚點食、草飼牛、維他命D陷阱..." onkeydown="if(event.key==='Enter')doSearch()">
+    <input type="text" id="search-input" placeholder="搜尋：沙甸魚、草飼牛、維他命D陷阱..." onkeydown="if(event.key==='Enter')doSearch()">
     <button class="search-btn" onclick="doSearch()" id="search-btn">搜尋</button>
   </div>
-  <div class="search-tags" id="search-tags"></div>
+  <div class="stags" id="stags"></div>
 </div>
 
-<div class="loader" id="loader">
-  <div class="spinner"></div>
-  <div class="loader-txt" id="loader-txt">載入 Him Chan 實證矩陣中...</div>
-</div>
+<div class="loader" id="loader"><div class="spinner"></div></div>
 
 <div class="result-wrap" id="result-wrap" style="display:none">
+
+  <!-- UNLOCK BANNER (paid redirect) -->
   <div id="unlock-banner" class="unlock-banner" style="display:none">
-    <div style="font-size:24px">🔓</div>
+    <div style="font-size:22px">🔓</div>
     <div>
-      <div style="font-weight:800;color:var(--grn);font-size:13px" id="ub-txt">✓ 付款成功 — 完整實證協議已解鎖！</div>
+      <div style="font-weight:800;color:var(--grn);font-size:13px" id="ub-title">✓ 付款成功 — 完整實證協議已解鎖！</div>
       <div style="font-size:12px;color:var(--txt2);margin-top:3px" id="ub-sub">感謝支持。所有深度知識庫功能現已開放。</div>
     </div>
   </div>
 
+  <!-- RESULT CARD -->
   <div class="result-card" id="result-card" style="display:none">
     <div class="result-badge">⚡ <span id="result-badge-txt">INTEL VERIFIED · HIM CHAN 實證</span></div>
-    <div class="result-text" id="result-text"></div>
-    <div class="result-actions">
-      <button class="btn-sm btn-ghost" onclick="playVoice()">🔊 <span id="voice-btn-txt">語音朗讀</span></button>
-      <button class="btn-sm btn-ghost" onclick="shareResult()">📤 <span id="share-btn-txt">分享</span></button>
+    <div id="points-container"></div>
+    <div class="action-row">
+      <button class="btn-ghost" onclick="playVoice()">🔊 <span id="voice-lbl">語音朗讀</span></button>
+      <button class="btn-ghost" onclick="shareResult()">📤 <span id="share-lbl">分享</span></button>
     </div>
   </div>
 
-  <div class="email-gate" id="email-gate" style="display:none">
-    <h4 id="eg-title">📬 想收到更多實證更新？</h4>
-    <p id="eg-desc">由於 Him Chan 親自回覆時間有限，將最新抗炎實證整理喺呢度。輸入電郵（免密碼），第一時間話你知有新情報。</p>
-    <div class="email-row">
-      <input class="email-input" type="email" id="email-input" placeholder="yourname@email.com">
-      <button class="email-btn" onclick="registerEmail()" id="eg-btn">登記 / 登入</button>
+  <!-- LAYER 1: 未登記 → 免費登記解鎖第二點 -->
+  <div id="gate-email" style="display:none">
+    <div class="unlock-hint">
+      <div class="unlock-hint-title" id="hint-title">📬 免費登記即可解鎖第二點實證</div>
+      <div class="unlock-hint-desc" id="hint-desc">呢啲係 Him 踩過坑之後嘅精華，唔係 Google 搵到嘅嘢。留低電郵，第一時間收到新實證更新。</div>
     </div>
-  </div>
-
-  <div class="paywall" id="paywall" style="display:none">
-    <h3 id="pw-title">加快回覆 · 實證分享 · 隨心支持</h3>
-    <p id="pw-desc" style="font-size:12px;color:var(--txt2);margin-bottom:18px">Him Chan 嘅實證係親身踩過嘅坑，唔係 Google 搵到嘅嘢。你嘅支持讓更多更新繼續。</p>
-    <div class="pay-tiers" id="pay-tiers-wrap"></div>
-    <div class="disclaimer" id="pw-disclaimer">免責聲明：此內容僅供參考，不構成醫療建議或診斷。請諮詢醫療專業人員。</div>
-  </div>
-</div>
-
-<div class="kb">
-  <div class="kb-title" id="kb-title">— 實證知識庫 —</div>
-  <div class="kb-grid" id="kb-grid"></div>
-</div>
-
-<div class="map-sec">
-  <div class="map-card-wrap">
-    <div style="padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:16px">
-      <h3 style="font-size:16px;font-weight:800;margin-bottom:4px" id="map-title">🗺️ 抗炎 MAP — 香港福食據點</h3>
-      <p style="font-size:12px;color:var(--txt2)" id="map-sub">認證真食物供應商 · 實證揀材 · Him Chan 親身推薦</p>
-    </div>
-    <div id="map-email-gate" style="background:rgba(245,216,0,.06);border:1px solid rgba(245,216,0,.2);border-radius:12px;padding:16px;margin-bottom:14px;display:none">
-      <div style="font-size:13px;font-weight:800;color:var(--yel);margin-bottom:6px">📬 免費登記睇更多據點資料</div>
-      <div style="font-size:12px;color:var(--txt2);margin-bottom:12px" id="map-eg-desc">輸入電郵即可免費查看更多抗炎 MAP 據點資料</div>
+    <div class="email-gate">
+      <h4 id="eg-title">📬 免費登記 · 解鎖第二點</h4>
+      <p id="eg-desc">由於 Him Chan 親自回覆時間有限，將最新抗炎實證整理喺呢度。輸入電郵（免密碼），即刻解鎖第二點，第一時間收到新情報。</p>
       <div class="email-row">
-        <input class="email-input" type="email" id="map-email-input" placeholder="yourname@email.com">
+        <input class="email-input" type="email" id="email-input" placeholder="yourname@email.com">
+        <button class="email-btn" onclick="registerEmail()" id="eg-btn">免費登記</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 2: 已登記未付費 → 顯示第二點 + HK$18 付費牆 -->
+  <div id="gate-pay" style="display:none">
+    <div class="paywall">
+      <h3 id="pw-title">加快回覆 · 實證分享 · 隨心支持</h3>
+      <p id="pw-desc">HK$18 解鎖完整7點實證 + MAGA 我的草稿連結<br>Him Chan 嘅實證係親身踩過嘅坑，唔係 Google 搵到嘅嘢。</p>
+      <div id="pay-tiers"></div>
+      <div class="disclaimer" id="pw-disc">免責聲明：此內容僅供參考，不構成醫療建議或診斷。請諮詢醫療專業人員。</div>
+    </div>
+  </div>
+
+  <!-- LAYER 3: 已付費 → 顯示全部7點 + 草稿連結 -->
+  <div id="gate-paid" style="display:none">
+    <div class="draft-link" onclick="window.open('https://lihi3.me/o6dXv','_blank')">
+      📖 <span id="draft-lbl">MAGA 我的草稿 — 完整實證資料庫</span> →
+    </div>
+  </div>
+
+</div>
+
+<!-- MAP -->
+<div class="map-sec">
+  <div class="map-card">
+    <div class="map-hdr">
+      <h3 id="map-title">🗺️ 抗炎 MAP — 香港福食據點</h3>
+      <p id="map-sub">認證真食物供應商 · 實證揀材 · Him Chan 親身推薦</p>
+    </div>
+    <div id="map-email-gate" class="map-email-gate" style="display:none">
+      <div style="font-size:13px;font-weight:800;color:var(--yel);margin-bottom:6px">📬 免費登記睇據點詳情</div>
+      <div class="email-row" style="margin-top:8px">
+        <input class="email-input" type="email" id="map-email" placeholder="yourname@email.com">
         <button class="email-btn" onclick="registerMapEmail()">免費登記</button>
       </div>
     </div>
-    <div class="map-node-list" id="map-nodes"></div>
-    <div style="margin-top:14px;font-size:11px;color:var(--txt2);text-align:center" id="map-note">更多據點持續更新中 · 付費會員搶先睇完整地圖</div>
+    <div id="map-nodes"></div>
+    <div style="font-size:11px;color:var(--txt2);text-align:center;margin-top:12px" id="map-note">更多據點持續更新中 · 付費會員搶先睇完整地圖</div>
   </div>
 </div>
 
 <footer>
-  <div style="font-size:13px;font-weight:700;color:rgba(245,216,0,.5);margin-bottom:8px">MAGA 抗炎福食 · Him Chan · @mynameishimchan</div>
+  <div style="font-size:13px;font-weight:700;color:rgba(245,216,0,.5);margin-bottom:6px">MAGA 抗炎福食 · Him Chan · @mynameishimchan</div>
   <div>Notion Evidence Driven · HK Survivor Community · 實證非醫療建議</div>
-  <div style="margin-top:10px">
+  <div style="margin-top:8px">
     <a href="https://instagram.com/mynameishimchan" target="_blank" style="color:rgba(245,216,0,.4);margin:0 8px">Instagram</a>
     <a href="https://threads.com/@mynameishimchan" target="_blank" style="color:rgba(245,216,0,.4);margin:0 8px">Threads</a>
-    <a href="#" onclick="event.preventDefault();document.getElementById('result-wrap').style.display='block';document.getElementById('paywall').style.display='block';document.getElementById('email-gate').style.display='none';window.scrollTo({top:document.getElementById('result-wrap').offsetTop-80,behavior:'smooth'})" style="color:rgba(245,216,0,.4);margin:0 8px">MAGA 後繼福食</a>
+    <a href="#" onclick="event.preventDefault();document.getElementById('gate-pay').style.display='block';document.getElementById('result-wrap').style.display='block';window.scrollTo({top:document.getElementById('result-wrap').offsetTop-80,behavior:'smooth'})" style="color:rgba(245,216,0,.4);margin:0 8px">MAGA 後繼福食</a>
   </div>
 </footer>
 
 <script>
-var lang='zh',isPaid=false,isRegistered=false,lastResult='',lastQuery='';
-var savedEmail=localStorage.getItem('maga_email')||'';
-if(savedEmail) isRegistered=true;
+// ── STATE
+var lang='zh', isPaid=false, isRegistered=false, lastResult='', lastQuery='';
+if(localStorage.getItem('maga_email')) isRegistered=true;
 if(localStorage.getItem('maga_paid')==='true') isPaid=true;
 
-// Stripe redirect check
+// Stripe redirect
 (function(){
   var p=new URLSearchParams(window.location.search);
   if(p.get('unlocked')==='true'){
-    isPaid=true;localStorage.setItem('maga_paid','true');
+    isPaid=true; localStorage.setItem('maga_paid','true');
     window.history.replaceState({},'',window.location.pathname);
     document.getElementById('unlock-banner').style.display='flex';
     document.getElementById('result-wrap').style.display='block';
@@ -254,458 +264,305 @@ if(localStorage.getItem('maga_paid')==='true') isPaid=true;
   }
 })();
 
-// ── KNOWLEDGE BASE (Notion-based content, 30%/50%/100% tiers)
-var KB_DATA={
-  zh:[
-    {
-      ico:'🐟',tag:'FREE',locked:false,
-      title:'沙甸魚：抗炎生物武器',
-      preview30:'葡萄牙、冰島、西班牙嘅沙甸魚係首選，EPA/DHA比例最優，重金屬風險最低。要揀橄欖油浸版。',
-      preview50:'葡萄牙、冰島、西班牙嘅沙甸魚係首選，EPA/DHA比例最優，重金屬風險最低。要揀橄欖油浸版。\n\n朝早食效果最好——係最Clean嘅補鈣來源，每100g含380mg鈣，生物利用率高過牛奶。每日一罐係安全範圍。',
-      full:'沙甸魚完整7點協議包括：選地、揀油、時機、份量、保存、烹調、與其他食物配搭。',
-      search:'沙甸魚實證'
-    },
-    {
-      ico:'🥩',tag:'FREE',locked:false,
-      title:'100% Grass-finished 草飼牛',
-      preview30:'100% Grass-finished 同普通Grass-fed完全唔同。真正草飼牛Omega-3:6接近1:2，穀飼牛可達1:20，係發炎幫兇。',
-      preview50:'100% Grass-finished 同普通Grass-fed完全唔同。真正草飼牛Omega-3:6接近1:2，穀飼牛可達1:20，係發炎幫兇。\n\n阿根廷冠軍牛同澳洲有機牛係HK最易搵到嘅選擇。烹調唔好超過180度，保留CLA抗炎成分。',
-      full:'草飼牛完整7點協議包括：產地辨別、標籤陷阱、烹調溫度、部位選擇、保存方法、配搭建議、採購渠道。',
-      search:'草飼牛實證'
-    },
-    {
-      ico:'🌞',tag:'PREMIUM',locked:true,
-      title:'維他命D系統性大騙局',
-      preview30:'',
-      preview50:'',
-      full:'',
-      search:'維他命D陷阱'
-    },
-    {
-      ico:'🍵',tag:'PREMIUM',locked:true,
-      title:'7日抗炎飲法完整協議',
-      preview30:'',
-      preview50:'',
-      full:'',
-      search:'7日飲法'
-    },
-  ],
-  en:[
-    {
-      ico:'🐟',tag:'FREE',locked:false,
-      title:'Sardines: Anti-Inflammatory Weapon',
-      preview30:'Portuguese, Icelandic, Spanish sardines are top choice — best EPA/DHA ratio, lowest heavy metal risk. Choose olive oil versions only.',
-      preview50:'Portuguese, Icelandic, Spanish sardines are top choice — best EPA/DHA ratio, lowest heavy metal risk. Choose olive oil versions only.\n\nBest eaten in the morning — cleanest calcium source at 380mg per 100g, better bioavailability than milk. One can daily is safe.',
-      full:'Full 7-point sardine protocol: origin, oil type, timing, portion, storage, cooking, food pairing.',
-      search:'sardine evidence'
-    },
-    {
-      ico:'🥩',tag:'FREE',locked:false,
-      title:'100% Grass-finished Beef',
-      preview30:'100% Grass-finished is completely different from regular grass-fed. True grass-finished has Omega-3:6 near 1:2; grain-fed can hit 1:20 — a major inflammatory driver.',
-      preview50:'100% Grass-finished is completely different from regular grass-fed. True grass-finished has Omega-3:6 near 1:2; grain-fed can hit 1:20 — a major inflammatory driver.\n\nArgentine champion beef and Australian organic beef are best accessible in HK. Keep cooking below 180°C to preserve CLA.',
-      full:'Full 7-point grass-fed protocol: origin ID, label traps, cooking temps, cuts, storage, pairing, sourcing channels.',
-      search:'grass-fed beef'
-    },
-    {
-      ico:'🌞',tag:'PREMIUM',locked:true,
-      title:'Vitamin D Systematic Trap',
-      preview30:'',preview50:'',full:'',search:'vitamin D trap'
-    },
-    {
-      ico:'🍵',tag:'PREMIUM',locked:true,
-      title:'7-Day Anti-Inflam Drinking Protocol',
-      preview30:'',preview50:'',full:'',search:'7 day protocol'
-    },
-  ]
-};
-
-// ── MAP DATA
-var MAP_NODES={
-  zh:[
-    {color:'yel',name:'白兵原力 NH',addr:'online · 觀塘',tags:['高硒綠茶','維他命D','鋅蠔湯','益生菌','冷榨豬油'],cert:'高',status:'24/7',requiresPaid:true,paidLink:'https://www.notion.so/instacoachhim/NH-329305d2497a802f9801c2f8c2a61f8a'},
-    {color:'grn',name:'一站 One Stop Food Supply',addr:'西營盤高街57號富裕大廈',tags:['草飼牛','進口食材','食材供應'],cert:'中',status:'定時回覆',requiresPaid:true,paidLink:'https://instagram.com/onestop_foodsupply'},
-    {color:'ora',name:'我的草稿',addr:'付款後解鎖',tags:['抗炎福食草稿','Him Chan 實證','完整供應鏈'],cert:'實證',status:'付款後解鎖',requiresPaid:true,paidLink:'https://lihi3.me/o6dXv'},
-  ],
-  en:[
-    {color:'yel',name:'Baak Bing Original Force NH',addr:'online · Kwun Tong',tags:['High-Se Green Tea','Vitamin D','Zinc Oyster Broth','Probiotics','Cold-pressed Lard'],cert:'High',status:'24/7',requiresPaid:true,paidLink:'https://www.notion.so/instacoachhim/NH-329305d2497a802f9801c2f8c2a61f8a'},
-    {color:'grn',name:'One Stop Food Supply',addr:'57 High St, Sai Ying Pun',tags:['Grass-fed Beef','Imported Foods','Food Supply'],cert:'Mid',status:'Regular replies',requiresPaid:true,paidLink:'https://instagram.com/onestop_foodsupply'},
-    {color:'ora',name:'My Draft',addr:'Unlock after payment',tags:['Anti-Inflam Draft','Him Chan Evidence','Full Supply Chain'],cert:'Evidence',status:'Unlock after payment',requiresPaid:true,paidLink:'https://lihi3.me/o6dXv'},
-  ]
-};
-
-var T={
+// ── KNOWLEDGE BASE — 7 points, 150-180 chars each
+var KB={
   zh:{
-    hdr_sub:'Him Chan · 6年雙癌症實證知識庫',net:'實證系統已就緒',
-    hero_tag:'Make Anti-Inflammatory Great Again',
-    hero_h1:'拒絕 NPC 廢話<br><span>實證</span>',
-    hero_sub:'唔單止係大數據，係 Him Chan 避過無數坑後嘅親身經歷。6年、2次癌症、無數次失敗之後——整理出嚟嘅抗炎福食實證系統。',
-    stat1:'年抗癌實證',stat2:'次癌症康復',stat3:'同路人支持',stat4:'起解鎖完整協議',
-    tags:['沙甸魚實證','草飼牛 vs 普通牛','維他命D陷阱','7日抗炎飲法','超加工食物','橄欖油揀法','益生菌真相','痛風魚類選擇'],
-    loader:'載入 Him Chan 實證矩陣中...',
-    result_badge:'INTEL VERIFIED · HIM CHAN 實證',
-    voice_btn:'語音朗讀',share_btn:'分享',
-    eg_title:'📬 想收到更多實證更新？',
-    eg_desc:'由於 Him Chan 親自回覆時間有限，將最新抗炎實證整理喺呢度。輸入電郵，第一時間話你知有新情報。',
-    eg_btn:'登記 / 登入',
-    pw_title:'🔒 攞走 Him Chan 完整實證協議',
-    pw_desc:'「呢度唔講廢話，只講親身經歷同真實結果。」\n付款後系統自動解鎖。',
-    t1n:'☕ 半杯咖啡支持',t1d:'基本解鎖 · 實證入門',t1t:'一次性',
-    t2n:'♥ 象徵性支持',t2d:'每月更新 + 完整解鎖',t2t:'每月',
-    t3n:'⚡ 深度支持 ⭐',t3d:'終身完整使用 · 最抵',t3t:'一次性',
-    disclaimer:'免責聲明：此內容僅供參考，不構成醫療建議或診斷。請諮詢醫療專業人員。',
-    kb_title:'— 實證知識庫 —',
-    map_title:'🗺️ 抗炎 MAP — 香港福食據點',
-    map_sub:'認證真食物供應商 · 實證揀材 · Him Chan 親身推薦',
-    map_note:'更多據點持續更新中 · 付費會員搶先睇完整地圖',
-    unlock_pill:'Premium 已解鎖',
-    ub_txt:'✓ 付款成功 — 完整實證協議已解鎖！',
-    ub_sub:'感謝支持。所有深度知識庫功能現已開放。',
-    toast_copy:'已複製到剪貼簿',toast_email:'電郵已登記！',toast_locked:'🔒 請先付款解鎖此內容',
-    // Answer teasers
-    unlock_more:'解鎖其餘資訊',
-    him_note:'仲有其他實證係完整協議度——係 Him 踩過坑之後嘅精華，唔係 Google 搵到嘅嘢。'
-  },
-  en:{
-    hdr_sub:'Him Chan · 6-Year Double Cancer Survivor Evidence Base',net:'Evidence System Ready',
-    hero_tag:'Make Anti-Inflammatory Great Again',
-    hero_h1:'No NPC Nonsense.<br><span>Evidence.</span>',
-    hero_sub:"Not just big data — Him Chan's real experience after surviving 2 cancers in 6 years.",
-    stat1:'Years Evidence',stat2:'Cancer Recoveries',stat3:'Community Members',stat4:'Unlock from',
-    tags:['Sardine Evidence','Grass-fed vs Regular','Vitamin D Trap','7-Day Protocol','Ultra-processed Foods','Olive Oil Guide','Probiotic Truth','Gout Fish Choices'],
-    loader:'Loading Him Chan Evidence Matrix...',
-    result_badge:'INTEL VERIFIED · HIM CHAN EVIDENCE',
-    voice_btn:'Voice Readout',share_btn:'Share',
-    eg_title:'📬 Want more evidence updates?',
-    eg_desc:"Enter your email for first access to new anti-inflammatory findings from Him Chan.",
-    eg_btn:'Register / Login',
-    pw_title:"🔒 Get Him Chan's Full Evidence Protocol",
-    pw_desc:"'No fluff. Only real experience and real results.'\nSystem auto-unlocks after payment.",
-    t1n:'☕ Half Cup Coffee',t1d:'Basic unlock · Entry level',t1t:'One-time',
-    t2n:'♥ Symbolic Support',t2d:'Monthly updates + Full unlock',t2t:'Monthly',
-    t3n:'⚡ Deep Support ⭐',t3d:'Lifetime full access · Best value',t3t:'One-time',
-    disclaimer:'Disclaimer: For reference only. Not medical advice. Consult a professional before making health changes.',
-    kb_title:'— Evidence Knowledge Base —',
-    map_title:'🗺️ Anti-Inflammatory MAP — HK Food Spots',
-    map_sub:'Certified real food suppliers · Evidence-based · Him Chan personally recommended',
-    map_note:'More spots updated regularly · Paid members get full map first',
-    unlock_pill:'Premium Unlocked',
-    ub_txt:'✓ Payment Success — Full Evidence Protocol Unlocked!',
-    ub_sub:'Thank you. All knowledge base features are now open.',
-    toast_copy:'Copied to clipboard',toast_email:'Email registered!',toast_locked:'🔒 Please unlock with payment first',
-    unlock_more:'Unlock remaining insights',
-    him_note:"More evidence in the full protocol — insights from Him's real experience you won't find on Google."
+    '沙甸魚':[
+      '唔係所有細魚都係好魚，產地係第一關。認準葡萄牙同西班牙（加利西亞海域）、冰島、挪威、紐西蘭呢五個地方——係全球 Omega-3 抗炎認證嘅核心區。首選品牌：Nuri、Ortiz、Minerva、Jose Gourmet、Porthos。呢類魚嘅品種係 Sardina Pilchardus（真正歐洲沙甸）或 Sprats（小西鯡），體型細、生命週期短，喺食物鏈最底層，重金屬積累幾乎係零。反觀吞拿魚，汞含量係沙甸魚嘅 27 倍。如果你喺超市係亂咁拎一罐寫 Sardines 但產地唔清楚嘅，你只係係度交智商稅，仲可能食埋重金屬落肚。揀對產地係起點，唔係細節。',
+      '油種係你唔知嘅最大陷阱。標籤寫 Vegetable Oil、Soybean Oil、Sunflower Oil——即刻放低佢，唔好拎。呢啲 Omega-6 種子油係工業提煉產物，你買一罐本來係抗炎嘅沙甸魚，用呢啲油浸住，等於用毒藥去稀釋解藥，仲不如唔食。唯一接受嘅係 EVOO（特級初榨橄欖油）浸，或者水浸（water-packed）低鹽版。連罐頭裡面嘅油都係精華，可以直接用嚟做沙律醬汁——嗰啲先係 Omega-3 嘅液體黃金，唔好倒走。喺超市見到 Light Olive Oil 浸嘅版本，多酚含量極低，根本唔係你要嘅嘢。記住：魚係啱，油錯晒都冇用。',
+      '連骨食係大部分人做錯嘅位。好多人花時間挑骨，以為係衛生，其實係將最珍貴嘅修復材料扔落垃圾桶。魚骨早已軟晒，係最易吸收嘅天然鈣源——羥基磷灰石，比飲牛奶仲高效，仲唔會帶嚟牛奶嘅炎症風險。每 100g 沙甸魚連骨含約 380mg 鈣，配合 D3+K2 食，鈣直接去骨頭唔係去血管。另外，好多人習慣沖水去腥，但沖水會洗走晒 Omega-3 天然油脂。正確做法係用檸檬汁或蘋果醋去腥，酸性中和腥味，同時啟動胃酸，確保蛋白質同 B12 100% 吸收。整條 Whole Fish 連骨食，係最低成本嘅天然補鈣方案。',
+      '痛風患者唔係要完全戒沙甸魚，而係要識得點處理先至啱。急性發作期絕對要停，嘌呤含量高，唔好挑戰自己。穩定期可以用「飛水大法」：食之前用滾水快速沖 30-60 秒，洗走表面水溶性嘌呤降低負擔，再配芫茜連根一齊蒸煮——根部係精華，有強利尿效果，幫手加速排走尿酸。另外加西芹藍莓冷壓汁（每日約 150ml）配薑黃黑椒醬一齊食，系統性抑制尿酸生成。每次份量唔好超過 70g，食完 48-72 小時自查關節，唔舒服即刻大量補水同飲生薑水。分量控制同處理方式先係關鍵。',
+      '包裝安全係你唔會留意但應該留意嘅最後一關。2026 年歐盟已全面執行 BPA 禁令，買罐頭要認住 BPA-NI（Non-Intent）標籤先至安全。如果追求極致，搵 Ortiz 或 Porthos 嘅玻璃瓶裝——香港市面極罕有，大約 0.1% 先係玻璃瓶，見到即衝，唔好諗。玻璃瓶完全隔絕內分泌干擾物雙酚 A，係最高規格嘅選擇。鹽分目標係 150-250mg/100g，越低越好。如果標示太高，食之前先瀝乾啲汁水。低鈉版加少少檸檬汁同 EVOO，係防彈痛風食法嘅標準配置，絕對有效。',
+      '烹調方式直接決定你食落去係修復定係破壞自己。高溫油炸會將 Omega-3 氧化成促炎垃圾，魚煮到變漿糊就係營養死晒嘅訊號。正確做法：成罐放入熱水浸 5 分鐘加熱最溫和，質地最完整；入菜嘅話，熄火前最後一分鐘先加入，唔好早放。另外根據中醫理論，深海魚係寒性食物，落生薑、乾薑或肉桂「陽化」，加少少冷榨豬油帶動油脂運行，食完手腳暖晒，完全唔係 NPC 嗰種寒濕冰涼感。嚴禁深度油炸，用蘋果醋醃漬後加生薑絲快煎 3 分鐘係上限。',
+      '魚油係獨立系統，唔係買一支就算。結構決定吸收率：只揀 rTG（重組三酸甘油酯）形式，吸收率比平價 EE 形式高出 70%，更穩定唔易氧化變腥。濃度係硬指標：EPA+DHA 總合必須佔整粒重量 80% 以上。如果你見到一粒 1000mg 魚油，入面 EPA+DHA 得 300mg，其餘 700mg 係雜油，食落去只係增加肝臟負擔，完全係廢柴。推薦：Viva Naturals（rTG）、Nordic Naturals（TG）、Wiley\'s Finest（阿拉斯加低污染海域）。魚油係脂溶性，必須跟含脂肪食物一齊食，早上服用效果最好，記住配 K2。'
+    ],
+    '草飼':[
+      '「100% Grass-finished」同「Grass-fed」係兩樣完全唔同嘅嘢，唔好俾標籤呃你。Grass-fed 只係代表牛隻草飼開始，但大部分都係穀飼完熟——即係最後幾個月餵玉米同黃豆催肥，Omega 比例已經變晒。真正嘅 Grass-finished 係由出生到屠宰全程食草，Omega-3:6 比例接近 1:2，係控制發炎最理想嘅比例。香港超市賣嘅牛肉，99% 都係穀飼完熟。下次你買牛排，要搵明確標示「100% Grass-finished」同可追溯產地先至係真貨，其餘都係俾你交智商稅嘅。',
+      '普通穀飼牛嘅 Omega-3:6 比例可以去到 1:20，意思係你每食入 1 份 Omega-3，同時食入 20 份 Omega-6。Omega-6 本身唔係壞嘢，但過量就係促炎信號，係現代慢性病嘅核心根源之一。現代人已經唔缺 Omega-6——問題係 Omega-3 嚴重唔夠。食一份草飼牛，等於同時補充 Omega-3 同減少 Omega-6 攝入，一舉兩得。阿根廷冠軍牛同澳洲有機牛係香港最易搵到嘅選擇，CLA（共軛亞油酸）含量比普通牛高 3-5 倍，係目前研究最充分嘅天然抗癌物質之一，唔係噱頭。',
+      '烹調溫度係保留抗炎成分嘅關鍵，唔好超過 180 度。高溫會分解 CLA 同 Omega-3，仲會產生 AGEs（晚期糖化終產物）——係直接促炎嘅物質，同時係加速衰老嘅元兇之一。最佳做法：中火煎至 5-7 成熟，靜置 5 分鐘再切，讓肉汁重新分佈。牛排唔需要全熟，全熟代表你已經破壞晒大部分有益脂肪酸，食落去只係蛋白質加促炎物質，對身體嘅修復冇任何幫助。記住：好牛唔應該煮死，係咁上下嘅粉紅色先係正確。',
+      '標籤陷阱係你要識揀嘅必修課。「天然」「走地」「無激素」「有機」呢幾個詞，唔等於草飼，更唔等於 Grass-finished。甚至「放牧」都唔代表全草飼——放牧牛可以同時補充穀飼。唯一可信嘅標示係「100% Grass-finished」或「100% Pasture-raised」，配合可追溯產地認證先至係真貨。買唔到有認證嘅，寧願選信譽良好嘅專門進口商直接問清楚飼養方式。唔確定嘅話，寧願唔買，唔好俾個靚包裝呃咗自己。',
+      '部位建議係你唔知嘅增值知識。牛腩、牛肋骨（Short Rib）含最高 CLA 濃度，脂肪分佈均勻，慢煮效果最好，係最值得優先選擇嘅部位。牛肝係超級食物——含 CoQ10、維他命 A、B12、鋅、鐵，每月食一次足夠，唔需要多。牛骨熬湯係膠原蛋白同礦物質嘅天然來源，配合蘋果醋熬 8-12 小時，骨髓礦物質完全溶出，係最低成本嘅腸道修復材料。選部位係有學問嘅，唔係一律揀牛扒咁簡單。',
+      '採購渠道係最後一關，要識得揀。觀塘線上一站食物供應係目前香港最易接觸嘅草飼牛來源之一，直接進口，冷鏈配送，品質穩定。本地有機市集（西貢、大埔）偶爾有本地牧場直銷，可以直接問飼養方式同產地，係最透明嘅買法。避免超市嘅「草飼」標籤——大部分都係 Grass-fed 唔係 Grass-finished，而且溢價完全唔值。記住：買草飼牛係投資，唔係消費，揀對渠道先係省錢之道。',
+      '草飼牛配搭係將效果最大化嘅技巧。配橄欖油、蒜頭、迷迭香係最基本嘅地中海抗炎組合。加薑黃粉（少量）醃製入味，CLA 同薑黃素有協同抗炎效果，係 2026 年最受研究支持嘅飲食組合之一。另外，草飼牛同發酵食物（泡菜、味噌）一齊食，腸道菌群更容易吸收脂溶性維他命。每週 2-3 次係理想頻率，唔需要每日食——過量紅肉係另一個問題。質大於量，揀對比食多更重要。'
+    ],
+    '維他命d':[
+      '單獨補 D3 唔夠，呢件事比你想像中複雜，而且大部分人都唔知。維他命 D3 入到身體後要經過肝臟同腎臟兩次轉化先變成可以用嘅形態，但轉化過程需要鎂做輔助——全球估計六至八成人缺鎂。即係話大部分人補咗 D3 根本冇咩用，買嗮都係廢柴，錢全部燒晒。補 D3 唔補鎂，等於個引擎加咗油但冇潤滑劑，照死。仲有，D3 會提升腸道嘅鈣質吸收，但鈣去邊係另一個問題。冇 K2，鈣可能積落去血管壁，係心血管鈣化嘅風險。D3+K2+鎂係一個完整系統，缺任何一樣效果都係廢嘅。',
+      '長期慢性發炎會直接鎖死維他命 D 受體（VDR），呢個係絕大多數人唔知嘅盲點。就算你補足夠嘅 D3，細胞都收唔到訊號——受體廢咗，補幾多都係燒銀紙。而超加工食物係慢性發炎嘅頭號來源，亦係香港人每日塞最多落肚嘅嘢。換句話講，你一邊補 D3，一邊食薯片即食麵，係直接冇晒用，仲不如唔補。正確次序係：先搞掂體內嘅發炎，D3 先可以真正做到嘢。唔係劑量問題，係次序問題。呢個係補充劑公司絕對唔會講俾你聽嘅嘢，因為佢哋靠你唔知先可以繼續賺你錢。',
+      '曬太陽仍然係最佳嘅維他命 D 來源，但有幾個重要細節你要知。紫外線 B（UVB）係合成 D3 嘅關鍵，但大部分防曬霜會阻擋 UVB。建議每日上午 10 時至下午 2 時之間，唔塗防曬直曬手臂或腿部 10-15 分鐘，之後先塗防曬外出。深色皮膚需要更長時間，大約 30-45 分鐘先達到同等效果。另外，玻璃窗隔住嘅陽光完全冇用——UVB 穿唔透玻璃。香港人坐寫字樓靠窗以為係在曬太陽，其實係零效果，呢個係好多香港人缺 D 嘅真正原因。',
+      '血液測試係唯一可靠嘅判斷方法，估估下係唔夠嘅。建議指標係 25-hydroxyvitamin D，目標值 50-80 ng/mL。低過 30 ng/mL 係嚴重不足，可能影響免疫系統、骨質密度同情緒狀態。香港人由於室內生活方式，大部分人都低過 40 ng/mL，而且自己唔知。做一次血液測試，費用約 HK$200-400，係最值得嘅健康投資。知道自己嘅數字之後，先根據實際情況決定補充劑量，唔係跟網上建議盲目跟劑量，因為每個人嘅吸收效率同缺乏程度都唔同。',
+      '劑量係大部分人搞錯嘅位。市面大多補充劑嘅 D3 劑量係 400-600IU，係 1997 年定嘅舊標準，現代研究顯示遠遠唔夠。大部分成人需要 2000-5000IU 先能維持血液濃度喺理想範圍。體重越重、膚色越深、日曬越少，需要嘅劑量越高。但切記：補充 D3 之前最好先做血測，唔係盲目跟劑量。另外，D3 係脂溶性維他命，必須跟含脂肪嘅食物一齊食先可以吸收，空腹食係浪費。記住同時補 K2（100-200mcg MK-7 形式）同鎂（300-400mg 甘氨酸鎂）。',
+      '高硒綠茶同維他命 D 有協同效果，係好多人唔知嘅組合。硒係重要嘅抗氧化礦物質，同時支援甲狀腺功能——甲狀腺素同維他命 D 嘅代謝路徑有交叉。缺硒嘅人補 D3 效果會大打折扣。香港本地高硒綠茶係難得嘅選擇：一杯同時補硒同多酚抗氧化，配合 D3+K2+鎂嘅完整方案，效果更加全面。另外，維他命 A（視黃醇形式，唔係 Beta-carotene）同 D3 有協同關係，牛肝係兩者都含有嘅罕見食物，係最天然嘅補充方案之一，每月食一次已經足夠。',
+      '腸道健康係 D3 吸收被嚴重忽視嘅關鍵因素。腸漏（Leaky Gut）同腸道菌群失衡會直接影響脂溶性維他命嘅吸收效率，包括 D3、K2、A、E。即係話，如果你腸道狀態差，就算補再多 D3 都唔會有理想效果。正確順序：先修復腸道（益生菌+益生元+鋅蠔湯+低 UPF 飲食），再補充 D3+K2+鎂。呢個係系統性思維，唔係單一補充劑思維。補充劑係工具，唔係解決方案本身。整個系統正常運作，每樣嘢嘅效果先可以真正發揮出嚟。'
+    ]
   }
 };
 
-function t(k){return T[lang][k]||''}
+// Tags
+var TAGS={
+  zh:['沙甸魚實證','草飼牛 vs 普通牛','維他命D陷阱','7日抗炎飲法','超加工食物','橄欖油揀法','益生菌真相','痛風魚類選擇'],
+  en:['Sardine Evidence','Grass-fed vs Regular','Vitamin D Trap','7-Day Protocol','Ultra-processed Foods','Olive Oil Guide','Probiotic Truth','Gout Fish Guide']
+};
 
+// Map data
+var MAP={
+  zh:[
+    {dot:'yel',name:'白兵原力 NH',addr:'online · 觀塘',tags:['高硒綠茶','維他命D','鋅蠔湯','益生菌','冷榨豬油'],cert:'高',paid:true,link:'https://www.notion.so/instacoachhim/NH-329305d2497a802f9801c2f8c2a61f8a'},
+    {dot:'grn',name:'一站 One Stop Food Supply',addr:'西營盤高街57號',tags:['草飼牛','進口食材'],cert:'中',paid:true,link:'https://instagram.com/onestop_foodsupply'},
+    {dot:'ora',name:'我的草稿',addr:'付款後解鎖',tags:['抗炎福食草稿','完整供應鏈'],cert:'實證',paid:true,link:'https://lihi3.me/o6dXv'}
+  ],
+  en:[
+    {dot:'yel',name:'Baak Bing Original Force NH',addr:'online · Kwun Tong',tags:['High-Se Tea','Vitamin D','Zinc Broth','Probiotics'],cert:'High',paid:true,link:'https://www.notion.so/instacoachhim/NH-329305d2497a802f9801c2f8c2a61f8a'},
+    {dot:'grn',name:'One Stop Food Supply',addr:'57 High St, Sai Ying Pun',tags:['Grass-fed Beef','Imported Foods'],cert:'Mid',paid:true,link:'https://instagram.com/onestop_foodsupply'},
+    {dot:'ora',name:'My Draft',addr:'Unlock after payment',tags:['Anti-Inflam Draft','Full Supply Chain'],cert:'Evidence',paid:true,link:'https://lihi3.me/o6dXv'}
+  ]
+};
+
+function t(obj,k){return obj[lang]&&obj[lang][k]?obj[lang][k]:'';}
+
+// ── LANG
 function setLang(l){
   lang=l;
   document.getElementById('lo-zh').className='lo'+(l==='zh'?' on':'');
   document.getElementById('lo-en').className='lo'+(l==='en'?' on':'');
-  applyLang();renderKB();renderMap();
+  applyLang();renderTags();renderMap();
 }
 
 function applyLang(){
-  var m=T[lang];
-  var ids={
-    'hdr-sub':'hdr_sub','net-txt':'net','hero-tag':'hero_tag','hero-sub':'hero_sub',
-    'stat1-l':'stat1','stat2-l':'stat2','stat3-l':'stat3','stat4-l':'stat4',
-    'loader-txt':'loader','result-badge-txt':'result_badge',
-    'voice-btn-txt':'voice_btn','share-btn-txt':'share_btn',
-    'eg-title':'eg_title','eg-desc':'eg_desc','eg-btn':'eg_btn',
-    'pw-title':'pw_title','pw-disclaimer':'disclaimer','kb-title':'kb_title',
-    't1n':'t1n','t1d':'t1d','t1t':'t1t','t2n':'t2n','t2d':'t2d','t2t':'t2t',
-    't3n':'t3n','t3d':'t3d','t3t':'t3t',
-    'map-title':'map_title','map-sub':'map_sub','map-note':'map_note',
-    'unlock-pill-txt':'unlock_pill','ub-txt':'ub_txt','ub-sub':'ub_sub'
-  };
-  for(var id in ids){var el=document.getElementById(id);if(el&&m[ids[id]])el.textContent=m[ids[id]];}
-  document.getElementById('hero-h1').innerHTML=m.hero_h1;
-  document.getElementById('pw-desc').textContent=m.pw_desc;
-  document.getElementById('search-input').placeholder=m.tags[0]+'...';
-  // search tags
-  var st=document.getElementById('search-tags');st.innerHTML='';
-  m.tags.forEach(function(tag){
+  document.getElementById('hero-h1').innerHTML=lang==='zh'?'拒絕 NPC 廢話<br><span>實證</span>':'No NPC Nonsense.<br><span>Evidence.</span>';
+  document.getElementById('hero-sub').textContent=lang==='zh'?'唔單止係大數據，係 Him Chan 避過無數坑後嘅親身經歷。6年、2次癌症、無數次失敗之後——整理出嚟嘅抗炎福食實證系統。':"Not just big data — Him Chan's real experience after surviving 2 cancers in 6 years.";
+  document.getElementById('hdr-sub').textContent=lang==='zh'?'Him Chan · 6年雙癌症實證知識庫':'Him Chan · 6-Year Double Cancer Survivor Evidence Base';
+  document.getElementById('net-txt').textContent=lang==='zh'?'實證系統已就緒':'Evidence System Ready';
+  document.getElementById('sl1').textContent=lang==='zh'?'年抗癌實證':'Years Evidence';
+  document.getElementById('sl2').textContent=lang==='zh'?'次癌症康復':'Cancer Recoveries';
+  document.getElementById('sl3').textContent=lang==='zh'?'同路人支持':'Community Members';
+  document.getElementById('sl4').textContent=lang==='zh'?'起解鎖完整協議':'Unlock from';
+  document.getElementById('search-input').placeholder=lang==='zh'?'搜尋：沙甸魚、草飼牛、維他命D陷阱...':'Search: sardines, grass-fed beef, Vitamin D trap...';
+  document.getElementById('search-btn').textContent=lang==='zh'?'搜尋':'Search';
+  document.getElementById('result-badge-txt').textContent=lang==='zh'?'INTEL VERIFIED · HIM CHAN 實證':'INTEL VERIFIED · HIM CHAN EVIDENCE';
+  document.getElementById('voice-lbl').textContent=lang==='zh'?'語音朗讀':'Voice';
+  document.getElementById('share-lbl').textContent=lang==='zh'?'分享':'Share';
+  document.getElementById('hint-title').textContent=lang==='zh'?'📬 免費登記即可解鎖第二點實證':'📬 Register free to unlock Point 2';
+  document.getElementById('hint-desc').textContent=lang==='zh'?'呢啲係 Him 踩過坑之後嘅精華，唔係 Google 搵到嘅嘢。留低電郵，第一時間收到新實證更新。':'These are Him\'s hard-won insights — not what you\'ll find on Google. Leave your email for first access to new evidence.';
+  document.getElementById('eg-title').textContent=lang==='zh'?'📬 免費登記 · 解鎖第二點':'📬 Register Free · Unlock Point 2';
+  document.getElementById('eg-desc').textContent=lang==='zh'?'由於 Him Chan 親自回覆時間有限，將最新抗炎實證整理喺呢度。輸入電郵即刻解鎖第二點，第一時間收到新情報。':'Him Chan can\'t personally reply to everyone. Enter your email to instantly unlock Point 2 and get first access to new evidence.';
+  document.getElementById('eg-btn').textContent=lang==='zh'?'免費登記':'Register Free';
+  document.getElementById('pw-title').textContent=lang==='zh'?'加快回覆 · 實證分享 · 隨心支持':'Support · Evidence Sharing · At Your Own Pace';
+  document.getElementById('pw-desc').textContent=lang==='zh'?'HK$18 解鎖完整 7 點實證 + MAGA 我的草稿連結。Him Chan 嘅實證係親身踩過嘅坑，唔係 Google 搵到嘅嘢。':'HK$18 unlocks all 7 evidence points + MAGA My Draft link. Him Chan\'s evidence is hard-won experience, not Google results.';
+  document.getElementById('pw-disc').textContent=lang==='zh'?'免責聲明：此內容僅供參考，不構成醫療建議或診斷。請諮詢醫療專業人員。':'Disclaimer: For reference only. Not medical advice. Consult a professional before making health changes.';
+  document.getElementById('unlock-pill-txt').textContent=lang==='zh'?'Premium 已解鎖':'Premium Unlocked';
+  document.getElementById('ub-title').textContent=lang==='zh'?'✓ 付款成功 — 完整實證協議已解鎖！':'✓ Payment Success — Full Protocol Unlocked!';
+  document.getElementById('ub-sub').textContent=lang==='zh'?'感謝支持。所有深度知識庫功能現已開放。':'Thank you. All knowledge base features are now open.';
+  document.getElementById('draft-lbl').textContent=lang==='zh'?'MAGA 我的草稿 — 完整實證資料庫':'MAGA My Draft — Complete Evidence Database';
+  document.getElementById('map-title').textContent=lang==='zh'?'🗺️ 抗炎 MAP — 香港福食據點':'🗺️ Anti-Inflammatory MAP — HK Food Spots';
+  document.getElementById('map-sub').textContent=lang==='zh'?'認證真食物供應商 · 實證揀材 · Him Chan 親身推薦':'Certified real food suppliers · Evidence-based · Him Chan recommended';
+  document.getElementById('map-note').textContent=lang==='zh'?'更多據點持續更新中 · 付費會員搶先睇完整地圖':'More spots updated regularly · Paid members get full map first';
+  renderPayTiers();
+}
+
+function renderTags(){
+  var c=document.getElementById('stags');c.innerHTML='';
+  (TAGS[lang]||TAGS.zh).forEach(function(tag){
     var s=document.createElement('span');s.className='stag';s.textContent=tag;
-    s.onclick=function(){quickSearch(s);};st.appendChild(s);
+    s.onclick=function(){document.getElementById('search-input').value=tag;doSearch();};
+    c.appendChild(s);
   });
 }
 
-// ── KB RENDER
-// Tier logic:
-// 未登記: 1 FREE card (30% content) + 2 PREMIUM locked + 登記提示卡
-// 已登記: 2 FREE cards (50% content) + 2 PREMIUM locked
-// 已付費: all unlocked (100%)
-function renderKB(){
-  var grid=document.getElementById('kb-grid');grid.innerHTML='';
-  var items=KB_DATA[lang]||KB_DATA.zh;
-  var freeCount=0;
-
-  items.forEach(function(item){
-    var isPrem=item.tag==='PREMIUM';
-    var isFree=item.tag==='FREE';
-
-    // skip if unregistered and already shown 1 free
-    if(!isRegistered&&isFree&&freeCount>=1) return;
-    if(isFree) freeCount++;
-
-    var locked=isPrem&&!isPaid;
-    var c=document.createElement('div');
-    c.className='kb-card';
-
-    if(locked){
-      // Premium locked preview card
-      c.style.cssText='border:1px solid rgba(245,216,0,.15);background:rgba(245,216,0,.02)';
-      c.innerHTML=
-        '<div class="tier-label premium">🔒 PREMIUM</div>'+
-        '<div class="kb-card-ico" style="filter:grayscale(1);opacity:.4">'+item.ico+'</div>'+
-        '<div class="kb-card-title" style="color:var(--txt2)">'+item.title+'</div>'+
-        '<div style="font-size:12px;color:rgba(255,255,255,.15);filter:blur(4px);line-height:1.6;margin:8px 0;user-select:none">此實證內容已鎖定需要解鎖才可查看完整內容資料分析</div>'+
-        '<div style="margin-top:10px;padding:10px;background:rgba(245,216,0,.06);border-radius:8px;text-align:center">'+
-          '<div style="font-size:12px;font-weight:800;color:var(--yel)">'+(lang==='zh'?'付款後進入':'Unlock after payment')+'</div>'+
-          '<div style="font-size:10px;color:var(--txt2);margin-top:3px">'+(lang==='zh'?'支持計劃即可解鎖此實證':'Support to unlock this evidence')+'</div>'+
-        '</div>';
-      c.onclick=function(){
-        document.getElementById('result-wrap').style.display='block';
-        document.getElementById('paywall').style.display='block';
-        document.getElementById('email-gate').style.display='none';
-        window.scrollTo({top:document.getElementById('result-wrap').offsetTop-80,behavior:'smooth'});
-      };
-    } else {
-      // Free card — show 30% or 50% based on registration
-      var content=isRegistered||isPaid ? item.preview50 : item.preview30;
-      if(isPaid) content=item.preview50; // paid users see full via search
-      c.innerHTML=
-        '<div class="tier-label free">FREE</div>'+
-        '<div class="kb-card-ico">'+item.ico+'</div>'+
-        '<div class="kb-card-title">'+item.title+'</div>'+
-        '<div class="kb-card-desc">'+content+'</div>'+
-        ((!isRegistered)?'<div style="font-size:11px;color:rgba(245,216,0,.6);margin-top:10px;font-weight:700">'+(lang==='zh'?'↑ 登記免費睇更多':'↑ Register to see more')+'</div>':'')+
-        '<div class="kb-card-tag">FREE</div>';
-      c.onclick=function(){doSearchQuery(item.search||item.title);};
-    }
-    grid.appendChild(c);
-  });
-
-  // 未登記: 加登記提示卡
-  if(!isRegistered){
-    var promo=document.createElement('div');
-    promo.className='kb-card';
-    promo.style.cssText='border:1px dashed rgba(245,216,0,.3);background:rgba(245,216,0,.04)';
-    promo.innerHTML=
-      '<div class="kb-card-ico">🔓</div>'+
-      '<div class="kb-card-title" style="color:var(--yel)">'+(lang==='zh'?'免費登記解鎖更多實證':'Register Free — Unlock More Evidence')+'</div>'+
-      '<div class="kb-card-desc">'+(lang==='zh'?'登記電郵即可免費睇多 1 張 FREE 實證知識卡（由30%升至50%內容）':'Register email to unlock an extra FREE card and see 50% content')+'</div>';
-    promo.onclick=function(){
-      document.getElementById('result-wrap').style.display='block';
-      document.getElementById('email-gate').style.display='block';
-      document.getElementById('paywall').style.display='none';
-      window.scrollTo({top:document.getElementById('result-wrap').offsetTop-80,behavior:'smooth'});
-    };
-    grid.appendChild(promo);
-  }
-}
-
-// ── MAP RENDER
-function renderMap(){
-  var list=document.getElementById('map-nodes');list.innerHTML='';
-  var nodes=MAP_NODES[lang]||MAP_NODES.zh;
-  nodes.forEach(function(n){
-    var locked=n.requiresPaid&&!isPaid;
-    var certColor=n.cert==='高'||n.cert==='High'?'var(--grn)':n.cert==='中'||n.cert==='Mid'?'var(--yel)':'var(--ora)';
-    var d=document.createElement('div');
-    d.className='map-node';
-    d.style.opacity=locked?'0.6':'1';
-    d.innerHTML=
-      '<div class="map-dot '+n.color+'"></div>'+
-      '<div class="map-node-info">'+
-        '<div class="map-node-name">'+n.name+(locked?' 🔒':'')+'</div>'+
-        '<div class="map-node-addr">'+n.addr+'</div>'+
-        '<div style="font-size:10px;font-weight:700;margin-top:3px;color:'+certColor+'">抗炎認證：'+n.cert+' · '+n.status+'</div>'+
-        '<div class="map-node-tags">'+n.tags.map(function(tg){return'<span class="map-tag">'+tg+'</span>'}).join('')+'</div>'+
-      '</div>'+
-      (locked
-        ?'<div style="font-size:11px;font-weight:800;color:var(--red);background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);padding:4px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0">🔒 '+(lang==='zh'?'付款後進入':'Unlock')+'</div>'
-        :'<div style="font-size:11px;font-weight:800;color:var(--grn);background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);padding:4px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0">✓ '+(lang==='zh'?'已解鎖':'Unlocked')+'</div>');
-    d.onclick=function(){
-      if(locked){
-        showToast(t('toast_locked'),'err');
-        document.getElementById('result-wrap').style.display='block';
-        document.getElementById('paywall').style.display='block';
-        document.getElementById('email-gate').style.display='none';
-        window.scrollTo({top:document.getElementById('result-wrap').offsetTop-80,behavior:'smooth'});
-      } else {
-        window.open(n.paidLink,'_blank');
-      }
-    };
-    list.appendChild(d);
-  });
-}
-
-// ── SEARCH
-function quickSearch(el){document.getElementById('search-input').value=el.textContent;doSearch();}
-function doSearch(){var q=document.getElementById('search-input').value.trim();if(q)doSearchQuery(q);}
-function doSearchQuery(q){
-  lastQuery=q;
-  document.getElementById('search-input').value=q;
-  document.getElementById('loader').classList.add('show');
-  document.getElementById('result-wrap').style.display='none';
-  setTimeout(function(){generateAnswer(q);},600);
-}
-
-var KNOWLEDGE={
-  '沙甸魚':['葡萄牙、西班牙、冰島、挪威、紐西蘭嘅沙甸魚係最嚴選，EPA/DHA比例最高、汞含量最低。','油浸版要揀橄欖油底，唔好揀葵花籽油或大豆油，因為Omega-6太高反而致炎。','朝早食最好——係最Clean嘅補鈣之王，每100g含380mg鈣，生物利用率高過牛奶。','每日一罐係安全範圍，痛風患者建議用低鹽橄欖油版，配合充足飲水。','重金屬：沙甸魚體型細，食物鏈低，汞積累遠低於吞拿魚同三文魚。','保存：唔開罐可放2-5年；開罐後要換器皿、放雪櫃，2日內食完。','最佳配搭：配蒜頭、檸檬汁、橄欖油直接食，或配自製椰菜花蓉。'],
-  '草飼':['100% Grass-finished（草飼完熟）vs Grass-fed（草飼開始但穀飼完熟）完全唔同。','真正草飼牛嘅Omega-3:6比例接近1:2，而普通穀飼牛可以去到1:20，係發炎幫兇。','阿根廷冠軍牛同澳洲有機牛係HK最易搵到嘅選擇，反式脂肪極低。','烹調溫度控制係關鍵——唔好超過180度，保留conjugated linoleic acid（CLA）抗炎成分。','標籤陷阱：「天然」「走地」唔等於草飼，要搵明確標示「100% Grass-finished」。','部位建議：牛腩、牛肋骨含更多CLA；牛肝含CoQ10同維他命A，每月一次足夠。','採購：觀塘線上一站食物供應，或本地有機市集直接問清楚產地。'],
-  '橄欖油':['Extra Virgin係唯一選擇，酸度要低過0.3%，多酚含量越高越好。','加熱超過180度多酚會分解，用嚟炒菜要快炒，燜煮可以，炸嘢絕對唔得。','儲存要避光、避熱——玻璃瓶比膠樽好，放廚房陰暗位。','揀法：深色玻璃瓶、標明產地同收成年份、PDO認證係加分項。','陷阱：「Light」橄欖油係精製版，多酚極低，唔係抗炎選擇。','用量：每日2-3湯匙係最佳範圍，唔係越多越好。','與沙甸魚配搭：橄欖油+沙甸魚+蒜頭係最強抗炎三角組合之一。'],
-  '維他命d':['單補D3唔夠——仲需要K2（引導鈣去骨頭唔去血管）同鎂（啟動D3代謝）。','體內長期發炎同超加工食物會直接阻礙D3嘅細胞吸收，補再多都係白費。','曬太陽仍係最佳來源，但要注意防曬係阻礙嘅——10-15分鐘直曬手臂/腿部足夠。','血液測試最準確，目標值50-80 ng/mL，低過30係嚴重不足。','時機：D3配K2要跟脂肪食物一齊食，吸收率高好多。','劑量陷阱：市面大多補充劑劑量太低（400IU），有效劑量通常係2000-5000IU。','高硒綠茶同維他命D有協同效果，同時補充效果更佳。'],
-  '益生菌':['要揀多菌株（最少5種）、CFU高（100億以上）、冷藏保存、無添加糖。','最有效係配合益生元（prebiotics）一齊用：燕麥、洋葱、蒜頭、菊苣根。','發酵食物（泡菜、味噌、克菲爾）係更天然嘅選擇，生物利用率高過補充劑。','抗生素療程後需要密集補充最少1-2個月。','鋅蠔湯係天然益生菌輔助劑，鋅直接支援腸道黏膜修復。','時機：空腹或飯前食效果最好，胃酸低時菌株存活率更高。','益生菌唔係萬能——要配合低UPF飲食先有持久效果。'],
-  '7日':['第1-2日：薑黃+黑胡椒+丁香熱飲（空腹），啟動抗炎酶系統。','第3-4日：加入高硒綠茶，保護細胞同甲狀腺。','第5日：鋅蠔湯，補充鋅同銅平衡，修復腸道黏膜。','第6-7日：益生菌+益生元，重建腸道菌落。循環重複。','注意：7日飲法唔係清腸，係系統性抗炎——唔需要斷食。','每種飲品份量：薑黃shot 30ml，綠茶1-2杯，鋅蠔湯200ml。','配合沙甸魚同草飼牛效果倍增——飲食協同係關鍵。'],
-  '超加工':['UPF（Ultra-Processed Food）係慢性炎症嘅根源——不是脂肪，不是卡路里，是加工程度。','識別方法：成分多過5種、有你喺廚房搵唔到嘅材料、有乳化劑/防腐劑/人工色素。','每日UPF攝取比例高過30%，身體修復能力直接Error 404。','替代策略：Real/Raw/Whole Foods原則——食物形態越接近原始狀態越好。','最危險嘅隱藏UPF：蛋白粉、功能性飲料、「健康」穀物棒。','外出食飯攻略：揀少醬汁、少加工嘅選擇，清蒸>炒>炸。','同慢性病關係：長期高UPF飲食同癌症、心臟病、腸易激有直接關聯。'],
-  'sardine':['Select sardines from Portugal, Spain, Iceland, Norway, New Zealand — best EPA/DHA ratio, lowest mercury.','Olive oil versions only — sunflower/soybean oil is too high in Omega-6 and pro-inflammatory.','Best in morning — 380mg calcium per 100g, better bioavailability than milk. One can daily is safe.','Heavy metals: sardines are small, low food chain — mercury accumulation far lower than tuna or salmon.','Storage: unopened can last 2-5 years; after opening transfer to container, refrigerate, eat within 2 days.','Best pairing: garlic + lemon juice + olive oil, or with cauliflower mash.','Gout patients: use low-sodium olive oil version with adequate hydration.'],
-  'grass':['100% Grass-finished is completely different from regular grass-fed.','True grass-finished beef has Omega-3:6 ratio near 1:2 vs grain-fed at 1:20 — major inflammatory driver.','Argentine champion beef and Australian organic beef are best accessible options in HK.','Keep cooking below 180°C to preserve CLA (conjugated linoleic acid) anti-inflammatory compounds.','Label traps: "natural" or "free-range" does NOT mean grass-finished. Look for explicit "100% Grass-finished".','Cut recommendations: short ribs and brisket contain more CLA; liver has CoQ10 and Vitamin A — once monthly.','Source: Kwun Tong online one-stop food supply or local organic markets.'],
-};
-
-function generateAnswer(q){
-  var ql=q.toLowerCase();
-  var pts=[],found=false,key='';
-  for(var k in KNOWLEDGE){
-    if(ql.includes(k)||k.includes(ql.split(' ')[0])){
-      pts=KNOWLEDGE[k];key=k;found=true;break;
-    }
-  }
-
-  var total=pts.length||7;
-  var show=isPaid?total:isRegistered?2:1;
-  var answer='';
-
-  if(found){
-    var prefix=lang==='zh'?'關於「'+q+'」，以下係 Him Chan 嘅實證分享：\n\n':'Re: "'+q+'" — Him Chan evidence:\n\n';
-    answer=prefix+pts.slice(0,show).map(function(p,i){return'【'+(i+1)+'】 '+p}).join('\n\n');
-    if(!isPaid){
-      answer+='\n\n——\n';
-      answer+=lang==='zh'
-        ?t('unlock_more')+' → '+t('him_note')
-        :t('unlock_more')+' → '+t('him_note');
-    }
-  } else {
-    answer=lang==='zh'
-      ?'「'+q+'」係個好問題。\n\nHim Chan 嘅實證系統基於6年、2次抗癌嘅真實紀錄。核心：食物離原始狀態越遠，發炎風險越高。Real/Raw/Whole Foods 係生存策略，唔係潮流。\n\n試搵：沙甸魚、草飼牛、維他命D、橄欖油、益生菌。'
-      :'"'+q+'" is a great question.\n\nHim Chan\'s system is built on 6 years and 2 cancer survivals. Core: the further food is from its natural state, the higher the inflammation risk.\n\nTry: sardines, grass-fed beef, Vitamin D, olive oil, probiotics.';
-    if(!isPaid) answer+='\n\n——\n'+t('unlock_more')+' → '+t('him_note');
-  }
-
-  lastResult=answer;
-  document.getElementById('loader').classList.remove('show');
-  document.getElementById('result-wrap').style.display='block';
-  document.getElementById('result-card').style.display='block';
-  document.getElementById('result-text').textContent=answer;
-
-  if(!isPaid){
-    if(!isRegistered){
-      document.getElementById('email-gate').style.display='block';
-      document.getElementById('paywall').style.display='none';
-    } else {
-      document.getElementById('email-gate').style.display='none';
-      document.getElementById('paywall').style.display='block';
-      renderPaywall();
-    }
-  } else {
-    document.getElementById('email-gate').style.display='none';
-    document.getElementById('paywall').style.display='none';
-  }
-}
-
-function renderPaywall(){
-  var wrap=document.getElementById('pay-tiers-wrap');
-  wrap.innerHTML='';
+function renderPayTiers(){
+  var c=document.getElementById('pay-tiers');c.innerHTML='';
+  // 已登記 → 只顯示 HK$18
   if(isRegistered){
-    // 已登記：只顯示 HK$18
-    var a=document.createElement('a');
-    a.href='#';a.className='tier best';
-    a.onclick=function(e){e.preventDefault();window.open('https://lihi3.me/rjT4t','_blank');trackPayment();};
-    a.innerHTML=
-      '<div class="tier-l">'+
-        '<div class="tier-name" style="color:var(--yel)">基本解鎖 · 實證入門</div>'+
-        '<div class="tier-desc">加快回覆 · 實證分享 · 隨心支持</div>'+
-      '</div>'+
-      '<div class="tier-r"><div class="tier-price">HK$18</div><div class="tier-type">一次性</div></div>';
-    wrap.appendChild(a);
+    var a=makeATier('#',lang==='zh'?'基本解鎖 · 實證入門':'Basic unlock · Entry level',lang==='zh'?'加快回覆 · 隨心支持':'Support · Evidence Sharing','HK$18',lang==='zh'?'一次性':'One-time','var(--yel)','',true);
+    a.onclick=function(e){e.preventDefault();window.open('https://lihi3.me/rjT4t','_blank');};
+    c.appendChild(a);
   } else {
-    // 未登記：顯示三個 tier
+    // 未登記 → 顯示三個
     var tiers=[
-      {name:'加快回覆 · 隨心支持',desc:'基本解鎖 · 實證入門',price:'HK$18',type:'一次性',color:'var(--txt)',typeClass:'',href:'#',onclick:function(e){e.preventDefault();window.open('https://lihi3.me/rjT4t','_blank');trackPayment();}},
-      {name:'加快回覆 · 持續更新',desc:'每月最新實證 + 完整解鎖',price:'HK$19',type:'每月',color:'#93c5fd',typeClass:'month',href:'https://lihi3.me/cjQdg',onclick:function(){trackPayment();}},
-      {name:'加快回覆 · 隨心深度支持 ⭐',desc:'終身完整使用 · 最抵',price:'HK$54',type:'一次性',color:'var(--yel)',typeClass:'',href:'https://buy.stripe.com/cNi4gzgxrewg5zj0H99fW00',onclick:function(){trackPayment();}},
+      {name:lang==='zh'?'加快回覆 · 隨心支持':'Support · Evidence Sharing',desc:lang==='zh'?'基本解鎖 · 實證入門':'Basic unlock',price:'HK$18',type:lang==='zh'?'一次性':'One-time',col:'var(--yel)',tc:'',href:'#',cb:function(e){e.preventDefault();window.open('https://lihi3.me/rjT4t','_blank');}},
+      {name:lang==='zh'?'加快回覆 · 持續更新':'Support · Monthly Updates',desc:lang==='zh'?'每月最新實證 + 完整解鎖':'Monthly evidence + full unlock',price:'HK$19',type:lang==='zh'?'每月':'Monthly',col:'#93c5fd',tc:'month',href:'https://lihi3.me/cjQdg',cb:null},
+      {name:lang==='zh'?'加快回覆 · 隨心深度支持 ⭐':'Support · Deep Access ⭐',desc:lang==='zh'?'終身完整使用 · 最抵':'Lifetime full access · Best value',price:'HK$54',type:lang==='zh'?'一次性':'One-time',col:'var(--yel)',tc:'',href:'https://buy.stripe.com/cNi4gzgxrewg5zj0H99fW00',cb:null},
     ];
     tiers.forEach(function(t,i){
-      var a=document.createElement('a');
-      a.href=t.href;a.className='tier'+(i===2?' best':'');
-      if(t.href==='#') a.onclick=t.onclick;
-      else{a.target='_blank';a.onclick=t.onclick;}
-      a.innerHTML=
-        '<div class="tier-l">'+
-          '<div class="tier-name" style="color:'+t.color+'">'+t.name+'</div>'+
-          '<div class="tier-desc">'+t.desc+'</div>'+
-        '</div>'+
-        '<div class="tier-r"><div class="tier-price" style="color:'+t.color+'">'+t.price+'</div><div class="tier-type '+t.typeClass+'">'+t.type+'</div></div>';
-      wrap.appendChild(a);
+      var a=makeATier(t.href,t.name,t.desc,t.price,t.type,t.col,t.tc,i===2);
+      if(t.cb) a.onclick=t.cb; else a.target='_blank';
+      c.appendChild(a);
     });
   }
 }
 
+function makeATier(href,name,desc,price,type,col,tc,best){
+  var a=document.createElement('a');
+  a.href=href;a.className='tier'+(best?' best':'');
+  a.innerHTML='<div><div class="tier-name" style="color:'+col+'">'+name+'</div><div class="tier-desc">'+desc+'</div></div>'+
+    '<div style="text-align:right"><div class="tier-price" style="color:'+col+'">'+price+'</div><div class="tier-type '+tc+'">'+type+'</div></div>';
+  return a;
+}
+
+// ── MAP
+function renderMap(){
+  var c=document.getElementById('map-nodes');c.innerHTML='';
+  (MAP[lang]||MAP.zh).forEach(function(n){
+    var locked=n.paid&&!isPaid;
+    var d=document.createElement('div');d.className='map-node';
+    d.style.opacity=locked?'0.55':'1';
+    d.innerHTML='<div class="map-dot '+n.dot+'"></div>'+
+      '<div class="map-info">'+
+        '<div class="map-name">'+n.name+(locked?' 🔒':'')+'</div>'+
+        '<div class="map-addr">'+n.addr+'</div>'+
+        '<div class="map-tags">'+n.tags.map(function(tg){return'<span class="map-tag">'+tg+'</span>'}).join('')+'</div>'+
+      '</div>'+
+      '<span class="lock-badge '+(locked?'locked':'open')+'">'+
+        (locked?(lang==='zh'?'🔒 付款後進入':'🔒 Unlock'):(lang==='zh'?'✓ 已解鎖':'✓ Open'))+
+      '</span>';
+    d.onclick=function(){
+      if(locked){
+        showToast(lang==='zh'?'🔒 請先付款解鎖此據點':'🔒 Please unlock with payment','err');
+        document.getElementById('result-wrap').style.display='block';
+        document.getElementById('gate-pay').style.display='block';
+        window.scrollTo({top:document.getElementById('result-wrap').offsetTop-80,behavior:'smooth'});
+      } else { window.open(n.link,'_blank'); }
+    };
+    c.appendChild(d);
+  });
+  if(!isRegistered) document.getElementById('map-email-gate').style.display='block';
+  else document.getElementById('map-email-gate').style.display='none';
+}
+
+// ── SEARCH
+function doSearch(){
+  var q=document.getElementById('search-input').value.trim();
+  if(!q) return;
+  lastQuery=q;
+  document.getElementById('loader').classList.add('show');
+  document.getElementById('result-wrap').style.display='none';
+  setTimeout(function(){generateAnswer(q);},500);
+}
+
+function generateAnswer(q){
+  var ql=q.toLowerCase();
+  var pts=null, matched='';
+
+  // Find matching knowledge
+  var keys=Object.keys(KB[lang]||KB.zh);
+  for(var i=0;i<keys.length;i++){
+    if(ql.includes(keys[i])||keys[i].includes(ql.split(' ')[0].substring(0,2))){
+      pts=(KB[lang]||KB.zh)[keys[i]];
+      matched=keys[i];
+      break;
+    }
+  }
+
+  document.getElementById('loader').classList.remove('show');
+  document.getElementById('result-wrap').style.display='block';
+  document.getElementById('result-card').style.display='block';
+
+  var container=document.getElementById('points-container');
+  container.innerHTML='';
+
+  // Header
+  var hdr=document.createElement('div');
+  hdr.style.cssText='font-size:13px;color:var(--txt2);margin-bottom:16px;font-weight:600;line-height:1.6';
+  hdr.textContent=lang==='zh'?'關於「'+q+'」，以下係 Him Chan 嘅實證分享：':'Re: "'+q+'" — Him Chan evidence:';
+  container.appendChild(hdr);
+
+  if(pts){
+    // LAYER 1: Always show Point 1 (180 chars)
+    addPoint(container, 1, pts[0], pts.length);
+
+    // LAYER 2: Show Point 2 only if registered
+    if((isRegistered||isPaid) && pts[1]){
+      addPoint(container, 2, pts[1], pts.length);
+    }
+
+    // LAYER 3: Show Points 3-7 only if paid
+    if(isPaid){
+      for(var j=2;j<pts.length;j++){
+        addPoint(container, j+1, pts[j], pts.length);
+      }
+    }
+  } else {
+    // Default answer
+    var def=document.createElement('div');
+    def.className='point-wrap';
+    def.innerHTML='<div class="point-txt">'+(lang==='zh'?
+      '「'+q+'」係個好問題。Him Chan 嘅實證系統基於 6 年、2 次抗癌嘅真實紀錄。核心原則：食物離原始狀態越遠，發炎風險越高。Real/Raw/Whole Foods 唔係潮流，係生存策略。試搵：沙甸魚、草飼牛、維他命D 等核心主題，有更詳細嘅實證分析等緊你。':
+      '"'+q+'" is a great question. Him Chan\'s system is built on 6 years and 2 cancer survivals. Core principle: the further food is from its natural state, the higher the inflammation risk. Try: sardines, grass-fed beef, Vitamin D for detailed evidence.'
+    )+'</div>';
+    container.appendChild(def);
+  }
+
+  lastResult=container.innerText;
+
+  // Show correct gate layer
+  document.getElementById('gate-email').style.display='none';
+  document.getElementById('gate-pay').style.display='none';
+  document.getElementById('gate-paid').style.display='none';
+
+  if(isPaid){
+    document.getElementById('gate-paid').style.display='block';
+  } else if(isRegistered){
+    document.getElementById('gate-pay').style.display='block';
+    renderPayTiers();
+  } else {
+    document.getElementById('gate-email').style.display='block';
+  }
+}
+
+function addPoint(container, num, text, total){
+  var w=document.createElement('div');w.className='point-wrap';
+  var n=document.createElement('div');n.className='point-num';
+  n.textContent='POINT '+num+' / '+total;
+  var t=document.createElement('div');t.className='point-txt';
+  t.textContent=text;
+  w.appendChild(n);w.appendChild(t);
+  container.appendChild(w);
+}
+
+// ── EMAIL
 function registerEmail(){
   var e=document.getElementById('email-input').value.trim();
   if(!e||!e.includes('@')){showToast(lang==='zh'?'請輸入有效電郵':'Enter a valid email','err');return;}
   localStorage.setItem('maga_email',e);isRegistered=true;
-  document.getElementById('email-gate').style.display='none';
-  document.getElementById('paywall').style.display='block';
-  renderPaywall();
-  showToast(t('toast_email'),'ok');
-  renderKB();
+  document.getElementById('gate-email').style.display='none';
+  document.getElementById('gate-pay').style.display='block';
+  renderPayTiers();renderMap();
+  showToast(lang==='zh'?'✓ 電郵已登記！第二點已解鎖。':'✓ Email registered! Point 2 unlocked.','ok');
+  // Re-run search to show point 2
+  if(lastQuery) generateAnswer(lastQuery);
 }
 
 function registerMapEmail(){
-  var e=document.getElementById('map-email-input').value.trim();
+  var e=document.getElementById('map-email').value.trim();
   if(!e||!e.includes('@')){showToast(lang==='zh'?'請輸入有效電郵':'Enter a valid email','err');return;}
   localStorage.setItem('maga_email',e);isRegistered=true;
   document.getElementById('map-email-gate').style.display='none';
-  showToast(t('toast_email'),'ok');
-  renderKB();renderMap();
+  renderMap();
+  showToast(lang==='zh'?'✓ 電郵已登記！':'✓ Email registered!','ok');
 }
 
-function trackPayment(){
-  isPaid=true;localStorage.setItem('maga_paid','true');
-  document.getElementById('unlock-pill').style.display='inline-flex';
-  document.getElementById('paywall').style.display='none';
-  renderKB();renderMap();
-}
-
+// ── VOICE / SHARE
 function playVoice(){
   if(!lastResult)return;
   speechSynthesis.cancel();
-  var u=new SpeechSynthesisUtterance(lastResult);
+  var u=new SpeechSynthesisUtterance(lastResult.substring(0,300));
   u.lang=lang==='zh'?'zh-HK':'en-US';u.rate=.95;
   speechSynthesis.speak(u);
 }
-
 function shareResult(){
   if(!lastResult)return;
-  var txt='MAGA 抗炎實證：'+lastQuery+'\n\n'+lastResult.slice(0,200)+'...\n\n@mynameishimchan';
-  if(navigator.clipboard) navigator.clipboard.writeText(txt).then(function(){showToast(t('toast_copy'),'ok');});
+  var txt='MAGA 抗炎實證：'+lastQuery+'\n\n'+lastResult.substring(0,200)+'...\n\n@mynameishimchan';
+  if(navigator.clipboard) navigator.clipboard.writeText(txt).then(function(){showToast(lang==='zh'?'已複製':'Copied','ok');});
 }
 
 function showToast(msg,type){
   var el=document.getElementById('toast');
   el.textContent=msg;el.className=type+' show';
-  setTimeout(function(){el.classList.remove('show');},3000);
+  setTimeout(function(){el.className='';},3000);
 }
 
 // ── INIT
-applyLang();renderKB();renderMap();
+applyLang();renderTags();renderMap();
 if(isPaid) document.getElementById('unlock-pill').style.display='inline-flex';
-if(!isRegistered) document.getElementById('map-email-gate').style.display='block';
 </script>
 </body>
 </html>
