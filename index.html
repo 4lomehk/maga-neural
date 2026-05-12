@@ -412,11 +412,11 @@ function renderMap(){
         '<div class="map-tags">'+n.tags.map(function(tg){return'<span class="map-tag">'+tg+'</span>'}).join('')+'</div>'+
       '</div>'+
       '<span class="lock-badge '+(locked?'locked':'open')+'">'+
-        (locked?(lang==='zh'?'🔒 付款後進入':'🔒 Unlock'):(lang==='zh'?'✓ 已解鎖':'✓ Open'))+
+        (locked?(lang==='zh'?'🔒 只需HK$18後進入':'🔒 Unlock'):(lang==='zh'?'✓ 已解鎖':'✓ Open'))+
       '</span>';
     d.onclick=function(){
       if(locked){
-        showToast(lang==='zh'?'🔒 請先付款解鎖此據點':'🔒 Please unlock with payment','err');
+        showToast(lang==='zh'?'🔒 只是HK$18換取解鎖此據點':'🔒 Please unlock with HK$18 support','err');
         document.getElementById('result-wrap').style.display='block';
         document.getElementById('gate-pay').style.display='block';
         window.scrollTo({top:document.getElementById('result-wrap').offsetTop-80,behavior:'smooth'});
@@ -495,7 +495,7 @@ function generateAnswer(q){
 
   // Show correct gate layer
   document.getElementById('gate-email').style.display='none';
-  document.getElementById('gate-pay').style.display='none';
+  document.getElementById('gate-pay').style.display='none'; 
   document.getElementById('gate-paid').style.display='none';
 
   if(isPaid){
